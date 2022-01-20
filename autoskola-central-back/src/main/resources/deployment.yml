@@ -1,0 +1,58 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: autoskola-central-back
+  labels:
+    name: autoskola-central-back
+spec:
+  ports:
+    - nodePort: 30163 
+      port: 8080      
+      targetPort: 8080  
+      protocol: TCP
+  selector:           
+    app: autoskola-central-back
+  type: NodePort       
+
+---
+apiVersion: apps/v1 
+kind: Deployment    
+metadata:              
+  name: autoskola-central-back
+spec:                
+  selector:         
+    matchLabels:
+      app: autoskola-central-back
+  replicas: 3        
+  template:
+    metadata:
+      labels:        
+        app: autoskola-central-back
+    spec:
+      containers:
+        - name: autoskola-central-back
+          image: autoskola-central-back:1.0
+          ports:
+            - containerPort: 8080                
+          env:   # Setting Enviornmental Variables
+          - name: DB_HOST   # Setting Database host address from configMap
+            valueFrom: 
+              configMapKeyRef:
+                name: db-conf  # name of configMap
+                key: host
+          - name: DB_NAME  # Setting Database name from configMap
+            valueFrom:
+              configMapKeyRef:
+                name: db-conf 
+                key: name
+          - name: DB_USERNAME  # Setting Database username from Secret
+            valueFrom:
+              secretKeyRef:
+                name: db-credentials # Secret Name
+                key: username
+          - name: DB_PASSWORD # Setting Database password from Secret
+            valueFrom:
+              secretKeyRef:
+                name: db-credentials
+                key: password     
+        
