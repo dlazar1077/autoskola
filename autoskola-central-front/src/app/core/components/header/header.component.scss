@@ -1,5 +1,5 @@
 .nav-wraper{
-  height: 3rem ;
+  height: 4rem ;
   background-color: yellow;
   justify-content: space-between;
 }
@@ -44,4 +44,11 @@ li a:hover:not(.active) {
 .nav-content .active {
   color: blue;
   //background-color: #04AA6D;
+}
+
+.center {
+  margin: auto;
+  text-align: center;
+  //border: 3px solid green;
+  padding: 10px;
 }

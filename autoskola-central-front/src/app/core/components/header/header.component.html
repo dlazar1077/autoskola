@@ -1,16 +1,14 @@
 <div id="header">
   <div class ="nav-wraper">
-
+    <h1 class="center">Autoškola Lazar</h1>
   </div>
 
-  <div class= "nav-bar" id="navigation">
-    <div class="nav-content">
-      <ul>
-        <li><a class="active" href="#home"> <strong>Home</strong></a></li>
-        <li><a href="#news">News1</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#about">About</a></li>
-      </ul>
-    </div>
-  </div>
+  <p-menubar [model]= "items" >
+    <button pButton class="p-button-sm p-button-raised p-button-rounded p-button-secondary"> {{ 'navbar.login' | translate}} </button>
+    <p-dropdown [options]="languages" [(ngModel)]="selectedLanguage" icon="pi pi-globe" optionLabel = "name" optionValue = "value" (onChange) = "changeLanguage()">
+      <ng-template let-item pTemplate="selectedItem">
+        <span class="flag-icon flag-icon-{{item.flag}}"></span>
+      </ng-template>
+    </p-dropdown>
+  </p-menubar>
 </div>

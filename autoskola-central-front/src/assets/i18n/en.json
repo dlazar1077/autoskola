@@ -1,0 +1,16 @@
+{
+  "core": {
+    
+  },
+
+  "navbar": {
+    "home" : "Home",
+    "about" : "About us",
+    "login" : "Login"
+  },
+
+  "language" : {
+    "en" : "English",
+    "hr" : "Croatian"
+  }
+}

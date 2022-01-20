@@ -1,0 +1,16 @@
+{
+  "core": {
+    
+  },
+
+  "navbar": {
+    "home" : "Početna",
+    "about" : "O nama",
+    "login" : "Prijava"
+  },
+
+  "language" : {
+    "en" : "engleski",
+    "hr" : "hrvatski"
+  }
+}
