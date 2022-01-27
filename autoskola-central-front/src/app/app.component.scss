@@ -4,3 +4,27 @@
   border: 3px solid green;
   padding: 10px;
 }
+
+.title{
+  background-color: lightyellow;
+  color: black;
+  font-weight: bold;
+  font-size: xx-large;
+  text-align: left;
+}
+
+::ng-deep {
+  .p-menuitem-link-active {
+      background: #b8b8b8;
+      border-color: yellow;
+      color: white;
+  }
+
+  .p-menuitem-link-active .p-menuitem-text{
+    color: yellow !important;
+  }
+
+  .p-menuitem-link-active .p-menuitem-icon{
+    color: yellow !important;
+  }
+} 

@@ -1,14 +1,44 @@
 <div id="header">
   <div class ="nav-wraper">
-    <h1 class="center">Autoškola Lazar</h1>
+    <!-- Naslov -->
+    <div class="center title-position">
+      <span class="center title">Autoškola Lazar</span>
+    </div>
+    <!-- Promijena jezika -->
+    <div class="p-menubar-root-list center" style="float: right;">
+      <div class="p-element p-menuitem">
+        <p-dropdown role="menuitem" [options]="languages" [(ngModel)]="selectedLanguage" icon="pi pi-globe" optionLabel = "name" optionValue = "value" (onChange) = "changeLanguage()">
+          <ng-template let-item pTemplate="selectedItem">
+            <span class="flag-icon flag-icon-{{item.flag}}"></span>
+          </ng-template>
+        </p-dropdown>
+      </div>
+    </div>
   </div>
 
-  <p-menubar [model]= "items" >
-    <button pButton class="p-button-sm p-button-raised p-button-rounded p-button-secondary"> {{ 'navbar.login' | translate}} </button>
-    <p-dropdown [options]="languages" [(ngModel)]="selectedLanguage" icon="pi pi-globe" optionLabel = "name" optionValue = "value" (onChange) = "changeLanguage()">
-      <ng-template let-item pTemplate="selectedItem">
-        <span class="flag-icon flag-icon-{{item.flag}}"></span>
-      </ng-template>
-    </p-dropdown>
+  <p-menubar [model]= "items">
+
+    <div class="p-menubar-root-list">
+      <div class="p-element p-menuitem" *ngIf="isLoggedIn()">
+        <a role="menuitem" pripple class="p-ripple p-element p-menuitem-link" [routerLink]="['/login']" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="{exact: true}">
+          <span class="p-menuitem-icon pi pi-sign-in"></span>
+          <span class="p-menuitem-text"> {{ 'navbar.login' | translate}} </span>
+        </a>
+      </div>
+      <div class="p-element p-menuitem" *ngIf="isLoggedIn() ? false : true;">
+        <a role="menuitem" pripple class="p-ripple p-element p-menuitem-link" (click) = "logout()">
+          <span class="p-menuitem-icon pi pi-sign-out"></span>
+          <span class="p-menuitem-text"> {{ 'navbar.logout' | translate}} </span>
+        </a>
+      </div>
+      <!--div class="p-element p-menuitem">
+        <p-dropdown role="menuitem" [options]="languages" [(ngModel)]="selectedLanguage" icon="pi pi-globe" optionLabel = "name" optionValue = "value" (onChange) = "changeLanguage()">
+          <ng-template let-item pTemplate="selectedItem">
+            <span class="flag-icon flag-icon-{{item.flag}}"></span>
+          </ng-template>
+        </p-dropdown>
+      </div-->
+    </div>
+
   </p-menubar>
 </div>

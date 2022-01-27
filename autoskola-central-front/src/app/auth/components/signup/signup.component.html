@@ -1,0 +1,57 @@
+<div class="center-form" style="min-width: fit-content">
+  <form [formGroup]="signupForm">
+    <!-- Polja -->
+    <div>
+      
+
+      <div class="element">
+        <span class="label">{{ 'user.name' | translate }}</span>
+        <input name="ime" formControlName="ime" type="text" pInputText> 
+        <div *ngIf="signupForm.controls.ime.invalid && (signupForm.controls.ime.touched)" class="invalid-feedback">
+          {{ 'user.name' | translate }}{{ 'form.required' | translate }}
+        </div>
+      </div>
+      
+      <div class="element">
+        <span class = "label">{{ 'user.surename' | translate }}</span>
+        <input name="prezime" formControlName="prezime" type="text" pInputText>
+        <div *ngIf="signupForm.controls.prezime.invalid && (signupForm.controls.prezime.touched)" class="invalid-feedback">
+          {{ 'user.surename' | translate }}{{ 'form.required' | translate }}
+        </div>
+      </div>
+
+      <div class="element">
+        <span class = "label">{{ 'user.email' | translate }}</span>
+        <input name="email" formControlName="email" type="email" pInputText>
+        <div *ngIf="signupForm.controls.email.errors?.['required'] && (signupForm.controls.email.touched)" class="invalid-feedback">
+          {{ 'user.email' | translate }}{{ 'form.required' | translate }}
+        </div>
+        <div *ngIf="signupForm.controls.email.errors?.['email'] && (signupForm.controls.email.touched)" class="invalid-feedback">
+          {{ 'form.email' | translate }} 1
+        </div>
+      </div>
+
+      <div class="element">
+        <span class = "label">{{ 'user.username' | translate }}</span>
+        <input name="korIme" formControlName="korIme" type="text" pInputText>
+        <div *ngIf="signupForm.controls.korIme.invalid && (signupForm.controls.korIme.touched)" class="invalid-feedback">
+          {{ 'user.username' | translate }}{{ 'form.required' | translate }}
+        </div>
+      </div>
+
+      <div class="element">
+        <span class = "label">{{ 'user.password' | translate }}</span>
+        <p-password name="lozinka" formControlName="lozinka" [feedback]="false" required></p-password>
+        <div *ngIf="signupForm.controls.lozinka.invalid && (signupForm.controls.lozinka.touched)" class="invalid-feedback">
+          {{ 'user.password' | translate }}{{ 'form.required' | translate }}
+        </div>
+      </div>
+       
+
+    </div>
+    <!-- Gumbi -->
+    <div class="margin-2">
+      <button pButton type="button" label="{{ 'navbar.signup' | translate}}" (click) = "signup()"  [disabled] = "!signupForm.valid"></button>
+    </div>
+  </form>
+</div>

@@ -6,7 +6,22 @@
   "navbar": {
     "home" : "Home",
     "about" : "About us",
-    "login" : "Login"
+    "login" : "Login",
+    "logout" : "Logout",
+    "signup" : "Sign up"
+  },
+
+  "user": {
+    "name" : "Name",
+    "surename" : "Surename",
+    "username" : "Username",
+    "password" : "Password",
+    "email" : "Email"
+  },
+
+  "form" : {
+    "required" : " is required field!",
+    "email" : "Please enter a valid email address!"
   },
 
   "language" : {

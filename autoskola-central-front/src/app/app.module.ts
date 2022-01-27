@@ -11,6 +11,7 @@ import { HttpBackend, HttpClient, HttpClientModule } from '@angular/common/http'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from './shared/shared.module';
+import { AuthModule } from './auth/auth.module';
 
 // drugi loader factory za translate, koji se ne triggera na poziv interceptora jer se inace bugaju prijevodi
 export function translateHttpLoaderFactory(httpBackend: HttpBackend): TranslateHttpLoader {
@@ -26,6 +27,7 @@ export function translateHttpLoaderFactory(httpBackend: HttpBackend): TranslateH
     BrowserModule,
     AppRoutingModule,
     CoreModule,
+    AuthModule,
     HttpClientModule,
     SharedModule,
     TranslateModule.forRoot({

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,7 @@ export class AppComponent implements OnInit{
   }
 
   onClick(){
-    this.httpClient.get<any>("http://localhost:30163/getData").subscribe( (data) => {
+    this.httpClient.get<any>(`${environment.API_URL}/test/getData`).subscribe( (data) => {
       console.log(data);
       console.log(1);
     });

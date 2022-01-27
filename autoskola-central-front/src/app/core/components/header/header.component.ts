@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -17,7 +18,7 @@ export class HeaderComponent implements OnInit {
   currentLanguage !: string;
   currentLangSubscription : any;
 
-  constructor(private translateService : TranslateService) { }
+  constructor(private translateService : TranslateService, private authService : AuthService) { }
 
   ngOnInit(): void {
     
@@ -64,6 +65,14 @@ export class HeaderComponent implements OnInit {
     this.currentLanguage = this.currentLanguage === 'hr' ? 'en' : 'hr';
     this.translateService.use(this.currentLanguage);
     console.log(this.translateService.currentLang);
+  }
+
+  isLoggedIn(){
+    return this.authService.isLoggedIn() ? false : true;
+  }
+
+  logout(){
+    this.authService.logout();
   }
 
 }

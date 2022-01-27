@@ -1,0 +1,18 @@
+<div class="center-form">
+  <form>
+    <!-- Poplja -->
+    <div>
+      <h2>{{ 'user.username' | translate }}</h2>
+      <input name="username" type="text" pInputText [(ngModel)]="username"> 
+
+      <h2>{{ 'user.password' | translate }}</h2>
+      <p-password name="passowrd" [(ngModel)]="password" [feedback]="false"></p-password>
+    </div>
+
+    <!-- Gumbi -->
+    <div class="margin-2">
+      <button pButton type="button" label="{{ 'navbar.signup' | translate}}" class="p-button-secondary button-margin-right" (click) = "signup()"></button>
+      <button pButton type="button" label="{{ 'navbar.login' | translate}}" (click) = "login()"></button>
+    </div>
+  </form>
+</div>  

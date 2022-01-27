@@ -6,7 +6,22 @@
   "navbar": {
     "home" : "Početna",
     "about" : "O nama",
-    "login" : "Prijava"
+    "login" : "Prijavi se",
+    "logout" : "Odjavi se",
+    "signup" : "Registriraj se"
+  },
+
+  "user": {
+    "name" : "Ime",
+    "surename" : "Prezime",
+    "username" : "Korisničko ime",
+    "password" : "Lozinka",
+    "email" : "Email"
+  },
+
+  "form" : {
+    "required" : " je obavezno polje!",
+    "email" : "Molimo unesite valjanu email adresu!"
   },
 
   "language" : {

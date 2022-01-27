@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from 'primeng/api';
 
+import {SharedModule} from '../shared/shared.module';
 import { AboutComponent } from './components/about/about.component';
 import { HomeComponent } from './components/home/home.component';
 import { CoreRoutingModule } from './core-routing.module';

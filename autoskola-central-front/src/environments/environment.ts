@@ -3,7 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  env: 'LOCAL',
+  // URL za local IDE test
+  //API_URL: `${window.location.protocol}//${window.location.hostname}:8080/api`,
+  //LOGIN_URL: `${window.location.protocol}//${window.location.hostname}:8080/api/auth`
+  // URL za Kubernetes
+  API_URL: `${window.location.protocol}//${window.location.hostname}:30163/api`,
+  LOGIN_URL: `${window.location.protocol}//${window.location.hostname}:30163/api/auth`
 };
 
 /*
