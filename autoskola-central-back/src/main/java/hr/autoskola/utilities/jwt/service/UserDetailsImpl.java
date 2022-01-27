@@ -44,7 +44,7 @@ public class UserDetailsImpl implements UserDetails {
 				
 		return new UserDetailsImpl(
 				user.getKorisnikId(), 
-				user.getEmail(),
+				user.getKorIme(),
 				user.getEmail(),
 				user.getLozinka(), 
 				authorities);

@@ -18,8 +18,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	@Transactional
-	public UserDetails loadUserByUsername(String username) {
-		User user = userRepository.getEntity(username);
+	public UserDetails loadUserByUsername(String korIme) {
+		User user = userRepository.getEntity(korIme);
 		
 		return UserDetailsImpl.build(user);
 	}
