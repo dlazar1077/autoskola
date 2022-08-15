@@ -16,30 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `uloge`
+-- Table structure for table `kategorije`
 --
 
-DROP TABLE IF EXISTS `uloge`;
+DROP TABLE IF EXISTS `kategorije`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `uloge` (
-  `ULOGA_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `SIFRA` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `NAZIV` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `NAZIV_EN` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`ULOGA_ID`),
+CREATE TABLE `kategorije` (
+  `KATEGORIJA_ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `SIFRA` varchar(45) NOT NULL,
+  `NAZIV` varchar(100) NOT NULL,
+  `NAZIV_EN` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`KATEGORIJA_ID`),
   UNIQUE KEY `SIFRA_UNIQUE` (`SIFRA`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `uloge`
+-- Dumping data for table `kategorije`
 --
 
-LOCK TABLES `uloge` WRITE;
-/*!40000 ALTER TABLE `uloge` DISABLE KEYS */;
-INSERT INTO `uloge` VALUES (1,'ROLE_ADMIN','Administrator','Administrator'),(2,'ROLE_MODERATOR','Moderator','Moderator'),(3,'ROLE_USER','Korisnik','User');
-/*!40000 ALTER TABLE `uloge` ENABLE KEYS */;
+LOCK TABLES `kategorije` WRITE;
+/*!40000 ALTER TABLE `kategorije` DISABLE KEYS */;
+/*!40000 ALTER TABLE `kategorije` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-08-15 16:34:22
+-- Dump completed on 2022-08-15 16:34:23
