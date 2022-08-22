@@ -58,6 +58,9 @@ public class CodebookService {
 		try {
 			List<CompletableFuture<Void>> completableFutures = new ArrayList<>();
 			
+			completableFutures.add(CompletableFuture.runAsync(() -> refreshCodebook(CodebookNameEnum.uloge)));
+			completableFutures.add(CompletableFuture.runAsync(() -> refreshCodebook(CodebookNameEnum.kategorije)));
+			
 //			completableFutures.add(CompletableFuture.runAsync(() -> refreshCodebook(CodebookNameEnum.modifierPeriod))); DBCHANGE
 //			completableFutures.add(CompletableFuture.runAsync(() -> refreshCodebook(CodebookNameEnum.salesChannelProductStatus))); //DBCHANGE
 			

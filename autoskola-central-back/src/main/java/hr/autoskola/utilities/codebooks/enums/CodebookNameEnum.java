@@ -6,7 +6,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum CodebookNameEnum {
 	
-	country("GEN_CBK_COUNTRY", "CBK_COUNTRY_ID", "NAME", null, "CODE_LT3", null, "NAME_EN", true);
+	uloge("uloge", "ULOGA_ID", "NAZIV", null, null, null, "NAZIV_EN", false),
+	kategorije("kategorije", "KATEGORIJA_ID", "NAZIV", null, null, null, "NAZIV_EN", false);
 	
 	@Getter private String tableName;
 	@Getter private String idColumnName;
