@@ -27,6 +27,8 @@ CREATE TABLE `dnevnik_voznje` (
   `BROJ_SATA` int(11) NOT NULL,
   `VRIJEME_I_DATUM` datetime NOT NULL,
   `OPIS` varchar(600) NOT NULL,
+  `ORDINAL` int(11) DEFAULT '1',
+  `DELTED` int(11) DEFAULT '0',
   PRIMARY KEY (`DNEVNIK_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -49,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-08-15 16:34:23
+-- Dump completed on 2022-08-29 22:27:57

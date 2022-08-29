@@ -16,30 +16,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `instruktor`
+-- Dumping events for database 'autoskola'
 --
 
-DROP TABLE IF EXISTS `instruktor`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `instruktor` (
-  `INSTRUKTOR_ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `KORINSIK_ID` int(11) NOT NULL,
-  `BROJ_SLOBODNIH_MJESTA` int(11) DEFAULT NULL,
-  PRIMARY KEY (`INSTRUKTOR_ID`),
-  KEY `FK_INS_KOR_idx` (`KORINSIK_ID`),
-  CONSTRAINT `FK_INS_KOR` FOREIGN KEY (`KORINSIK_ID`) REFERENCES `korisnik` (`KORISNIK_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
 --
--- Dumping data for table `instruktor`
+-- Dumping routines for database 'autoskola'
 --
-
-LOCK TABLES `instruktor` WRITE;
-/*!40000 ALTER TABLE `instruktor` DISABLE KEYS */;
-/*!40000 ALTER TABLE `instruktor` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -50,4 +32,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-08-29 22:27:56
+-- Dump completed on 2022-08-29 22:27:58

@@ -16,33 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `kategorije`
+-- Table structure for table `autoskola_info`
 --
 
-DROP TABLE IF EXISTS `kategorije`;
+DROP TABLE IF EXISTS `autoskola_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `kategorije` (
-  `KATEGORIJA_ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `autoskola_info` (
+  `AUTOSKOLA_INFO_ID` int(11) NOT NULL AUTO_INCREMENT,
   `SIFRA` varchar(45) NOT NULL,
-  `NAZIV` varchar(100) NOT NULL,
-  `NAZIV_EN` varchar(100) DEFAULT NULL,
-  `ORDINAL` int(11) NOT NULL DEFAULT '1',
-  `DELETED` int(11) NOT NULL DEFAULT '0',
-  `CREATION_DATE` datetime DEFAULT CURRENT_TIMESTAMP,
+  `VRIJEDNOST` varchar(600) NOT NULL,
+  `ORDINAL` int(11) DEFAULT '1',
+  `DELETED` int(11) DEFAULT '0',
   `MODIFICATION_DATE` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`KATEGORIJA_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+  `CREATION_DATE` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`AUTOSKOLA_INFO_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `kategorije`
+-- Dumping data for table `autoskola_info`
 --
 
-LOCK TABLES `kategorije` WRITE;
-/*!40000 ALTER TABLE `kategorije` DISABLE KEYS */;
-INSERT INTO `kategorije` VALUES (1,'A1','A1','A1',1,0,'2022-08-29 12:28:25','2022-08-29 12:28:25'),(2,'A2','A2','A2',1,1,'2022-08-29 12:28:25','2022-08-29 12:28:25'),(3,'C2','C2','C2',1,1,'2022-08-29 12:28:25','2022-08-29 12:28:25'),(4,'C1','C1','C1',1,0,'2022-08-29 12:28:25','2022-08-29 12:28:25'),(7,'B','B','B',1,0,'2022-08-29 12:28:25','2022-08-29 12:28:25'),(8,'C2','C2','C2',1,0,'2022-08-29 12:28:25','2022-08-29 12:32:09');
-/*!40000 ALTER TABLE `kategorije` ENABLE KEYS */;
+LOCK TABLES `autoskola_info` WRITE;
+/*!40000 ALTER TABLE `autoskola_info` DISABLE KEYS */;
+INSERT INTO `autoskola_info` VALUES (1,'NASLOV_AUTOSKOLE','Autoškola Lazar',1,0,'2022-08-29 18:37:05','2022-08-29 17:48:43'),(2,'BROJ_ZAPISA','10',1,0,'2022-08-29 18:41:06','2022-08-29 18:38:02'),(3,'213','213',1,1,'2022-08-29 18:41:20','2022-08-29 18:41:13');
+/*!40000 ALTER TABLE `autoskola_info` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -53,7 +52,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`%`*/ /*!50003 TRIGGER `autoskola`.`kategorije_BEFORE_UPDATE` BEFORE UPDATE ON `kategorije` FOR EACH ROW
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`%`*/ /*!50003 TRIGGER `autoskola`.`autoskola_info_BEFORE_UPDATE` BEFORE UPDATE ON `autoskola_info` FOR EACH ROW
 BEGIN
 	SET NEW.MODIFICATION_DATE = now();
 END */;;
@@ -72,4 +71,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-08-29 22:27:57
+-- Dump completed on 2022-08-29 22:27:56

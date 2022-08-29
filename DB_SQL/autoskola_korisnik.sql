@@ -31,12 +31,14 @@ CREATE TABLE `korisnik` (
   `EMAIL` varchar(45) COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `LOZINKA` varchar(128) COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `OIB` varchar(20) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
+  `ORDINAL` int(11) DEFAULT '1',
+  `DELETED` int(11) DEFAULT '0',
   PRIMARY KEY (`KORISNIK_ID`),
   UNIQUE KEY `KORISNICKO_IME_UNIQUE` (`KORISNICKO_IME`),
   UNIQUE KEY `EMAIL_UNIQUE` (`EMAIL`),
   KEY `FK_ULOGA` (`ULOGA_ID`),
   CONSTRAINT `FK_ULOGA` FOREIGN KEY (`ULOGA_ID`) REFERENCES `uloge` (`ULOGA_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +47,7 @@ CREATE TABLE `korisnik` (
 
 LOCK TABLES `korisnik` WRITE;
 /*!40000 ALTER TABLE `korisnik` DISABLE KEYS */;
-INSERT INTO `korisnik` VALUES (1,1,'Marino','Marić','mmaric','mmaric@gmail.com','$2a$12$lxzvaH9hVT0iipHJNGzHXOill41IC7U0Yd1UaiJ8hhK72M2Mznavi',NULL),(2,2,'Ana','Anić','aanic','aanic@gmail.com','$2a$12$SjnwzWDW77t9JhBW85mzIOb0oGihl77EiDhl.0btTVoN9jX2/JjGi',NULL),(3,3,'Željko','Horvat','zhorvat','zhorvat@gmail.com','$2a$10$OG20wM6EQyTO2j5bBNu3BuKREGRtnlSC61TGcjN0TVk.1FmAo3GA.',NULL);
+INSERT INTO `korisnik` VALUES (1,1,'Marino','Marić','mmaric','mmaric@gmail.com','$2a$12$lxzvaH9hVT0iipHJNGzHXOill41IC7U0Yd1UaiJ8hhK72M2Mznavi',NULL,1,0),(2,2,'Ana','Anić','aanic','aanic@gmail.com','$2a$12$SjnwzWDW77t9JhBW85mzIOb0oGihl77EiDhl.0btTVoN9jX2/JjGi',NULL,1,0),(3,3,'Željko','Horvat','zhorvat','zhorvat@gmail.com','$2a$10$OG20wM6EQyTO2j5bBNu3BuKREGRtnlSC61TGcjN0TVk.1FmAo3GA.',NULL,1,0);
 /*!40000 ALTER TABLE `korisnik` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +60,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-08-15 16:34:23
+-- Dump completed on 2022-08-29 22:27:56
