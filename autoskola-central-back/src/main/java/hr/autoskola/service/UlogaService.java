@@ -6,54 +6,54 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import hr.autoskola.dto.mapper.VoziloMapper;
+import hr.autoskola.dto.mapper.UlogaMapper;
 import hr.autoskola.dto.mapper.filter.FilterValueMapper;
-import hr.autoskola.dto.model.VoziloDto;
+import hr.autoskola.dto.model.UlogaDto;
 import hr.autoskola.dto.model.shared.GetAllEntitiesRequest;
 import hr.autoskola.dto.model.shared.GetAllEntitiesResponse;
 import hr.autoskola.dto.model.shared.response.GenericHttpResponse;
 import hr.autoskola.model.FilterValue;
-import hr.autoskola.model.Vozilo;
-import hr.autoskola.repository.VoziloRepository;
+import hr.autoskola.model.Uloga;
+import hr.autoskola.repository.UlogaRepository;
 import hr.autoskola.utilities.response.ResponseMessageEnum;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class VoziloService {
+public class UlogaService {
 	
-	private final VoziloRepository voziloRepository;
+	private final UlogaRepository ulogaRepository;
 	
 	/**
-	 * Servisna metoda za dohvaćanje svih vozila
+	 * Servisna metoda za dohvaćanje svih uloga
 	 * @param dataRequest
 	 * @return
 	 */
-	public GetAllEntitiesResponse<VoziloDto> getAllEntities(){
+	public GetAllEntitiesResponse<UlogaDto> getAllEntities(){
 		/*Map<String, FilterValue> filterColumns = dataRequest.getFilterColumns() == null ? null :
 			dataRequest.getFilterColumns().entrySet().stream()
 		    .collect(Collectors.toMap(Map.Entry::getKey, e -> FilterValueMapper.toFilterValue(e.getValue())));
 
-		List<Vozilo> modelEntities=voziloRepository.getAllEntities(filterColumns, dataRequest.getGlobalSearchString(), 
+		List<Uloga> modelEntities=ulogaRepository.getAllEntities(filterColumns, dataRequest.getGlobalSearchString(), 
 				dataRequest.getCurrentPage(), dataRequest.getPageSize(), dataRequest.getSortColumnName(), dataRequest.getSortDirection());
-		Long rowCount = voziloRepository.getRowCount(dataRequest.getParentId(), filterColumns, dataRequest.getGlobalSearchString());*/
+		Long rowCount = ulogaRepository.getRowCount(dataRequest.getParentId(), filterColumns, dataRequest.getGlobalSearchString());*/
 		
-		List<Vozilo> modelEntities=voziloRepository.getAllEntities();
+		List<Uloga> modelEntities=ulogaRepository.getAllEntities();
 		
-		GetAllEntitiesResponse<VoziloDto> response = new GetAllEntitiesResponse<>();
-		response.setTableData(modelEntities.stream().map(VoziloMapper::toVoziloDto).collect(Collectors.toList()));
+		GetAllEntitiesResponse<UlogaDto> response = new GetAllEntitiesResponse<>();
+		response.setTableData(modelEntities.stream().map(UlogaMapper::toUlogaDto).collect(Collectors.toList()));
 		//response.setRowCount(rowCount);
 		return response;
 	}
 	
 	/**
-	 * Metoda za dodavanje vozila
-	 * @param voziloDto
+	 * Metoda za dodavanje uloge
+	 * @param ulogaDto
 	 * @return
 	 */
-	public GenericHttpResponse<Long> saveVozilo(VoziloDto voziloDto) {
+	public GenericHttpResponse<Long> saveUloga(UlogaDto ulogaDto) {
 		GenericHttpResponse<Long> response;
-		Long id = voziloRepository.saveVozilo(VoziloMapper.toVozilo(voziloDto));
+		Long id = ulogaRepository.saveUloga(UlogaMapper.toUloga(ulogaDto));
 		if(id > 0) {
 			response = new GenericHttpResponse<>(ResponseMessageEnum.ENTITY_INSERTED);
 			response.setData(id);
@@ -64,15 +64,15 @@ public class VoziloService {
 	}
 	
 	/**
-	 * Servisna metoda za ažuriranje vozila
-	 * @param voziloDto
+	 * Servisna metoda za ažuriranje uloge
+	 * @param ulogaDto
 	 * @return
 	 */
-	public GenericHttpResponse<Long> updateVozilo(VoziloDto voziloDto) {
+	public GenericHttpResponse<Long> updateUloga(UlogaDto ulogaDto) {
 		GenericHttpResponse<Long> response;
 		Long numberOfUpdateRows;
 		
-		numberOfUpdateRows = voziloRepository.updateVozilo(VoziloMapper.toVozilo(voziloDto));
+		numberOfUpdateRows = ulogaRepository.updateUloga(UlogaMapper.toUloga(ulogaDto));
 		response = new GenericHttpResponse<>(numberOfUpdateRows > 0 ? ResponseMessageEnum.ENTITY_UPDATED :ResponseMessageEnum.NOTHING_UPDATED);
 		response.setData(numberOfUpdateRows);
 		
@@ -80,12 +80,12 @@ public class VoziloService {
 	}
 
 	/**
-	 * Servisna metoda za brisanje vozila
+	 * Servisna metoda za brisanje uloge
 	 * @param id
 	 * @return
 	 */
-	public Long deleteVozilo(String id) {
-		return voziloRepository.deleteVozilo(id);
+	public Long deleteUloge(String id) {
+		return ulogaRepository.deleteUloge(id);
 	}
 
 }

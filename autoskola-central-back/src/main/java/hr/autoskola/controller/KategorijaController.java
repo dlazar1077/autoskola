@@ -10,41 +10,42 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
-import hr.autoskola.dto.model.VoziloDto;
+import hr.autoskola.dto.model.KategorijaDto;
 import hr.autoskola.dto.model.shared.GetAllEntitiesRequest;
 import hr.autoskola.dto.model.shared.GetAllEntitiesResponse;
 import hr.autoskola.dto.model.shared.response.GenericHttpResponse;
-import hr.autoskola.service.VoziloService;
+import hr.autoskola.service.KategorijaService;
 import hr.autoskola.utilities.response.ResponseMessageEnum;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-public class VoziloController {
-
-	private final VoziloService voziloService;
+public class KategorijaController {
 	
-	@GetMapping(value = "/api/vozila")
-	public ResponseEntity<GetAllEntitiesResponse<VoziloDto>> getVozila() {
-		GetAllEntitiesResponse<VoziloDto> vozila = voziloService.getAllEntities();
-		return new ResponseEntity<>(vozila, HttpStatus.OK);
+	private final KategorijaService kategorijaService;
+	
+	@GetMapping(value = "/api/kategorije")
+	public ResponseEntity<GetAllEntitiesResponse<KategorijaDto>> getKategorije() {
+		GetAllEntitiesResponse<KategorijaDto> kategorije = kategorijaService.getAllEntities();
+		return new ResponseEntity<>(kategorije, HttpStatus.OK);
 	}
 	
-	@PostMapping(value="/api/insertVozilo")
-	public GenericHttpResponse<Long> saveVozilo(@RequestBody VoziloDto voziloDto) {
-		return voziloService.saveVozilo(voziloDto);
+	@PostMapping(value="/api/insertKategorija")
+	public GenericHttpResponse<Long> saveKategorija(@RequestBody KategorijaDto kategorijaDto) {
+		return kategorijaService.saveKategorija(kategorijaDto);
 	}
 	
-	@PutMapping(value="/api/updateVozilo")
-	public GenericHttpResponse<Long> updateVozilo(@RequestBody VoziloDto voziloDto) {
-		return voziloService.updateVozilo(voziloDto);
+	@PutMapping(value="/api/updateKategorija")
+	public GenericHttpResponse<Long> updateKategorija(@RequestBody KategorijaDto kategorijaDto) {
+		return kategorijaService.updateKategorija(kategorijaDto);
 	}
 	
-	@PutMapping(value="/api/deleteVozilo")
-	public GenericHttpResponse<Long> deleteVozilo(@RequestBody VoziloDto voziloDto, @RequestHeader HttpHeaders headers) {
-		Long numberOfUpdatedEntities = voziloService.deleteVozilo(voziloDto.getVoziloId().toString());
+	@PutMapping(value="/api/deleteKategorija")
+	public GenericHttpResponse<Long> deleteKategorija(@RequestBody KategorijaDto kategorijaDto) {
+		Long numberOfUpdatedEntities = kategorijaService.deleteKategorija(String.valueOf(kategorijaDto.getKategorijaId()));
 		GenericHttpResponse<Long> result = new GenericHttpResponse<>(numberOfUpdatedEntities > 0 ? ResponseMessageEnum.ENTITY_UPDATED : ResponseMessageEnum.NOTHING_UPDATED);
 		result.setData(numberOfUpdatedEntities);
 		return result;
 	}
+
 }

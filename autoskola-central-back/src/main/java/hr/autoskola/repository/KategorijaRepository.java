@@ -13,114 +13,114 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import hr.autoskola.model.FilterValue;
-import hr.autoskola.model.Vozilo;
+import hr.autoskola.model.Kategorija;
 import hr.autoskola.utilities.filter.advanced.FilterExportable;
 import hr.autoskola.utilities.filter.advanced.FilterHelper;
 import hr.autoskola.utilities.filter.advanced.model.FilterFields;
 import hr.autoskola.utilities.filter.global.GlobalFilterHelper;
 import hr.autoskola.utilities.pagination.PageableHelper;
 
-
 @Repository
-public class VoziloRepository implements FilterExportable {
+public class KategorijaRepository implements FilterExportable {
 	
 	private final NamedParameterJdbcTemplate njdbc;
 	
-	public VoziloRepository(@Qualifier("namedParameterJdbcTemplate") NamedParameterJdbcTemplate njdbc) {
+	public KategorijaRepository(@Qualifier("namedParameterJdbcTemplate") NamedParameterJdbcTemplate njdbc) {
 		this.njdbc = njdbc;
 	}
 	
-	private static final String MAIN_TABLE = "vozilo";
+	private static final String MAIN_TABLE = "kategorije";
 	
-	private static final String VOZILO_ID = "VOZILO_ID";
 	private static final String KATEGORIJA_ID = "KATEGORIJA_ID";
-	private static final String MARKA = "MARKA_VOZILA";
-	private static final String MODEL = "MODEL";
+	private static final String SIFRA = "SIFRA";
+	private static final String NAZIV = "NAZIV";
+	private static final String NAZIV_EN = "NAZIV_EN";
 	
 	private static final String DELETED = "DELETED";
 	
-	private static final Map<String, String> mapOfStringColumns = Map.of("markaVozila",
-			MAIN_TABLE + "." + MARKA, "model", MAIN_TABLE + "." + MODEL);
+	private static final Map<String, String> mapOfStringColumns = Map.of("sifra",
+			MAIN_TABLE + "." + SIFRA, "naziv", MAIN_TABLE + "." + NAZIV, "nazivEn", MAIN_TABLE + "." + NAZIV_EN);
 	
 	private static final FilterFields filterFields = new FilterFields(mapOfStringColumns, null, null, null,
 			null, null);
 	
 	private static final List<String> allGlobalSearchFields = Arrays.asList(
-			MAIN_TABLE + "." + MARKA, 
-			MAIN_TABLE + "." + MODEL);
+			MAIN_TABLE + "." + SIFRA,
+			MAIN_TABLE + "." + NAZIV,
+			MAIN_TABLE + "." + NAZIV_EN);
 	
 	/**
-	 * DAO metoda za dohvat svih objekta tipa Vozilo
+	 * DAO metoda za dohvat svih objekta tipa Kategorija
 	 * 
 	 * @param getAllEntitiesRequest
-	 * @return List <Vozilo>
+	 * @return List <Kategorija>
 	 * 
 	 * @author dlazar
 	 */
-	public List<Vozilo> getAllEntities(/*Map<String, FilterValue> filterColumns, String globalSearch, Long currentPage,
-			Long pageSize, String sortColumn, String sortDirection*/) {
+	public List<Kategorija> getAllEntities(/*Map<String, FilterValue> filterColumns, String globalSearch, Long currentPage,
+		Long pageSize, String sortColumn, String sortDirection*/) {
 		StringBuilder query = new StringBuilder();
 		MapSqlParameterSource parameters = new MapSqlParameterSource();
 
 		sqlSelectHelper(query);
 		sqlJoinHelper(query);
-		/*GlobalFilterHelper.sqlGlobalFilterQueryUpdate(query, parameters, globalSearch, allGlobalSearchFields, null);
-		FilterHelper.sqlFilterQueryUpdate(query, parameters, filterColumns, filterFields, this);
-		sqlSortHelper(query, sortColumn, sortDirection);
-		PageableHelper.sqlPaginationQueryUpdate(query, parameters, (currentPage - 1) * pageSize, pageSize);*/
+		//GlobalFilterHelper.sqlGlobalFilterQueryUpdate(query, parameters, globalSearch, allGlobalSearchFields, null);
+		//FilterHelper.sqlFilterQueryUpdate(query, parameters, filterColumns, filterFields, this);
+		//sqlSortHelper(query, sortColumn, sortDirection);
+		//PageableHelper.sqlPaginationQueryUpdate(query, parameters, (currentPage - 1) * pageSize, pageSize);
 
-		return njdbc.query(query.toString(), parameters, BeanPropertyRowMapper.newInstance(Vozilo.class));
+		return njdbc.query(query.toString(), parameters, BeanPropertyRowMapper.newInstance(Kategorija.class));
 	}
 	
 	/**
-	 * Metoda za spremanje vozila
-	 * @param vozilo
+	 * Metoda za spremanje kategorije
+	 * @param kategorija
 	 * @return
 	 */
-	public Long saveVozilo(Vozilo vozilo) {
+	public Long saveKategorija(Kategorija kategorija) {
 		StringBuilder query = new StringBuilder();
 		MapSqlParameterSource parameters = new MapSqlParameterSource();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 
 		query.append(" INSERT INTO " + MAIN_TABLE);
 		query.append(" ( ");
-		query.append(KATEGORIJA_ID + " ,");
-		query.append(MARKA + " ,");
-		query.append(MODEL + " ");
+		query.append(SIFRA + " ,");
+		query.append(NAZIV + " ,");
+		query.append(NAZIV_EN + " ");
 		query.append(" ) ");
 		query.append(" VALUES ");
-		query.append(" ( :kategorijaId, :marka, :model ) ");
+		query.append(" ( :sifra, :naziv, :nazivEn) ");
 
-		parameters.addValue("kategorijaId", vozilo.getKategorijaId());
-		parameters.addValue("marka", vozilo.getMarkaVozila());
-		parameters.addValue("model", vozilo.getModel());
+		parameters.addValue("sifra", kategorija.getSifra());
+		parameters.addValue("naziv", kategorija.getNaziv());
+		parameters.addValue("nazivEn", kategorija.getNazivEn());
 
-		if (njdbc.update(query.toString(), parameters, keyHolder, new String[] { VOZILO_ID }) == 0) {
+		if (njdbc.update(query.toString(), parameters, keyHolder, new String[] { KATEGORIJA_ID }) == 0) {
 		}
 
 		return keyHolder.getKey().longValue();
 	}
 	
 	/**
-	 * Metoda za ažuriranje vozila
-	 * @param vozilo
+	 * Metoda za ažuriranje kategorije
+	 * @param kategorija
 	 * @return
 	 */
-	public Long updateVozilo(Vozilo vozilo) {
+	public Long updateKategorija(Kategorija kategorija) {
 		StringBuilder query = new StringBuilder();
 		MapSqlParameterSource parameters = new MapSqlParameterSource();
 
 		query.append(" UPDATE " + MAIN_TABLE);
 		query.append(" SET ");
-		query.append(KATEGORIJA_ID + " = :kategorijaId ,");
-		query.append(MARKA + " = :marka ,");
-		query.append(MODEL + " = :model ");
-		query.append("WHERE " + VOZILO_ID + " = :id");
+		query.append(SIFRA + " = :sifra ,");
+		query.append(NAZIV + " = :naziv ,");
+		query.append(NAZIV_EN + " = :nazivEn ");
+		query.append("WHERE " + KATEGORIJA_ID + " = :id");
 
-		parameters.addValue("kategorijaId", vozilo.getKategorijaId());
-		parameters.addValue("marka", vozilo.getMarkaVozila());
-		parameters.addValue("model", vozilo.getModel());
-		parameters.addValue("id", vozilo.getVoziloId());
+		parameters.addValue("sifra", kategorija.getSifra());
+		parameters.addValue("naziv", kategorija.getNaziv());
+		parameters.addValue("nazivEn", kategorija.getNazivEn());
+		parameters.addValue("id", kategorija.getKategorijaId());
 
 		Long updated = ((Integer) njdbc.update(query.toString(), parameters)).longValue();
 		if (updated == 0) {
@@ -130,20 +130,20 @@ public class VoziloRepository implements FilterExportable {
 	}
 
 	/**
-	 * Metoda za brisanje vozila
-	 * @param voziloId
+	 * Metoda za brisanje kategorije
+	 * @param kategorijaId
 	 * @return
 	 */
-	public Long deleteVozilo(String voziloId) {
+	public Long deleteKategorija(String kategorijaId) {
 		StringBuilder query = new StringBuilder();
 		MapSqlParameterSource parameters = new MapSqlParameterSource();
 
 		query.append(" UPDATE " + MAIN_TABLE);
 		query.append(" SET ");
 		query.append(DELETED + " = 1 ");
-		query.append(" WHERE " + VOZILO_ID + " = :id ");
+		query.append(" WHERE " + KATEGORIJA_ID + " = :id ");
 		
-		parameters.addValue("id", voziloId);
+		parameters.addValue("id", kategorijaId);
 
 		Long updated = ((Integer) njdbc.update(query.toString(), parameters)).longValue();
 		if (updated == 0) {
@@ -155,31 +155,34 @@ public class VoziloRepository implements FilterExportable {
 	// Helper methods
 	private void sqlSelectHelper(StringBuilder query) {
 		query.append(" SELECT DISTINCT");
-		query.append(" " + MAIN_TABLE + "." + VOZILO_ID + " AS " + VOZILO_ID + ",");
 		query.append(" " + MAIN_TABLE + "." + KATEGORIJA_ID + " AS " + KATEGORIJA_ID + ",");
-		query.append(" " + MAIN_TABLE + "." + MARKA + " AS " + MARKA + ",");
-		query.append(" " + MAIN_TABLE + "." + MODEL + " AS " + MODEL + " ");
+		query.append(" " + MAIN_TABLE + "." + SIFRA + " AS " + SIFRA + ",");			
+		query.append(" " + MAIN_TABLE + "." + NAZIV + " AS " + NAZIV + ",");
+		query.append(" " + MAIN_TABLE + "." + NAZIV_EN + " AS " + NAZIV_EN + " ");
 	}
-	
+		
 	private void sqlJoinHelper(StringBuilder query) {
 		query.append(" FROM " + MAIN_TABLE);
 		query.append(" WHERE " + MAIN_TABLE + "." + DELETED + " = " + 0 + " ");
 	}
-	
+		
 	private void sqlSortHelper(StringBuilder query, String columnName, String sortDirection) {
 		if (columnName != null && sortDirection != null) {
 			String direction = sortDirection.equals("Ascending") ? "ASC" : "DESC";
 			switch (columnName) {
-			case "marka":
-				query.append(" ORDER BY " + MARKA + " " + direction);
+			case "sifra":
+				query.append(" ORDER BY " + SIFRA + " " + direction);
 				break;
-			case "model":
-				query.append(" ORDER BY " + MODEL + " " + direction);
+			case "naziv":
+				query.append(" ORDER BY " + NAZIV + " " + direction);
+				break;
+			case "nazivEn":
+				query.append(" ORDER BY " + NAZIV_EN + " " + direction);
 				break;
 			}
 		}
 	}
-	
+		
 	/**
 	 * Metoda za dohvaćanje broj redova select upita
 	 * @param parentId
