@@ -1,0 +1,65 @@
+<div class="card">
+
+    <p-table #dt [value]="autoskolaInfos" [rows]="infoService.brojZapisa" [paginator]="true"  [globalFilterFields]="['sifra','vrijednost']"
+    [(selection)]="odabranaAutoskolaInfo" [rowHover]="true" dataKey="id" sortField="sifra" [sortOrder]="1">
+    <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')" placeholder="{{ 'table.search' | translate}}" />
+            </span>
+            <span style="float: right;">
+                <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="sifra">{{ 'autoskolaInfo.code' | translate}} <p-sortIcon field="sifra"></p-sortIcon></th>
+            <th pSortableColumn="naziv">{{ 'autoskolaInfo.value' | translate}} <p-sortIcon field="vrijednost"></p-sortIcon></th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-autoskolaInfo>
+        <tr>
+            <td>{{autoskolaInfo.sifra}}</td>
+            <td>{{autoskolaInfo.vrijednost}}</td>
+            <td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click) = "editAutoskolaInfo(autoskolaInfo)" ></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"(click) = "deleteAutoskolaInfo(autoskolaInfo)" ></button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between">
+            {{ 'table.totalMessage' | translate}} {{autoskolaInfos ? autoskolaInfos.length : 0 }} {{ 'autoskolaInfo.drivingSchoolInfo' | translate}}.
+        </div>
+    </ng-template>
+    </p-table>
+</div>
+
+
+<p-dialog [(visible)]="autoskolaInfosDialog" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        {{ (autoskolaInfo.sifra ? 'autoskolaInfo.editInfo' : 'autoskolaInfo.newInfo') | translate}}
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div class="p-field">
+            <label for="name">{{ 'autoskolaInfo.code' | translate}}</label>
+            <input type="text" pInputText id="sifra" [(ngModel)]="autoskolaInfo.sifra" required autofocus />
+            <small class="p-invalid" *ngIf="submitted && !autoskolaInfo.sifra">{{ 'autoskolaInfo.code' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+        <div class="p-field">
+            <label for="name">{{ 'autoskolaInfo.value' | translate}}</label>
+            <input type="text" pInputText id="vrijednost" [(ngModel)]="autoskolaInfo.vrijednost" required autofocus />
+            <small class="p-invalid" *ngIf="submitted && !autoskolaInfo.vrijednost">{{ 'autoskolaInfo.value' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+    </ng-template>
+    
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="{{ 'buttons.cancel' | translate}}" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="{{ 'buttons.save' | translate}}" icon="pi pi-check" class="p-button-text"   (click)="saveAutoskolaInfo()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

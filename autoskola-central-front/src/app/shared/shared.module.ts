@@ -8,6 +8,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {PasswordModule} from 'primeng/password';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {TableModule} from 'primeng/table';
+import {DialogModule} from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import {ToolbarModule} from 'primeng/toolbar';
+
 
 @NgModule({
   imports: [
@@ -19,7 +24,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    TranslateModule
+    TranslateModule,
+    TableModule,
+    DialogModule,
+    ConfirmDialogModule,
+    ToolbarModule
   ],
   exports : [
     MenubarModule,
@@ -30,7 +39,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    TranslateModule
+    TranslateModule,
+    TableModule,
+    DialogModule,
+    ConfirmDialogModule,
+    ToolbarModule
   ]
 })
 export class SharedModule { }

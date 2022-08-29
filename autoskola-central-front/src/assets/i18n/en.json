@@ -4,11 +4,34 @@
   },
 
   "navbar": {
+    "administrator" : "Administrator",
+    "drivingSchoolInfo" : "Driving school info",
+    "category" : "Categories",
+    "roles" : "Roles",
     "home" : "Home",
     "about" : "About us",
     "login" : "Login",
     "logout" : "Logout",
-    "signup" : "Sign up"
+    "signup" : "Sign up",
+    "vehicle" : "Vehicles"
+  },
+
+  "buttons":{
+    "save" : "Save",
+    "cancel" : "Cancel",
+    "confirm" : "Confirm",
+    "yes" : "Yes",
+    "no" : "No"
+  },
+
+  "table" : {
+    "totalMessage" : "Total there are ",
+    "search" : "Search"
+  },
+
+  "errorMessage" : {
+    "isRequired" : " is required filed!",
+    "sureToDelete" : "Are you sure you want to delete "
   },
 
   "user": {
@@ -27,5 +50,42 @@
   "language" : {
     "en" : "English",
     "hr" : "Croatian"
+  },
+
+  "category" : {
+    "Categories" : "Categories",
+    "categories" : "categories",
+    "code" : "Code",
+    "name" : "Name",
+    "nameEng" : "Name (ENG)",
+    "newCategory" : "New category",
+    "editCategory" : "Edit category"
+  },
+
+  "role" : {
+    "Roles" : "Roles",
+    "roles" : "roles",
+    "code" : "Code",
+    "name" : "Name",
+    "nameEng" : "Name (ENG)",
+    "newRole" : "New role",
+    "editRole" : "Edit role"
+  },
+
+  "autoskolaInfo" : {
+    "drivingSchoolInfo" : "Driving school info",
+    "code" : "Code",
+    "value" : "Value",
+    "newInfo" : "New draving school info",
+    "editInfo" : "Edit draving school info"
+  },
+
+  "vehicle" : {
+    "vehicles" : "vehicles",
+    "category" : "Category",
+    "brand" : "Brand",
+    "model": "Model",
+    "newVehicle" : "New vehicle",
+    "editVehicle" : "Edit vehicle"
   }
 }

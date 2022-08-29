@@ -4,11 +4,34 @@
   },
 
   "navbar": {
+    "administrator" : "Administrator",
+    "drivingSchoolInfo" : "Informacije o autoskoli",
+    "category" : "Kategorije",
+    "roles" : "Uloge",
     "home" : "Početna",
     "about" : "O nama",
     "login" : "Prijavi se",
     "logout" : "Odjavi se",
-    "signup" : "Registriraj se"
+    "signup" : "Registriraj se",
+    "vehicle" : "Vozila"
+  },
+
+  "buttons":{
+    "save" : "Spremi",
+    "cancel" : "Otkaži",
+    "confirm" : "Potvrdi",
+    "yes" : "Da",
+    "no" : "Ne"
+  },
+
+  "table" : {
+    "totalMessage" : "Ukupno je ",
+    "search" : "Pretraži"
+  },
+
+  "errorMessage" : {
+    "isRequired" : " je obavezno polje!",
+    "sureToDelete" : "Jeste li sigurni da želite obrisati "
   },
 
   "user": {
@@ -27,5 +50,41 @@
   "language" : {
     "en" : "engleski",
     "hr" : "hrvatski"
+  },
+
+  "category" : {
+    "Categories" : "Kategorije",
+    "categories" : "kategorije",
+    "code" : "Šifra",
+    "name" : "Naziv",
+    "nameEng" : "Naziv (ENG)",
+    "newCategory" : "Nova kategorija",
+    "editCategory" : "Ažuriranje kategorije"
+  },
+
+  "role" : {
+    "Roles" : "Uloge",
+    "roles" : "uloge",
+    "code" : "Šifra",
+    "name" : "Naziv",
+    "nameEng" : "Naziv (ENG)",
+    "newRole" : "Nova uloga",
+    "editRole" : "Ažuriranje uloge"
+  },
+
+  "autoskolaInfo" : {
+    "drivingSchoolInfo" : "Informacije o autoskoli",
+    "code" : "Šifra",
+    "value" : "Vrijednost",
+    "newInfo" : "Nova informacija o autoškoli",
+    "editInfo" : "Ažuriranje informacije o autoškoli"
+  },
+
+  "vehicle" : {
+    "category" : "Kategorija",
+    "brand" : "Marka",
+    "model": "Model",
+    "newVehicle" : "Novo vozilo",
+    "editVehicle" : "Ažuriranje vozila"
   }
 }

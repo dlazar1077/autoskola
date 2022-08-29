@@ -7,11 +7,17 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { HeaderComponent } from './core/components/header/header.component';
 
+import {TableModule} from 'primeng/table';
+
 import { HttpBackend, HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './auth/auth.module';
+import { KategorijaModule } from './kategorija/kategorija.module';
+import { UlogaModule } from './uloga/uloga.module';
+import { AutoskolaInfoModule } from './autoskolaInfo/autoskolaInfo.module';
+import { VoziloModule } from './vozilo/vozilo.module';
 
 // drugi loader factory za translate, koji se ne triggera na poziv interceptora jer se inace bugaju prijevodi
 export function translateHttpLoaderFactory(httpBackend: HttpBackend): TranslateHttpLoader {
@@ -28,7 +34,12 @@ export function translateHttpLoaderFactory(httpBackend: HttpBackend): TranslateH
     AppRoutingModule,
     CoreModule,
     AuthModule,
+    KategorijaModule,
+    UlogaModule,
+    AutoskolaInfoModule,
+    VoziloModule,
     HttpClientModule,
+    TableModule,
     SharedModule,
     TranslateModule.forRoot({
       loader: {

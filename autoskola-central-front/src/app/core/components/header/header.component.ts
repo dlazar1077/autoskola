@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { AuthService } from '../../services/auth.service';
+import { InfoService } from '../../services/info.service';
 
 @Component({
   selector: 'app-header',
@@ -18,11 +20,13 @@ export class HeaderComponent implements OnInit {
   currentLanguage !: string;
   currentLangSubscription : any;
 
-  constructor(private translateService : TranslateService, private authService : AuthService) { }
+  info : any = this.infoService; 
+
+  route !: String;
+
+  constructor(private translateService : TranslateService, private authService : AuthService, private router : Router, public infoService : InfoService) { }
 
   ngOnInit(): void {
-    
-    
     this.currentLanguage = this.translateService.currentLang;
     this.currentLangSubscription = this.translateService.onLangChange.subscribe((response: any) => {
       this.translateService.get(['navbar', 'language']).subscribe( () => {
@@ -30,7 +34,13 @@ export class HeaderComponent implements OnInit {
         this.getLanguages();
       });
     });
-    //this.getMenubarItems();
+
+    this.router.events.subscribe((val : any) => {
+      if (val instanceof NavigationEnd) {
+        this.route = val.url.split('/')[1];
+        this.getMenubarItems();
+      }
+    });
   }
 
   getMenubarItems(){
@@ -46,6 +56,32 @@ export class HeaderComponent implements OnInit {
         icon : 'pi pi-book',
         routerLink: ['/about'],
         routerLinkActiveOptions: { exact: true }
+      },
+      {
+        label: this.translateService.instant('navbar.administrator'),
+        visible : this.authService.isAdminRoleRight(),
+        items : [
+          {
+            label: this.translateService.instant('navbar.category'),
+            routerLink: ['/category'],
+            routerLinkActiveOptions: { exact: true }
+          },
+          {
+            label: this.translateService.instant('navbar.roles'),
+            routerLink: ['/roles'],
+            routerLinkActiveOptions: { exact: true }
+          },
+          {
+            label: this.translateService.instant('navbar.drivingSchoolInfo'),
+            routerLink: ['/drivingSchoolInfo'],
+            routerLinkActiveOptions: { exact: true }
+          },
+          {
+            label: this.translateService.instant('navbar.vehicle'),
+            routerLink: ['/vehicle'],
+            routerLinkActiveOptions: { exact: true }
+          }
+        ]
       }
     ];
   }
@@ -64,7 +100,6 @@ export class HeaderComponent implements OnInit {
   changeLang(){
     this.currentLanguage = this.currentLanguage === 'hr' ? 'en' : 'hr';
     this.translateService.use(this.currentLanguage);
-    console.log(this.translateService.currentLang);
   }
 
   isLoggedIn(){

@@ -3,7 +3,11 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": []
+    "types": [],
+    "baseUrl": ".",
+    "paths": {
+      "tslib" :["path/to/node_modules/tslib/tslib.d.ts"]
+    }
   },
   "files": [
     "src/main.ts",

@@ -2,7 +2,7 @@
   <div class ="nav-wraper">
     <!-- Naslov -->
     <div class="center title-position">
-      <span class="center title">Autoškola Lazar</span>
+      <span class="center title">{{ infoService.nazivAutoskole}}</span>
     </div>
     <!-- Promijena jezika -->
     <div class="p-menubar-root-list center" style="float: right;">
@@ -41,4 +41,7 @@
     </div>
 
   </p-menubar>
+</div>
+<div class="title-nav">
+  {{ 'navbar.' + route | translate}}
 </div>

@@ -1,0 +1,83 @@
+<div class="card">
+    <!--p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+            <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
+        </ng-template>
+
+        <ng-template pTemplate="right">
+            <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="p-mr-2 p-d-inline-block"></p-fileUpload>
+            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+        </ng-template>
+    </p-toolbar -->
+
+    <p-table #dt [value]="kategorije" [rows]="infoService.brojZapisa" [paginator]="true"  [globalFilterFields]="['sifra','naziv','nazivEn']"
+    [(selection)]="odabranaKategorija" [rowHover]="true" dataKey="id" sortField="sifra" [sortOrder]="1">
+    <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')" placeholder="{{ 'table.search' | translate}}" />
+            </span>
+            <span style="float: right;">
+                <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="sifra">{{ 'category.code' | translate}} <p-sortIcon field="sifra"></p-sortIcon></th>
+            <th pSortableColumn="naziv">{{ 'category.name' | translate}} <p-sortIcon field="naziv"></p-sortIcon></th>
+            <th pSortableColumn="nazivEn">{{ 'category.nameEng' | translate}} <p-sortIcon field="nazivEn"></p-sortIcon></th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-kategorija>
+        <tr>
+            <td>{{kategorija.sifra}}</td>
+            <td>{{kategorija.naziv}}</td>
+            <td>{{kategorija.nazivEn}}</td>
+            <td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click) = "editKategorija(kategorija)" ></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"(click) = "deleteKategorija(kategorija)" ></button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between">
+            {{ 'table.totalMessage' | translate}} {{kategorije ? kategorije.length : 0 }} {{ 'category.categories' | translate}}.
+        </div>
+    </ng-template>
+    </p-table>
+</div>
+
+
+<p-dialog [(visible)]="kategorijaDialog" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        {{ (kategorija.sifra ? 'category.editCategory' : 'category.newCategory') | translate}}
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div class="p-field">
+            <label for="name">{{ 'category.code' | translate}}</label>
+            <input type="text" pInputText id="sifra" [(ngModel)]="kategorija.sifra" required autofocus />
+            <small class="p-invalid" *ngIf="submitted && !kategorija.sifra">{{ 'category.code' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+        <div class="p-field">
+            <label for="name">{{ 'category.name' | translate}}</label>
+            <input type="text" pInputText id="sifra" [(ngModel)]="kategorija.naziv" required autofocus />
+            <small class="p-invalid" *ngIf="submitted && !kategorija.naziv">{{ 'category.name' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+        <div class="p-field">
+            <label for="name">{{ 'category.nameEng' | translate}}</label>
+            <input type="text" pInputText id="sifra" [(ngModel)]="kategorija.nazivEn" required autofocus />
+            <small class="p-invalid" *ngIf="submitted && !kategorija.nazivEn">{{ 'category.nameEng' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+    </ng-template>
+    
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="{{ 'buttons.cancel' | translate}}" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="{{ 'buttons.save' | translate}}" icon="pi pi-check" class="p-button-text"   (click)="saveKategorija()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

@@ -1,0 +1,73 @@
+<div class="card">
+
+    <p-table #dt [value]="vozila" [rows]="infoService.brojZapisa" [paginator]="true"  [globalFilterFields]="['kategorijaId','markaVozila','model']"
+    [(selection)]="odabranoVozilo" [rowHover]="true" dataKey="id" sortField="sifra" [sortOrder]="1">
+    <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')" placeholder="{{ 'table.search' | translate}}" />
+            </span>
+            <span style="float: right;">
+                <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="sifra">{{ 'vehicle.category' | translate}} <p-sortIcon field="kategorijaId"></p-sortIcon></th>
+            <th pSortableColumn="markaVozila">{{ 'vehicle.brand' | translate}} <p-sortIcon field="markaVozila"></p-sortIcon></th>
+            <th pSortableColumn="model">{{ 'vehicle.model' | translate}} <p-sortIcon field="model"></p-sortIcon></th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-vozilo>
+        <tr>
+           <!-- <td>{{vozilo.kategorijaId}}</td> -->
+            <td>{{categoryConverter(vozilo.kategorijaId)}}</td> 
+            <td>{{vozilo.markaVozila}}</td>
+            <td>{{vozilo.model}}</td>
+            <td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click) = "editVozilo(vozilo)" ></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"(click) = "deleteVozilo(vozilo)" ></button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between">
+            {{ 'table.totalMessage' | translate}} {{vozila ? vozila.length : 0 }} {{ 'vehicle.vehicles' | translate}}.
+        </div>
+    </ng-template>
+    </p-table>
+</div>
+
+
+<p-dialog [(visible)]="voziloDialog" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        {{ (vozilo.voziloId ? 'vehicle.editVehicle' : 'vehicle.newVehicle') | translate}}
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div class="p-field">
+            <label for="name">{{ 'vehicle.category' | translate}}</label>
+            <p-dropdown [options]="codebooks.kategorije" [(ngModel)]="vozilo.kategorijaId" optionLabel="name" optionValue="id" appendTo="body" ></p-dropdown>
+            <small class="p-invalid" *ngIf="submitted && !vozilo.kategorijaId">{{ 'vehicle.category' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+        <div class="p-field">
+            <label for="name">{{ 'vehicle.brand' | translate}}</label>
+            <input type="text" pInputText id="sifra" [(ngModel)]="vozilo.markaVozila" required autofocus />
+            <small class="p-invalid" *ngIf="submitted && !vozilo.markaVozila">{{ 'vehicle.brand' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+        <div class="p-field">
+            <label for="name">{{ 'vehicle.model' | translate}}</label>
+            <input type="text" pInputText id="sifra" [(ngModel)]="vozilo.model" required autofocus />
+            <small class="p-invalid" *ngIf="submitted && !vozilo.model">{{ 'vehicle.model' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+    </ng-template>
+    
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="{{ 'buttons.cancel' | translate}}" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="{{ 'buttons.save' | translate}}" icon="pi pi-check" class="p-button-text"   (click)="saveVozilo()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
