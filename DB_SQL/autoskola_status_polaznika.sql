@@ -16,30 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `dnevnik_voznje`
+-- Table structure for table `status_polaznika`
 --
 
-DROP TABLE IF EXISTS `dnevnik_voznje`;
+DROP TABLE IF EXISTS `status_polaznika`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `dnevnik_voznje` (
-  `DNEVNIK_ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `BROJ_SATA` int(11) NOT NULL,
-  `VRIJEME_I_DATUM` datetime NOT NULL,
-  `OPIS` varchar(600) NOT NULL,
-  `ORDINAL` int(11) DEFAULT '1',
-  `DELTED` int(11) DEFAULT '0',
-  PRIMARY KEY (`DNEVNIK_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `status_polaznika` (
+  `STATUS_POLAZNIKA_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SIFRA` varchar(45) NOT NULL,
+  `NAZIV` varchar(45) NOT NULL,
+  `NAZIV_EN` varchar(45) DEFAULT NULL,
+  `ORDINAL` int(11) NOT NULL DEFAULT '1',
+  `DELETED` int(11) NOT NULL DEFAULT '0',
+  `CREATION_DATE` datetime DEFAULT CURRENT_TIMESTAMP,
+  `MODIFICATION_DATE` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`STATUS_POLAZNIKA_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `dnevnik_voznje`
+-- Dumping data for table `status_polaznika`
 --
 
-LOCK TABLES `dnevnik_voznje` WRITE;
-/*!40000 ALTER TABLE `dnevnik_voznje` DISABLE KEYS */;
-/*!40000 ALTER TABLE `dnevnik_voznje` ENABLE KEYS */;
+LOCK TABLES `status_polaznika` WRITE;
+/*!40000 ALTER TABLE `status_polaznika` DISABLE KEYS */;
+INSERT INTO `status_polaznika` VALUES (1,'UPISAN','Upisan','Enrolled',1,0,'2022-09-05 17:29:55','2022-09-05 17:29:55'),(2,'TEST','Položio test','Passed the test',1,0,'2022-09-05 17:29:55','2022-09-05 17:53:40'),(3,'VOZNJA','Položio vožnju','Passed driving',1,0,'2022-09-05 17:29:55','2022-09-05 17:29:55');
+/*!40000 ALTER TABLE `status_polaznika` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-08 18:10:28
+-- Dump completed on 2022-09-08 18:10:26

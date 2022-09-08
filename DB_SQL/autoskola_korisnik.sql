@@ -33,12 +33,14 @@ CREATE TABLE `korisnik` (
   `OIB` varchar(20) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
   `ORDINAL` int(11) DEFAULT '1',
   `DELETED` int(11) DEFAULT '0',
+  `CREATION_DATE` datetime DEFAULT CURRENT_TIMESTAMP,
+  `MODIFICATION_DATE` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`KORISNIK_ID`),
   UNIQUE KEY `KORISNICKO_IME_UNIQUE` (`KORISNICKO_IME`),
   UNIQUE KEY `EMAIL_UNIQUE` (`EMAIL`),
   KEY `FK_ULOGA` (`ULOGA_ID`),
   CONSTRAINT `FK_ULOGA` FOREIGN KEY (`ULOGA_ID`) REFERENCES `uloge` (`ULOGA_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,7 +49,7 @@ CREATE TABLE `korisnik` (
 
 LOCK TABLES `korisnik` WRITE;
 /*!40000 ALTER TABLE `korisnik` DISABLE KEYS */;
-INSERT INTO `korisnik` VALUES (1,1,'Marino','Marić','mmaric','mmaric@gmail.com','$2a$12$lxzvaH9hVT0iipHJNGzHXOill41IC7U0Yd1UaiJ8hhK72M2Mznavi',NULL,1,0),(2,2,'Ana','Anić','aanic','aanic@gmail.com','$2a$12$SjnwzWDW77t9JhBW85mzIOb0oGihl77EiDhl.0btTVoN9jX2/JjGi',NULL,1,0),(3,3,'Željko','Horvat','zhorvat','zhorvat@gmail.com','$2a$10$OG20wM6EQyTO2j5bBNu3BuKREGRtnlSC61TGcjN0TVk.1FmAo3GA.',NULL,1,0);
+INSERT INTO `korisnik` VALUES (1,1,'Marino','Marić','mmaric','mmaric@gmail.com','$2a$12$lxzvaH9hVT0iipHJNGzHXOill41IC7U0Yd1UaiJ8hhK72M2Mznavi','1234567890',1,0,'2022-08-31 16:27:46','2022-09-05 14:03:19'),(2,2,'Ana','Anić','aanic','aanic@gmail.com','$2a$10$iFPbEkX5LRjsco/dOssEyOhgtt3F91kxQlFWo3cYp27joQZ/HzlpG','1234567890',1,0,'2022-08-31 16:27:46','2022-09-05 14:56:29'),(3,3,'Željko','Horvat','zhorvat','zhorvat@gmail.com','$2a$10$QvjjsNJ5yBZNdrQJSM5JOuKCmmxIx14oOqLUThjuLFVW5RTiWL3cm','213421432',1,0,'2022-08-31 16:27:46','2022-09-08 13:48:19'),(7,2,'Dario','Daric','ddaric','ddaric@gmail.com','$2a$10$aTl1aLRmaPyKuTR4iyYyGeQwilB/l7Vd/FelmgdWJIyr.stKsHV1e','1243124324',1,0,'2022-09-01 11:51:56','2022-09-08 12:12:30'),(8,2,'dsa','dsa','dsa','dsa','$2a$10$MlQd7jH2swT0e9gxZnkn0OWHjHnThFzKMhDChMu/00u4deJCbAGgG','dsa',1,1,'2022-09-02 17:30:43','2022-09-02 17:31:22'),(9,3,'Ivona','Lazar','ilazar','ivona1227@gmail.com','$2a$10$JitcfZMOh5bEPJEfUJ.pKep7PZXZH7T8Yw08qQobNfH55Q7HIEf6a',NULL,1,0,'2022-09-08 15:04:50','2022-09-08 15:39:29'),(10,2,'Doris','Lazar','dorisl','doris.lazar@gmail.com','$2a$10$dUuX.A3zFD/G7j5DuZeHpeVmG8BoFEQkzlPEyH469uDg.j81F3oWu','5375398923736',1,0,'2022-09-08 15:48:55','2022-09-08 15:48:55');
 /*!40000 ALTER TABLE `korisnik` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -60,4 +62,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-08-29 22:27:56
+-- Dump completed on 2022-09-08 18:10:27
