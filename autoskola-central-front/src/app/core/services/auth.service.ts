@@ -35,6 +35,11 @@ export class AuthService {
     return user && user.token;
   }
 
+  getUser(){
+    const user = this.getCurrentUser();
+    return user;
+  }
+
   isAdminRoleRight(){
     const role = JSON.parse(localStorage.getItem(this.currentUser + this.role) || '{}');
     if(role === 'ROLE_ADMIN') return true;
@@ -44,6 +49,12 @@ export class AuthService {
   isModeratorRoleRight(){
     const role = JSON.parse(localStorage.getItem(this.currentUser + this.role) || '{}');
     if(role === 'ROLE_MODERATOR' || role === 'ROLE_ADMIN') return true;
+    return false;
+  }
+
+  isModerator(){
+    const role = JSON.parse(localStorage.getItem(this.currentUser + this.role) || '{}');
+    if(role === 'ROLE_MODERATOR') return true;
     return false;
   }
 

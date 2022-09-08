@@ -1,0 +1,162 @@
+<p-accordion [multiple]="true">
+    <p-accordionTab header="{{'myProfile.basicInfo' | translate}}" [selected]="true">
+        <div style="float: right;">
+            <ng-container *ngIf = "!polaznik?.statusPolaznikaId && !authService.isAdminRoleRight() && !authService.isModerator()">
+                <button pButton pRipple label="{{'buttons.signUp' | translate}}" (click) = "upisPolaznika()"  class="p-button-success"></button>
+            </ng-container>
+            <ng-container *ngIf = "statusConverter(polaznik?.statusPolaznikaId) === 'Upisan' && !authService.isAdminRoleRight() && !authService.isModerator()">
+                <button pButton pRipple label="{{'buttons.startTest' | translate}}" (click) = "generirajTest()"  class="p-button-success"></button> 
+            </ng-container>
+            <ng-container *ngIf = "statusConverter(polaznik?.statusPolaznikaId) === 'Položio test' && !authService.isAdminRoleRight() && !authService.isModerator()">
+                <button pButton pRipple label="{{'buttons.chooseInstructor' | translate}}" (click) = "odaberiInstruktora()"  class="p-button-success"></button> 
+            </ng-container>
+            <button pButton pRipple label="{{'buttons.edit' | translate}}" icon ="pi pi-user-edit" (click) = "openEditDialog()"></button>
+        </div>
+        <h1 class="allign-centar">{{korisnik?.ime}} {{korisnik?.prezime}}</h1>
+        <div class="allign-centar">
+            <div class="text-left">
+                <p><b>{{'myProfile.fullName' | translate}}: </b>  <span>{{korisnik?.ime}} {{korisnik?.prezime}}</span></p>
+                <p><b>{{'myProfile.username' | translate}}: </b> <span> {{korisnik?.korisnickoIme}} </span> </p>
+                <p><b>{{'myProfile.email' | translate}}: </b> <span> {{korisnik?.email}} </span> </p>
+                <p><b>{{'myProfile.oib' | translate}}: </b> <span> {{korisnik?.oib}} </span> </p>
+                <ng-container *ngIf = "authService.isModerator()">
+                    <p><b>{{'myProfile.availability' | translate}}: </b> <span> {{instruktor?.brojSlobodnihMjesta}} </span> </p>
+                    <p><b>{{'myProfile.vehicles' | translate}}: </b>
+                        <li *ngFor="let vozilo of instruktor?.vozila">
+                            <b> {{vozilo.markaVozila}} {{vozilo.model}} - {{ categoryConverter(vozilo.kategorijaId) }}</b>           
+                        </li>
+                    </p>
+                </ng-container>
+                <ng-container *ngIf = "polaznik?.odabranaKategorijaId">
+                    <p><b>Odabrana kategorija: </b> <span> {{categoryConverter(polaznik?.odabranaKategorijaId)}} </span> </p>
+                    <p><b>Status: </b> <span> {{statusConverter(polaznik?.statusPolaznikaId)}} </span> </p>
+                </ng-container>
+                <ng-container *ngIf = "polaznik?.instruktor">
+                    <p><b>Instruktor: </b> <span> {{polaznik?.instruktor?.korisnik?.ime}} {{polaznik?.instruktor?.korisnik?.prezime}} </span> </p>
+                </ng-container>
+            </div>
+        </div>
+        
+    </p-accordionTab>
+    <p-accordionTab header="{{'exam.Exams' | translate}}" *ngIf = "polaznik">
+        <app-pregled-ispita>
+            [id]="korisnik.korisnikId"
+        </app-pregled-ispita>
+    </p-accordionTab>
+    <p-accordionTab header="Header III">
+        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+    </p-accordionTab>
+</p-accordion>
+
+<!-- User edit dialog -->
+<p-dialog [(visible)]="userDialog" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        {{ 'instructor.newInstructor' | translate}}
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div class="p-field">
+            <label for="name">{{ 'instructor.name' | translate}}</label>
+            <input type="text" pInputText id="name"[ngModel]="editKorisnik?.ime" (ngModelChange)="editKorisnik.ime = $event" required />
+            <small class="p-invalid" *ngIf="submitted && editKorisnik.ime">{{ 'instructor.name' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+        <div class="p-field">
+            <label for="surename">{{ 'instructor.surename' | translate}}</label>
+            <input type="text" pInputText id="surename" [ngModel]="editKorisnik?.prezime" (ngModelChange)="editKorisnik.prezime = $event" required />
+            <small class="p-invalid" *ngIf="submitted && !editKorisnik.prezime">{{ 'instructor.surename' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+        <div class="p-field">
+            <label for="username">{{ 'instructor.username' | translate}}</label>
+            <input type="text" pInputText id="username" [ngModel]="editKorisnik?.korisnickoIme" (ngModelChange)="editKorisnik.korisnickoIme = $event" required />
+            <small class="p-invalid" *ngIf="submitted && !editKorisnik.korisnickoIme">{{ 'instructor.username' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+        <div class="p-field">
+            <label for="password">{{ 'instructor.password' | translate}}</label>
+            <input type="password" pPassword pInputText id="password" [ngModel]="editKorisnik?.lozinka" (ngModelChange)="editKorisnik.lozinka = $event" required />
+            <small class="p-invalid" *ngIf="submitted && !editKorisnik.lozinka">{{ 'instructor.password' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+        <div class="p-field">
+            <label for="oib">{{ 'instructor.oib' | translate}}</label>
+            <input type="text" pInputText id="oib" [ngModel]="editKorisnik?.oib" (ngModelChange)="editKorisnik.oib = $event" required />
+            <small class="p-invalid" *ngIf="submitted && !editKorisnik.oib">{{ 'instructor.oib' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+        <div class="p-field">
+            <label for="email">{{ 'instructor.email' | translate}}</label>
+            <input type="email" pInputText id="email" [ngModel]="editKorisnik?.email" (ngModelChange)="editKorisnik.email = $event" required />
+            <small class="p-invalid" *ngIf="submitted && !editKorisnik.email">{{ 'instructor.email' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+        <ng-container *ngIf = "authService.isModerator()">
+            <div class="p-field">
+                <label for="email">{{ 'instructor.vehicles' | translate}}</label>
+                <p-multiSelect [options]="vozila" [(ngModel)]="editInstruktor.vozila" defaultLabel="Select a City" appendTo="body">
+                    <ng-template let-odabranaVozila pTemplate="selectedItems">
+                        <ng-container *ngIf ="!odabranaVozila || odabranaVozila.length === 0"> {{ 'instructor.chooseVehicles' | translate}} </ng-container>
+                        <ng-container *ngFor="let odabranoVozilo of odabranaVozila;">{{odabranoVozilo.markaVozila}} {{odabranoVozilo.model}}#
+                        </ng-container>
+                     </ng-template>
+                    <ng-template let-vozilo pTemplate="item">
+                        <div class="item">
+                            <div>{{vozilo.markaVozila}} {{vozilo.model}} </div>
+                        </div>
+                    </ng-template>
+                </p-multiSelect>
+            </div>
+            <div class="p-field">
+                <label for="brojSlobodnihMjesta">{{ 'instructor.availability' | translate}}</label>
+                <p-inputNumber inputId="brojSlobodnihMjesta" [ngModel]="editInstruktor.brojSlobodnihMjesta" (ngModelChange)="editInstruktor.brojSlobodnihMjesta = $event">
+                </p-inputNumber>
+                <small class="p-invalid" *ngIf="submitted && !editInstruktor.brojSlobodnihMjesta">{{ 'instructor.availability' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+            </div>
+        </ng-container>
+        
+    </ng-template>
+    
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="{{ 'buttons.cancel' | translate}}" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="{{ 'buttons.save' | translate}}" icon="pi pi-check" class="p-button-text"   (click)="saveBasicInfo()"></button>
+    </ng-template>
+</p-dialog>
+
+<!-- Dialog za upis -->
+<p-dialog [(visible)]="upisDialog" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        {{ 'category.chooseCategory' | translate}}
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div class="p-field">
+            <label for="name">{{ 'vehicle.category' | translate}}</label>
+            <p-dropdown [options]="codebooks.kategorije" [(ngModel)]="editPolaznik.odabranaKategorijaId" optionLabel="name" optionValue="id" appendTo="body" ></p-dropdown>
+        </div>
+    </ng-template>
+    
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="{{ 'buttons.cancel' | translate}}" icon="pi pi-times" class="p-button-text" (click)="hideUpisDialog()"></button>
+        <button pButton pRipple label="{{ 'buttons.save' | translate}}" icon="pi pi-check" class="p-button-text"   (click)="upisi()"></button>
+    </ng-template>
+</p-dialog>
+
+<!-- Dialog za upis -->
+<p-dialog [(visible)]="instruktorDialog" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        {{ 'instructor.newInstructor' | translate}}
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div class="p-field">
+            <label for="name">{{ 'instructor.instructor' | translate}}</label>
+            <p-dropdown [options]="slobodniInstruktori" [(ngModel)]="editPolaznik.instruktorId"  optionValue="instruktorId" appendTo="body" >
+                <ng-template let-ins pTemplate="selectedItem">
+                    <div> {{ins.korisnik.ime}} {{ins.korisnik.prezime}} </div>
+                </ng-template>
+                <ng-template let-ins pTemplate="item">
+                    <div>{{ins.korisnik.ime}} {{ins.korisnik.prezime}}</div>
+                </ng-template>
+            </p-dropdown>
+        </div>
+    </ng-template>
+    
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="{{ 'buttons.cancel' | translate}}" icon="pi pi-times" class="p-button-text" (click)="hideInstructorDialog()"></button>
+        <button pButton pRipple label="{{ 'buttons.save' | translate}}" icon="pi pi-check" class="p-button-text"   (click)="saveInstruktor()"></button>
+    </ng-template>
+</p-dialog>

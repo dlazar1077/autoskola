@@ -1,0 +1,139 @@
+<div class="card">
+    <p-table #dt [value]="pitanja" [rows]="infoService.brojZapisa" [paginator]="true"  [globalFilterFields]="['tekstPitanja','brojBodova', 'odabiri', 'raskrizje']"
+    [(selection)]="odabranoPitanje" [rowHover]="true" dataKey="id" sortField="sifra" [sortOrder]="1">
+    <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')" placeholder="{{ 'table.search' | translate}}" />
+            </span>
+            <span style="float: right;">
+                <button pButton pRipple label="{{ 'buttons.new' | translate}}" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th>{{ 'question.image' | translate}} <p-sortIcon field="slika"></p-sortIcon></th>
+            <th pSortableColumn="tekstPitanja">{{ 'question.questionText' | translate}} <p-sortIcon field="tekstPitanja"></p-sortIcon></th>
+            <th pSortableColumn="odabiri">{{ 'question.choices' | translate}} <p-sortIcon field="odabiri"></p-sortIcon></th>
+            <th pSortableColumn="raskrizje">{{ 'question.crossroads' | translate}} <p-sortIcon field="raskrizje"></p-sortIcon></th>
+            <th pSortableColumn="brojBodova">{{ 'question.numberOfPoints' | translate}} <p-sortIcon field="brojBodova"></p-sortIcon></th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-pitanje>
+        <tr>
+            <td>
+                <div *ngIf = "pitanje.slika !== undefined && pitanje.slika !== null">
+                    <img [src]="pitanje.slika" style="max-height: 10em;">
+                </div>
+            </td>
+            <td>{{pitanje.tekstPitanja}}</td>
+            <td>
+                <div *ngFor="let odabir of pitanje.odabiri">
+                    <li *ngIf = "odabir.tekst !== ''">
+                        <b> {{odabir.tekst}} </b>   
+                    </li>
+                </div>
+            </td>
+            <td>
+                {{ (pitanje.raskrizje ? 'buttons.yes' : 'buttons.no') | translate}}
+            </td>
+            <td>{{pitanje.brojBodova}}</td>
+            <td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click) = "editPitanje(pitanje)" ></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"(click) = "deletePitanje(pitanje)" ></button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between">
+            {{ 'table.totalMessage' | translate}} {{pitanja ? pitanja.length : 0 }} {{ 'question.questions' | translate}}.
+        </div>
+    </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="pitanjeDialog" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        {{ (pitanje.pitanjeId ? 'question.editQuestion' : 'question.newQuestion') | translate}}
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div class="p-field">
+            <label for="tekstPitanja">{{ 'question.questionText' | translate}}</label>
+            <textarea id="tekstPitanja" rows="5" cols="30" pInputTextarea  [(ngModel)]="pitanje.tekstPitanja" required  style="width: 100%; max-width: 100%;" autoResize="autoResize"></textarea>
+            <!--<input type="text" pInputText id="tekstPitanja" [(ngModel)]="pitanje.tekstPitanja" required autofocus /> -->
+            <small class="p-invalid" *ngIf="submitted && !pitanje.tekstPitanja">{{ 'question.questionText' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+
+        <div class="p-field">
+            <label for="slika">{{ 'question.image' | translate}}</label>
+            <div *ngIf = "slika !== undefined">
+                <img [src]="slika" style="max-height: 10em;">
+            </div>
+            <p-fileUpload #fileUpload mode="basic" [auto]="true" name="myfile[]" [customUpload]="true" (uploadHandler)="onUpload($event,fileUpload)" accept="image/*.jpeg" chooseLabel = "{{ 'buttons.browse' | translate}}"></p-fileUpload>
+        </div>
+
+        <div class="p-field">
+            <label for="tekst1">{{ 'question.choice1' | translate}}</label> <br>
+            <input type="text" pInputText id="tekst1" [(ngModel)]="odabir1.tekst" required style="width: 75%;" />
+            <div class="field-checkbox" style="float: right; margin-top: 0.5em;">
+                <p-checkbox [(ngModel)]="odabir1.tocanOdgovor" [binary]="true" inputId="binary"  ></p-checkbox>
+            </div>
+            <br>
+            <small class="p-invalid" *ngIf="submitted && !odabir1.tekst">{{ 'question.choice1' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+
+        <div class="p-field" *ngIf="(odabir1.tekst !== '' && odabir1.tekst !== undefined)" >
+            <label for="tekst2">{{ 'question.choice2' | translate}}</label> <br>
+            <input type="text" pInputText id="tekst2" [(ngModel)]="odabir2.tekst" style="width: 75%;" [disabled] = "odabir1.tekst === '' || odabir1.tekst === undefined" />
+            <div class="field-checkbox" style="float: right; margin-top: 0.5em;">
+                <p-checkbox [(ngModel)]="odabir2.tocanOdgovor" [binary]="true" inputId="binary" [disabled] = "odabir1.tekst === '' || odabir1.tekst === undefined"></p-checkbox>
+            </div>
+        </div>
+
+        <div class="p-field" *ngIf="(odabir2.tekst !== '' && odabir2.tekst !== undefined) && (odabir1.tekst !== '' && odabir1.tekst !== undefined)">
+            <label for="tekst3">{{ 'question.choice3' | translate}}</label> <br>
+            <input type="text" pInputText id="tekst3" [(ngModel)]="odabir3.tekst" style="width: 75%;" [disabled] = "odabir2.tekst === '' || odabir2.tekst === undefined" />
+            <div class="field-checkbox" style="float: right; margin-top: 0.5em;">
+                <p-checkbox [(ngModel)]="odabir3.tocanOdgovor" [binary]="true" inputId="binary"  [disabled] = "odabir2.tekst === '' || odabir2.tekst === undefined"></p-checkbox>
+            </div>
+        </div>
+
+
+        <div class="p-field" *ngIf="(odabir3.tekst !== '' && odabir3.tekst !== undefined) && (odabir2.tekst !== '' && odabir2.tekst !== undefined) && (odabir1.tekst !== '' && odabir1.tekst !== undefined)">
+            <label for="tekst4">{{ 'question.choice4' | translate}}</label> <br>
+            <input type="text" pInputText id="tekst4" [(ngModel)]="odabir4.tekst" style="width: 75%;" [disabled] = "odabir3.tekst === '' || odabir3.tekst === undefined" />
+            <div class="field-checkbox" style="float: right; margin-top: 0.5em;">
+                <p-checkbox [(ngModel)]="odabir4.tocanOdgovor" [binary]="true" inputId="binary" [disabled] = "odabir3.tekst === '' || odabir3.tekst === undefined"></p-checkbox>
+            </div>
+        </div>
+
+        <div class="p-field">
+            <label for="crossroads">{{ 'question.crossroads' | translate}}</label> <br>
+            <div class="field-radiobutton">
+                <p-radioButton name="crossroads" [value]="true" [(ngModel)]="pitanje.raskrizje" inputId="crossroads1"></p-radioButton>
+                <label for="crossroads1">{{'buttons.yes' | translate}}</label>
+            </div>
+            <div class="field-radiobutton">
+                <p-radioButton name="crossroads" [value]="false" [(ngModel)]="pitanje.raskrizje" inputId="crossroads2"></p-radioButton>
+                <label for="crossroads2">{{'buttons.no' | translate}}</label>
+            </div>
+        </div>
+
+        <div class="p-field">
+            <label for="name">{{ 'question.numberOfPoints' | translate}}</label>
+            <p-inputNumber inputId="brojBodova" [(ngModel)]="pitanje.brojBodova">
+            </p-inputNumber>
+            <small class="p-invalid" *ngIf="submitted && !pitanje.brojBodova">{{ 'question.numberOfPoints' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+    </ng-template>
+    
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="{{ 'buttons.cancel' | translate}}" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="{{ 'buttons.save' | translate}}" icon="pi pi-check" class="p-button-text"   (click)="savePitanje()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

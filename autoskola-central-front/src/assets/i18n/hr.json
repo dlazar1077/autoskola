@@ -13,7 +13,18 @@
     "login" : "Prijavi se",
     "logout" : "Odjavi se",
     "signup" : "Registriraj se",
-    "vehicle" : "Vozila"
+    "vehicle" : "Vozila",
+    "question" : "Pitanja",
+    "instructor" : "Instruktori",
+    "myProfile" : "Moj profil",
+    "statuses" : "Status polaznika",
+    "exam" : "Ispit"
+  },
+
+  "message" : {
+    "leavingExam" : "Sigurno želite napustiti ispit?",
+    "endExam" : "Sigurno želite završiti ispit?",
+    "correctAnswer" : "Točan odgovor: "
   },
 
   "buttons":{
@@ -21,7 +32,14 @@
     "cancel" : "Otkaži",
     "confirm" : "Potvrdi",
     "yes" : "Da",
-    "no" : "Ne"
+    "no" : "Ne",
+    "new" : "Dodaj",
+    "browse" : "Pretraži",
+    "edit" : "Uredi",
+    "startTest" : "Započni test",
+    "singUp" : "Upiši se",
+    "endTest" : "Završi test",
+    "chooseInstructor" : "Izaberi instruktora"
   },
 
   "table" : {
@@ -59,7 +77,8 @@
     "name" : "Naziv",
     "nameEng" : "Naziv (ENG)",
     "newCategory" : "Nova kategorija",
-    "editCategory" : "Ažuriranje kategorije"
+    "editCategory" : "Ažuriranje kategorije",
+    "chooseCategory" : "Odaberi kategoriju"
   },
 
   "role" : {
@@ -81,10 +100,73 @@
   },
 
   "vehicle" : {
+    "vehicles" : "vozila",
     "category" : "Kategorija",
     "brand" : "Marka",
     "model": "Model",
     "newVehicle" : "Novo vozilo",
     "editVehicle" : "Ažuriranje vozila"
+  },
+
+  "question" : {
+    "choices" : "Odabiri",
+    "crossroads" : "Raskrižje",
+    "image" : "Slika",
+    "choice1" : "Odabir broj 1",
+    "choice2" : "Odabir broj 2",
+    "choice3" : "Odabir broj 3",
+    "choice4" : "Odabir broj 4",
+    "numberOfPoints" : "Broj bodova",
+    "questionText" : "Tekst pitanja",
+    "newQuestion" : "Novo pitanje",
+    "editQuestion" : "Ažuriranje pitanja",
+    "questions" : "pitanja"
+  },
+
+  "instructor" : {
+    "instructors" : "instruktora",
+    "oib" : "OIB",
+    "fullName" : "Ime i prezime",
+    "name" : "Ime",
+    "surename": "Prezime",
+    "email" : "E-mail",
+    "password" : "Lozinka",
+    "vehicles" : "Vozila",
+    "chooseVehicles" : "Odaberite vozila",
+    "username" : "Korisničko ime",
+    "availability" : "Broj slobodnih mjesta",
+    "newInstructor" : "Novi instruktor",
+    "editInstructor" : "Ažuriranje instruktora",
+    "instructor" : "Instruktor"
+  },
+
+  "myProfile": {
+    "basicInfo" : "Osnovne informacije",
+    "oib" : "OIB",
+    "fullName" : "Ime i prezime",
+    "email" : "E-mail",
+    "username" : "Korisničko ime",
+    "vehicles" : "Vozila",
+    "availability" : "Broj slobodnih mjesta"
+  },
+
+  "status" : {
+    "Statuses" : "Statusi polaznika",
+    "statuses" : "statusi polaznika",
+    "code" : "Šifra",
+    "name" : "Naziv",
+    "nameEng" : "Naziv (ENG)",
+    "newRole" : "Novi status polaznika",
+    "editRole" : "Ažuriranje statusa polaznika"
+  },
+   
+  "exam" : {
+    "Exams" : "Ispiti",
+    "exams" : "ispiti",
+    "maxPoints" : "Maksimalni broj bodova",
+    "points" : "Ostvaren broj bodova",
+    "date" : "Datum",
+    "fullName" : "Ime i prezime",
+    "status" : "Status"
   }
 }

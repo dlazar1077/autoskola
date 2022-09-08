@@ -13,7 +13,18 @@
     "login" : "Login",
     "logout" : "Logout",
     "signup" : "Sign up",
-    "vehicle" : "Vehicles"
+    "vehicle" : "Vehicles",
+    "question" : "Questions",
+    "instructor" : "Instructors",
+    "myProfile" : "My profile",
+    "statuses" : "Status",
+    "exam" : "Exam"
+  },
+
+  "message" : {
+    "leavingExam" : "Are you sure to leave exam?",
+    "endExam" : "Are you sure to end exam?",
+    "correctAnswer" : "Correct answer: "
   },
 
   "buttons":{
@@ -21,7 +32,14 @@
     "cancel" : "Cancel",
     "confirm" : "Confirm",
     "yes" : "Yes",
-    "no" : "No"
+    "no" : "No",
+    "new" : "New",
+    "browse" : "Browse",
+    "edit" : "Edit",
+    "startTest" : "Start the test",
+    "singUp" : "Sing up",
+    "endTest" : "End test",
+    "chooseInstructor" : "Choose instructor"
   },
 
   "table" : {
@@ -59,7 +77,8 @@
     "name" : "Name",
     "nameEng" : "Name (ENG)",
     "newCategory" : "New category",
-    "editCategory" : "Edit category"
+    "editCategory" : "Edit category",
+    "chooseCategory" : "Choose category"
   },
 
   "role" : {
@@ -87,5 +106,67 @@
     "model": "Model",
     "newVehicle" : "New vehicle",
     "editVehicle" : "Edit vehicle"
+  },
+
+  "question" : {
+    "choices" : "Choices",
+    "crossroads": "Crossroads",
+    "image" : "Image",
+    "choice1" : "Choice number 1",
+    "choice2" : "Choice number 2",
+    "choice3" : "Choice number 3",
+    "choice4" : "Choice number 4",
+    "numberOfPoints" : "Number of points",
+    "questionText" : "Question text",
+    "newQuestion" : "New question",
+    "editQuestion" : "Edit question",
+    "questions" : "questions"
+  },
+
+  "instructor" : {
+    "instructors" : "instructors",
+    "oib" : "OIB",
+    "fullName" : "Full name",
+    "name" : "Name",
+    "surename": "Surename",
+    "email" : "E-mail",
+    "password" : "Password",
+    "vehicles" : "Vehicles",
+    "chooseVehicles" : "Choose vehicles",
+    "username" : "Username",
+    "availability" : "Availability",
+    "newInstructor" : "New instructor",
+    "editInstructor" : "Edit instructor",
+    "instructor" : "Instructor"
+  },
+
+  "myProfile": {
+    "basicInfo" : "Basic info",
+    "oib" : "OIB",
+    "fullName" : "Full name",
+    "email" : "E-mail",
+    "username" : "Username",
+    "vehicles" : "Vehicles",
+    "availability" : "Availability"
+  },
+
+  "status" : {
+    "Statuses" : "Statuses",
+    "statuses" : "statuses",
+    "code" : "Code",
+    "name" : "Name",
+    "nameEng" : "Name (ENG)",
+    "newRole" : "New statuse",
+    "editRole" : "Edit status"
+  },
+
+  "exam" : {
+    "Exams" : "Exams",
+    "exams" : "exams",
+    "maxPoints" : "Maximun points",
+    "points" : "Points",
+    "date" : "Date",
+    "fullName" : "Full name",
+    "status" : "Status"
   }
 }

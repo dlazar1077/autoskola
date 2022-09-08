@@ -1,0 +1,118 @@
+<div class="card">
+
+    <p-table #dt [value]="instruktori" [rows]="infoService.brojZapisa" [paginator]="true"  [globalFilterFields]="['imePrezime', 'korisnickoIme', 'email', 'oib']"
+    [(selection)]="odabranInstruktor" [rowHover]="true" dataKey="id" sortField="imePrezime" [sortOrder]="1">
+    <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')" placeholder="{{ 'table.search' | translate}}" />
+            </span>
+            <span style="float: right;">
+                <button pButton pRipple label="{{ 'buttons.new' | translate}}" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="imePrezime">{{ 'instructor.fullName' | translate}} <p-sortIcon field="imePrezime"></p-sortIcon></th>
+            <th pSortableColumn="korisnickoIme">{{ 'instructor.username' | translate}} <p-sortIcon field="korisnickoIme"></p-sortIcon></th>
+            <th pSortableColumn="email">{{ 'instructor.email' | translate}} <p-sortIcon field="email"></p-sortIcon></th>
+            <th pSortableColumn="oib">{{ 'instructor.oib' | translate}} <p-sortIcon field="oib"></p-sortIcon></th>
+            <th pSortableColumn="vozila">{{ 'instructor.vehicles' | translate}} <p-sortIcon field="vozila"></p-sortIcon></th>
+            <th pSortableColumn="brojSlobodnihMjesta">{{ 'instructor.availability' | translate}} <p-sortIcon field="brojSlobodnihMjesta"></p-sortIcon></th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-instruktor>
+        <tr>
+           <!-- <td>{{vozilo.kategorijaId}}</td> -->
+            <td>{{ instruktor.korisnik.ime}} {{ instruktor.korisnik.prezime }}</td> 
+            <td>{{ instruktor.korisnik.korisnickoIme}}</td>
+            <td>{{ instruktor.korisnik.email}}</td>
+            <td>{{ instruktor.korisnik.oib}}</td>
+            <td>
+                <li *ngFor="let vozilo of instruktor.vozila">
+                    <b> {{vozilo.markaVozila}} {{vozilo.model}} - {{ categoryConverter(vozilo.kategorijaId) }}</b>           
+                </li>
+            </td>
+            <td>{{ instruktor.brojSlobodnihMjesta}}</td>
+            <td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click) = "editInstruktor(instruktor)" ></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"(click) = "deleteInstruktor(instruktor)" ></button> 
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between">
+            {{ 'table.totalMessage' | translate}} {{instruktori ? instruktori.length : 0 }} {{ 'instructor.instructors' | translate}}.
+        </div>
+    </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="instruktorDialog" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        {{ (instruktor.instruktorId ? 'instructor.editInstructor' : 'instructor.newInstructor') | translate}}
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div class="p-field">
+            <label for="name">{{ 'instructor.name' | translate}}</label>
+            <input type="text" pInputText id="name"[ngModel]="instruktor?.korisnik?.ime" (ngModelChange)="instruktor.korisnik.ime = $event" required />
+            <small class="p-invalid" *ngIf="submitted && !instruktor.korisnik.ime">{{ 'instructor.name' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+        <div class="p-field">
+            <label for="surename">{{ 'instructor.surename' | translate}}</label>
+            <input type="text" pInputText id="surename" [ngModel]="instruktor?.korisnik?.prezime" (ngModelChange)="instruktor.korisnik.prezime = $event" required />
+            <small class="p-invalid" *ngIf="submitted && !instruktor.korisnik.prezime">{{ 'instructor.surename' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+        <div class="p-field">
+            <label for="username">{{ 'instructor.username' | translate}}</label>
+            <input type="text" pInputText id="username" [ngModel]="instruktor?.korisnik?.korisnickoIme" (ngModelChange)="instruktor.korisnik.korisnickoIme = $event" required />
+            <small class="p-invalid" *ngIf="submitted && !instruktor.korisnik.korisnickoIme">{{ 'instructor.username' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+        <div class="p-field">
+            <label for="password">{{ 'instructor.password' | translate}}</label>
+            <input type="text" pInputText id="password" [ngModel]="instruktor?.korisnik?.lozinka" (ngModelChange)="instruktor.korisnik.lozinka = $event" required />
+            <small class="p-invalid" *ngIf="submitted && !instruktor.korisnik.lozinka">{{ 'instructor.password' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+        <div class="p-field">
+            <label for="oib">{{ 'instructor.oib' | translate}}</label>
+            <input type="text" pInputText id="oib" [ngModel]="instruktor?.korisnik?.oib" (ngModelChange)="instruktor.korisnik.oib = $event" required />
+            <small class="p-invalid" *ngIf="submitted && !instruktor.korisnik.oib">{{ 'instructor.oib' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+        <div class="p-field">
+            <label for="email">{{ 'instructor.email' | translate}}</label>
+            <input type="email" pInputText id="email" [ngModel]="instruktor?.korisnik?.email" (ngModelChange)="instruktor.korisnik.email = $event" required />
+            <small class="p-invalid" *ngIf="submitted && !instruktor.korisnik.email">{{ 'instructor.email' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+        <div class="p-field">
+            <label for="email">{{ 'instructor.vehicles' | translate}}</label>
+            <p-multiSelect [options]="vozila" [(ngModel)]="instruktor.vozila" defaultLabel="Select a City" appendTo="body">
+                <ng-template let-odabranaVozila pTemplate="selectedItems">
+                    <ng-container *ngIf ="!odabranaVozila || odabranaVozila.length === 0"> {{ 'instructor.chooseVehicles' | translate}} </ng-container>
+                    <ng-container *ngFor="let odabranoVozilo of odabranaVozila;">{{odabranoVozilo.markaVozila}} {{odabranoVozilo.model}}#
+                    </ng-container>
+                 </ng-template>
+                <ng-template let-vozilo pTemplate="item">
+                    <div class="item">
+                        <div>{{vozilo.markaVozila}} {{vozilo.model}} </div>
+                    </div>
+                </ng-template>
+            </p-multiSelect>
+        </div>
+        <div class="p-field">
+            <label for="brojSlobodnihMjesta">{{ 'instructor.availability' | translate}}</label>
+            <p-inputNumber inputId="brojSlobodnihMjesta" [ngModel]="instruktor?.brojSlobodnihMjesta" (ngModelChange)="instruktor.brojSlobodnihMjesta = $event">
+            </p-inputNumber>
+            <small class="p-invalid" *ngIf="submitted && !instruktor.brojSlobodnihMjesta">{{ 'instructor.availability' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+    </ng-template>
+    
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="{{ 'buttons.cancel' | translate}}" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="{{ 'buttons.save' | translate}}" icon="pi pi-check" class="p-button-text"   (click)="saveInstruktor()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

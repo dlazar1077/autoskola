@@ -1,4 +1,3 @@
-import { HttpParams } from "@angular/common/http";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { ConfirmationService } from "primeng/api";
@@ -39,9 +38,8 @@ import { InfoService } from "src/app/core/services/info.service";
         this.getVozila();
       });
     });
-    let params = new HttpParams();
-    params = params.append('names', "kategorije");
-    this.http.getHttp("getCodebooks", params).subscribe( (data:any) => {
+
+    this.http.getCodebooks(["kategorije"]).subscribe( (data:any) => {
         this.getVozila();
         this.codebooks = data;
     });
@@ -77,7 +75,7 @@ import { InfoService } from "src/app/core/services/info.service";
     saveVozilo() {
         this.submitted = true;
 
-        if (this.vozilo.voziloId) {
+        if (this.checkVozilo()) {
             if (this.vozilo.voziloId) {
                 this.http.putHttp("updateVozilo",this.vozilo).subscribe( (data1:any) => {
                     this.getVozila();
@@ -114,6 +112,15 @@ import { InfoService } from "src/app/core/services/info.service";
 
     categoryConverter(categoryId : any) : String{
         return this.codebooks.kategorije.find((x:any) => x.id.toString() === categoryId.toString()).name;
+    }
+
+    checkVozilo():boolean{
+        if(this.vozilo.markaVozila !== '' && this.vozilo.markaVozila !== undefined){
+            if(this.vozilo.model !== '' && this.vozilo.model !== undefined){
+                return true;
+            }
+        }
+        return false;
     }
 
 

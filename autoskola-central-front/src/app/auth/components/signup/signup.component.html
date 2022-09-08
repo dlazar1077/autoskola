@@ -1,57 +1,98 @@
-<div class="center-form" style="min-width: fit-content">
+<p-toast></p-toast>
+<div class="center-form" style="min-width: fit-content; width: 66%;">
   <form [formGroup]="signupForm">
-    <!-- Polja -->
-    <div>
-      
+    <p-panel header="Registracija" >
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
 
-      <div class="element">
-        <span class="label">{{ 'user.name' | translate }}</span>
-        <input name="ime" formControlName="ime" type="text" pInputText> 
-        <div *ngIf="signupForm.controls.ime.invalid && (signupForm.controls.ime.touched)" class="invalid-feedback">
-          {{ 'user.name' | translate }}{{ 'form.required' | translate }}
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            {{ 'user.name' | translate }}
+          </div>
+          <div class="ui-grid-col-6">
+            <input pInputText type="text" formControlName="ime" placeholder="{{ 'user.name' | translate }}"/>
+          </div>
+          <div class="ui-grid-col-4">
+            <div class="invalid-feedback" *ngIf="signupForm.controls.ime.errors?.['required'] && (signupForm.controls.ime.touched)">
+              <i class="fa fa-close"></i>
+              {{ 'user.name' | translate }}{{ 'form.required' | translate }}
+            </div>
+          </div>
         </div>
-      </div>
-      
-      <div class="element">
-        <span class = "label">{{ 'user.surename' | translate }}</span>
-        <input name="prezime" formControlName="prezime" type="text" pInputText>
-        <div *ngIf="signupForm.controls.prezime.invalid && (signupForm.controls.prezime.touched)" class="invalid-feedback">
-          {{ 'user.surename' | translate }}{{ 'form.required' | translate }}
-        </div>
-      </div>
 
-      <div class="element">
-        <span class = "label">{{ 'user.email' | translate }}</span>
-        <input name="email" formControlName="email" type="email" pInputText>
-        <div *ngIf="signupForm.controls.email.errors?.['required'] && (signupForm.controls.email.touched)" class="invalid-feedback">
-          {{ 'user.email' | translate }}{{ 'form.required' | translate }}
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            {{ 'user.surename' | translate }}
+          </div>
+          <div class="ui-grid-col-6">
+            <input pInputText type="text" formControlName="prezime" placeholder="{{ 'user.surename' | translate }}"/>
+          </div>
+          <div class="ui-grid-col-4">
+            <div class="invalid-feedback" *ngIf="signupForm.controls.prezime.errors?.['required'] && (signupForm.controls.prezime.touched)">
+              <i class="fa fa-close"></i>
+              {{ 'user.surename' | translate }}{{ 'form.required' | translate }}
+            </div>
+          </div>
         </div>
-        <div *ngIf="signupForm.controls.email.errors?.['email'] && (signupForm.controls.email.touched)" class="invalid-feedback">
-          {{ 'form.email' | translate }} 1
-        </div>
-      </div>
 
-      <div class="element">
-        <span class = "label">{{ 'user.username' | translate }}</span>
-        <input name="korIme" formControlName="korIme" type="text" pInputText>
-        <div *ngIf="signupForm.controls.korIme.invalid && (signupForm.controls.korIme.touched)" class="invalid-feedback">
-          {{ 'user.username' | translate }}{{ 'form.required' | translate }}
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            {{ 'user.email' | translate }}
+          </div>
+          <div class="ui-grid-col-6">
+            <input pInputText type="email" formControlName="email" placeholder="{{ 'user.email' | translate }}"/>
+          </div>
+          <div class="ui-grid-col-4">
+            <div class="invalid-feedback" *ngIf="signupForm.controls.email.errors?.['required'] && (signupForm.controls.email.touched)">
+              <i class="fa fa-close"></i>
+              {{ 'user.email' | translate }}{{ 'form.required' | translate }}
+            </div>
+            <div class="invalid-feedback" *ngIf="signupForm.controls.email.errors?.['email'] && (signupForm.controls.email.touched)">
+              <i class="fa fa-close"></i>
+              {{ 'form.email' | translate }}
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="element">
-        <span class = "label">{{ 'user.password' | translate }}</span>
-        <p-password name="lozinka" formControlName="lozinka" [feedback]="false" required></p-password>
-        <div *ngIf="signupForm.controls.lozinka.invalid && (signupForm.controls.lozinka.touched)" class="invalid-feedback">
-          {{ 'user.password' | translate }}{{ 'form.required' | translate }}
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            {{ 'user.username' | translate }}
+          </div>
+          <div class="ui-grid-col-6">
+            <input pInputText type="text" formControlName="korIme" placeholder="{{ 'user.username' | translate }}"/>
+          </div>
+          <div class="ui-grid-col-4">
+            <div class="invalid-feedback" *ngIf="signupForm.controls.korIme.errors?.['required'] && (signupForm.controls.korIme.touched)">
+              <i class="fa fa-close"></i>
+              {{ 'user.username' | translate }}{{ 'form.required' | translate }}
+            </div>
+          </div>
         </div>
-      </div>
-       
 
-    </div>
-    <!-- Gumbi -->
-    <div class="margin-2">
-      <button pButton type="button" label="{{ 'navbar.signup' | translate}}" (click) = "signup()"  [disabled] = "!signupForm.valid"></button>
-    </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            {{ 'user.password' | translate }}
+          </div>
+          <div class="ui-grid-col-6">
+            <p-password type="text" formControlName="lozinka" placeholder="{{ 'user.password' | translate }}" [feedback]="false" required></p-password>
+          </div>
+          <div class="ui-grid-col-4">
+            <div class="invalid-feedback" *ngIf="signupForm.controls.lozinka.errors?.['required'] && (signupForm.controls.lozinka.touched)">
+              <i class="fa fa-close"></i>
+              {{ 'user.password' | translate }}{{ 'form.required' | translate }}
+            </div>
+          </div>
+        </div>
+
+        <br>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2"></div>
+          <div class="ui-grid-col-6">
+            <button pButton type="submit" label="{{ 'navbar.signup' | translate}}" (click) = "signup()"  [disabled]="!signupForm.valid"></button>
+          </div>
+          <div class="ui-grid-col-4"></div>
+        </div>
+
+      </div>
+    </p-panel>
   </form>
 </div>

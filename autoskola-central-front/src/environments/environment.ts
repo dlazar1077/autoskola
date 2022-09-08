@@ -6,11 +6,11 @@ export const environment = {
   production: false,
   env: 'LOCAL',
   // URL za local IDE test
-  //API_URL: `${window.location.protocol}//${window.location.hostname}:8080/api`,
-  //LOGIN_URL: `${window.location.protocol}//${window.location.hostname}:8080/api/auth`
+  API_URL: `${window.location.protocol}//${window.location.hostname}:8080/api`,
+  LOGIN_URL: `${window.location.protocol}//${window.location.hostname}:8080/api/auth`
   // URL za Kubernetes
-  API_URL: `${window.location.protocol}//${window.location.hostname}:30163/api`,
-  LOGIN_URL: `${window.location.protocol}//${window.location.hostname}:30163/api/auth`
+  //API_URL: `${window.location.protocol}//${window.location.hostname}:30163/api`,
+  //LOGIN_URL: `${window.location.protocol}//${window.location.hostname}:30163/api/auth`
 };
 
 /*

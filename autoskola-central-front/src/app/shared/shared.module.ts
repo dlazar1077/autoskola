@@ -12,6 +12,15 @@ import {TableModule} from 'primeng/table';
 import {DialogModule} from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import {ToolbarModule} from 'primeng/toolbar';
+import {PanelModule} from 'primeng/panel';
+import {FileUploadModule} from 'primeng/fileupload';
+import {HttpClientModule} from '@angular/common/http';
+import {InputNumberModule} from 'primeng/inputnumber';
+import {CheckboxModule} from 'primeng/checkbox';
+import {RadioButtonModule} from 'primeng/radiobutton';
+import {MultiSelectModule} from 'primeng/multiselect';
+import {AccordionModule} from 'primeng/accordion';
+import {ToastModule} from 'primeng/toast';
 
 
 @NgModule({
@@ -26,9 +35,18 @@ import {ToolbarModule} from 'primeng/toolbar';
     BrowserAnimationsModule,
     TranslateModule,
     TableModule,
+    PanelModule,
     DialogModule,
     ConfirmDialogModule,
-    ToolbarModule
+    ToolbarModule,
+    FileUploadModule,
+    HttpClientModule,
+    InputNumberModule,
+    CheckboxModule,
+    RadioButtonModule,
+    MultiSelectModule,
+    AccordionModule,
+    ToastModule
   ],
   exports : [
     MenubarModule,
@@ -41,9 +59,18 @@ import {ToolbarModule} from 'primeng/toolbar';
     BrowserAnimationsModule,
     TranslateModule,
     TableModule,
+    PanelModule,
     DialogModule,
     ConfirmDialogModule,
-    ToolbarModule
+    ToolbarModule,
+    FileUploadModule,
+    HttpClientModule,
+    InputNumberModule,
+    CheckboxModule,
+    RadioButtonModule,
+    MultiSelectModule,
+    AccordionModule,
+    ToastModule
   ]
 })
 export class SharedModule { }

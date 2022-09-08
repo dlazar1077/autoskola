@@ -9,7 +9,7 @@ import { HeaderComponent } from './core/components/header/header.component';
 
 import {TableModule} from 'primeng/table';
 
-import { HttpBackend, HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from './shared/shared.module';
@@ -18,6 +18,14 @@ import { KategorijaModule } from './kategorija/kategorija.module';
 import { UlogaModule } from './uloga/uloga.module';
 import { AutoskolaInfoModule } from './autoskolaInfo/autoskolaInfo.module';
 import { VoziloModule } from './vozilo/vozilo.module';
+import { PitanjeModule } from './pitanje/pitanje.module';
+import { InstruktorModule } from './instruktor/instruktor.module';
+import { MojProfilModule } from './moj-profil/moj-profil.module';
+import { StatusModule } from './status/status.module';
+import { IspitModule } from './ispit/ispit.module';
+import { SpinnerComponent } from './core/components/spinner/spinner.component';
+import { HttpErrorInterceptor } from './core/interceptors/spinner.intercepotr';
+import { PendingChangesGuard } from './core/guards/pending-changes.guard';
 
 // drugi loader factory za translate, koji se ne triggera na poziv interceptora jer se inace bugaju prijevodi
 export function translateHttpLoaderFactory(httpBackend: HttpBackend): TranslateHttpLoader {
@@ -27,7 +35,8 @@ export function translateHttpLoaderFactory(httpBackend: HttpBackend): TranslateH
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +47,11 @@ export function translateHttpLoaderFactory(httpBackend: HttpBackend): TranslateH
     UlogaModule,
     AutoskolaInfoModule,
     VoziloModule,
+    PitanjeModule,
+    InstruktorModule,
+    MojProfilModule,
+    StatusModule,
+    IspitModule,
     HttpClientModule,
     TableModule,
     SharedModule,
@@ -49,7 +63,13 @@ export function translateHttpLoaderFactory(httpBackend: HttpBackend): TranslateH
       }
     })
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS, 
+    useClass: HttpErrorInterceptor, 
+    multi: true
+  },
+  PendingChangesGuard
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

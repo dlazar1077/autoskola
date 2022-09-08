@@ -1,0 +1,36 @@
+<div>
+    <ng-container  *ngFor = "let pitanje of pitanja; let i = index;">
+        <ng-container *ngIf = "pitanje.odabiri">
+            <div style="border: 0.05em black solid;" *ngIf = "getArrayLength(pitanje.odabiri) > 1"  >
+                <div style="padding: 10px !important;">
+                    <h2>{{i+1}}. {{pitanje.tekstPitanja}}</h2>
+                    <div *ngIf = "pitanje.slika !== undefined && pitanje.slika !== null">
+                        <img [src]="pitanje.slika" style="height: 12.5em;">
+                    </div>
+                    <ng-container  *ngFor = "let odabir of pitanje.odabiri; let j = index;">
+                        <div class="field-checkbox" *ngIf = "odabir.tekst !== ''" style="margin: 1em;">
+                            <p-checkbox name="i" [label] ="odabir.tekst" [value]="odabir.sifra"  [(ngModel)]="pitanje.odgovor"  inputId="i"></p-checkbox>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div  style="border: 0.05em black solid;" *ngIf = "getArrayLength(pitanje.odabiri) === 1">
+                <div style="padding: 10px !important;">
+                    <h2>{{i+1}}. {{pitanje.tekstPitanja}}</h2>
+                    <div *ngIf = "pitanje.slika !== undefined && pitanje.slika !== null">
+                        <img [src]="pitanje.slika" style="height: 12.5em;">
+                    </div>
+                    <input type="text" pInputText id="tekst1" [(ngModel)]="pitanje.odgovor" required style="width: 75%;" />
+                </div>
+            </div>
+        </ng-container>
+        
+    </ng-container >
+</div>
+<div style="text-align: center;" *ngIf="pitanja.length !== 0">
+    <button style="margin: 50px; width: 25%;" pButton pRipple label="{{ 'buttons.endTest' | translate}}"  class="p-mr-2" (click)="zavrsiIspit()"></button>
+</div>
+
+<div style="margin-bottom: 10em;"></div>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

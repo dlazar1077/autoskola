@@ -1,18 +1,38 @@
-<div class="center-form">
+<p-toast></p-toast>
+<div class="center-form" style="min-width: fit-content; width: 66%;">
   <form>
-    <!-- Poplja -->
-    <div>
-      <h2>{{ 'user.username' | translate }}</h2>
-      <input name="username" type="text" pInputText [(ngModel)]="username"> 
+    <p-panel header="Prijava" >
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+      
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            {{ 'user.username' | translate }}
+          </div>
+          <div class="ui-grid-col-6">
+            <input name="username" type="text" pInputText [(ngModel)]="username">
+          </div>
+        </div>
 
-      <h2>{{ 'user.password' | translate }}</h2>
-      <p-password name="passowrd" [(ngModel)]="password" [feedback]="false"></p-password>
-    </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            {{ 'user.password' | translate }}
+          </div>
+          <div class="ui-grid-col-6">
+            <p-password name="passowrd" [(ngModel)]="password" [feedback]="false"></p-password>
+          </div>
+        </div>
 
-    <!-- Gumbi -->
-    <div class="margin-2">
-      <button pButton type="button" label="{{ 'navbar.signup' | translate}}" class="p-button-secondary button-margin-right" (click) = "signup()"></button>
-      <button pButton type="button" label="{{ 'navbar.login' | translate}}" (click) = "login()"></button>
-    </div>
+        <br>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2"></div>
+          <div class="ui-grid-col-6">
+            <button pButton type="button" label="{{ 'navbar.signup' | translate}}" class="p-button-secondary button-margin-right" (click) = "signup()"></button>
+            <button pButton type="submit" label="{{ 'navbar.login' | translate}}" (click) = "login()"></button>
+          </div>
+          <div class="ui-grid-col-4"></div>
+        </div>
+
+      </div>
+    </p-panel>
   </form>
 </div>  

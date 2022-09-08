@@ -1,20 +1,22 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { MessageService } from "primeng/api";
 import { AuthService } from "src/app/core/services/auth.service";
 import { SignupRequest } from "../../models/singup-request";
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+  styleUrls: ['./signup.component.scss'],
+  providers : [MessageService]
 })
 export class SignupComponent implements OnInit {
 
   signupForm: FormGroup = new FormGroup({});
   signupRequest !: SignupRequest;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService,  private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private authService: AuthService,  private router: Router, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.setForm();
@@ -45,9 +47,11 @@ export class SignupComponent implements OnInit {
 
     this.authService.signup(signupRequest).subscribe( (data : any ) => {
       if(!data?.message.toString().toLowerCase().includes("error")){
+        this.showSuccess(data.message);
         this.router.navigate(["/home"]);
       } else{
-        this.setForm();
+        this.showError(data.message);
+        //this.setForm();
       }
     });
   }
@@ -55,6 +59,14 @@ export class SignupComponent implements OnInit {
   signup(){
     this.saveFormData();
     
+  }
+
+  showSuccess(message : any) {
+    this.messageService.add({severity:'success', summary: 'Success', detail: message});
+  }
+
+  showError(message : any) {
+    this.messageService.add({severity:'error', summary: 'Error', detail: message});
   }
 
 }

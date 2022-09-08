@@ -1,5 +1,5 @@
 import { environment } from './../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -23,6 +23,15 @@ export class HttpService {
 
   deleteHttp(apiUrl: string, data?: any) {
     return this.http.delete<any>(`${environment.API_URL}/${apiUrl}`, { body: data });
+  }
+
+  getCodebooks(data : string[]) {
+    const apiUrl = "getCodebooks";
+    let params = new HttpParams();
+    for (let id of data) {
+      params = params.append('names', id); 
+    } 
+    return this.http.get<any>(`${environment.API_URL}/${apiUrl}`, { params: params });
   }
 
 }
