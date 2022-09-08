@@ -31,6 +31,7 @@ public class VoziloRepository implements FilterExportable {
 	}
 	
 	private static final String MAIN_TABLE = "vozilo";
+	private static final String INSTRUKTOR_VOZILO_TABLE = "instruktor_vozilo";
 	
 	private static final String VOZILO_ID = "VOZILO_ID";
 	private static final String KATEGORIJA_ID = "KATEGORIJA_ID";
@@ -38,6 +39,8 @@ public class VoziloRepository implements FilterExportable {
 	private static final String MODEL = "MODEL";
 	
 	private static final String DELETED = "DELETED";
+	
+	private static final String INSTRUKTOR_ID = "INSTRUKTOR_ID";
 	
 	private static final Map<String, String> mapOfStringColumns = Map.of("markaVozila",
 			MAIN_TABLE + "." + MARKA, "model", MAIN_TABLE + "." + MODEL);
@@ -69,6 +72,29 @@ public class VoziloRepository implements FilterExportable {
 		sqlSortHelper(query, sortColumn, sortDirection);
 		PageableHelper.sqlPaginationQueryUpdate(query, parameters, (currentPage - 1) * pageSize, pageSize);*/
 
+		return njdbc.query(query.toString(), parameters, BeanPropertyRowMapper.newInstance(Vozilo.class));
+	}
+	
+	/**
+	 * DAO metoda za dohvat svih objekta tipa Vozilo po instruktor Idu
+	 * 
+	 * @param getAllEntitiesRequest
+	 * @return List <Vozilo>
+	 * 
+	 * @author dlazar
+	 */
+	public List<Vozilo> getEntityByInstruktorId(String instruktorId) {
+		StringBuilder query = new StringBuilder();
+		MapSqlParameterSource parameters = new MapSqlParameterSource();
+
+		sqlSelectHelper(query);
+		query.append(" FROM " + MAIN_TABLE + " LEFT JOIN " + INSTRUKTOR_VOZILO_TABLE + " ON ");
+		query.append(" " + MAIN_TABLE + "." + VOZILO_ID + " = " + INSTRUKTOR_VOZILO_TABLE + "." + VOZILO_ID + " ");
+		query.append(" WHERE " + MAIN_TABLE + "." + DELETED + " = " + 0 + " AND " + INSTRUKTOR_VOZILO_TABLE + "." + INSTRUKTOR_ID + " = " + ":instruktorId ");
+		query.append(" AND " + INSTRUKTOR_VOZILO_TABLE + "." + DELETED + " = " + 0 );
+		
+		parameters.addValue("instruktorId", instruktorId);
+		
 		return njdbc.query(query.toString(), parameters, BeanPropertyRowMapper.newInstance(Vozilo.class));
 	}
 	

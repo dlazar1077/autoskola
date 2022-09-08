@@ -1,5 +1,7 @@
 package hr.autoskola.model;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,15 +11,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Korisnik {
+public class Instruktor {
 	
+	private Integer instruktorId;
 	private Integer korisnikId;
-	private Integer ulogaId;
-	private String ime;
-	private String prezime;
-	private String email;
-	private String korisnickoIme;
-	private String lozinka;
-	private String oib;
+	private Integer brojSlobodnihMjesta;
+	
+	private Korisnik korisnik;
+	private List<Vozilo> vozila;
 
 }

@@ -46,6 +46,17 @@ public class VoziloService {
 		return response;
 	}
 	
+	public GetAllEntitiesResponse<VoziloDto> getEntityByInstruktorId(String instruktorId){
+		
+		List<Vozilo> modelEntities=voziloRepository.getEntityByInstruktorId(instruktorId);
+		
+		GetAllEntitiesResponse<VoziloDto> response = new GetAllEntitiesResponse<>();
+		response.setTableData(modelEntities.stream().map(VoziloMapper::toVoziloDto).collect(Collectors.toList()));
+		return response;
+	}
+	
+	
+	
 	/**
 	 * Metoda za dodavanje vozila
 	 * @param voziloDto

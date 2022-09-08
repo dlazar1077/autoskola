@@ -15,6 +15,7 @@ import hr.autoskola.dto.model.shared.response.GenericHttpResponse;
 import hr.autoskola.model.FilterValue;
 import hr.autoskola.model.Uloga;
 import hr.autoskola.repository.UlogaRepository;
+import hr.autoskola.utilities.codebooks.service.CodebookService;
 import hr.autoskola.utilities.response.ResponseMessageEnum;
 import lombok.RequiredArgsConstructor;
 
@@ -23,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class UlogaService {
 	
 	private final UlogaRepository ulogaRepository;
+	private final CodebookService codebookService;
 	
 	/**
 	 * Servisna metoda za dohvaćanje svih uloga
@@ -52,15 +54,21 @@ public class UlogaService {
 	 * @return
 	 */
 	public GenericHttpResponse<Long> saveUloga(UlogaDto ulogaDto) {
-		GenericHttpResponse<Long> response;
-		Long id = ulogaRepository.saveUloga(UlogaMapper.toUloga(ulogaDto));
-		if(id > 0) {
-			response = new GenericHttpResponse<>(ResponseMessageEnum.ENTITY_INSERTED);
-			response.setData(id);
-		}else {
-			response = new GenericHttpResponse<>(ResponseMessageEnum.NOTHING_INSERTED);
+		try {
+			GenericHttpResponse<Long> response;
+			Long id = ulogaRepository.saveUloga(UlogaMapper.toUloga(ulogaDto));
+			if(id > 0) {
+				codebookService.refreshCodebooks();
+				response = new GenericHttpResponse<>(ResponseMessageEnum.ENTITY_INSERTED);
+				response.setData(id);
+			}else {
+				response = new GenericHttpResponse<>(ResponseMessageEnum.NOTHING_INSERTED);
+			}
+			return response;	
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return response;		
+		return new GenericHttpResponse<Long>();
 	}
 	
 	/**
@@ -69,14 +77,20 @@ public class UlogaService {
 	 * @return
 	 */
 	public GenericHttpResponse<Long> updateUloga(UlogaDto ulogaDto) {
-		GenericHttpResponse<Long> response;
-		Long numberOfUpdateRows;
-		
-		numberOfUpdateRows = ulogaRepository.updateUloga(UlogaMapper.toUloga(ulogaDto));
-		response = new GenericHttpResponse<>(numberOfUpdateRows > 0 ? ResponseMessageEnum.ENTITY_UPDATED :ResponseMessageEnum.NOTHING_UPDATED);
-		response.setData(numberOfUpdateRows);
-		
-		return response;		
+		try {
+			GenericHttpResponse<Long> response;
+			Long numberOfUpdateRows;
+			
+			numberOfUpdateRows = ulogaRepository.updateUloga(UlogaMapper.toUloga(ulogaDto));
+			codebookService.refreshCodebooks();
+			response = new GenericHttpResponse<>(numberOfUpdateRows > 0 ? ResponseMessageEnum.ENTITY_UPDATED :ResponseMessageEnum.NOTHING_UPDATED);
+			response.setData(numberOfUpdateRows);
+			
+			return response;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new GenericHttpResponse<Long>();
 	}
 
 	/**
@@ -85,7 +99,14 @@ public class UlogaService {
 	 * @return
 	 */
 	public Long deleteUloge(String id) {
-		return ulogaRepository.deleteUloge(id);
+		Long response = (long) 0;
+		try {
+			response = ulogaRepository.deleteUloge(id);
+			codebookService.refreshCodebooks();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return response;
 	}
 
 }

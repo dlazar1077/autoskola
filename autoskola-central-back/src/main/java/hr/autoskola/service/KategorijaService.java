@@ -15,6 +15,7 @@ import hr.autoskola.dto.model.shared.response.GenericHttpResponse;
 import hr.autoskola.model.FilterValue;
 import hr.autoskola.model.Kategorija;
 import hr.autoskola.repository.KategorijaRepository;
+import hr.autoskola.utilities.codebooks.service.CodebookService;
 import hr.autoskola.utilities.response.ResponseMessageEnum;
 import lombok.RequiredArgsConstructor;
 
@@ -23,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class KategorijaService {
 
 	private final KategorijaRepository kategorijaRepository;
+	private final CodebookService codebookService;
 	
 	/**
 	 * Servisna metoda za dohvaćanje svih kategorija
@@ -50,15 +52,21 @@ public class KategorijaService {
 	 * @return
 	 */
 	public GenericHttpResponse<Long> saveKategorija(KategorijaDto kategorijaDto) {
-		GenericHttpResponse<Long> response;
-		Long id = kategorijaRepository.saveKategorija(KategorijaMapper.toKategorija(kategorijaDto));
-		if(id > 0) {
-			response = new GenericHttpResponse<>(ResponseMessageEnum.ENTITY_INSERTED);
-			response.setData(id);
-		}else {
-			response = new GenericHttpResponse<>(ResponseMessageEnum.NOTHING_INSERTED);
+		try {
+			GenericHttpResponse<Long> response;
+			Long id = kategorijaRepository.saveKategorija(KategorijaMapper.toKategorija(kategorijaDto));
+			if(id > 0) {
+				codebookService.refreshCodebooks();
+				response = new GenericHttpResponse<>(ResponseMessageEnum.ENTITY_INSERTED);
+				response.setData(id);
+			}else {
+				response = new GenericHttpResponse<>(ResponseMessageEnum.NOTHING_INSERTED);
+			}
+			return response;
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return response;		
+		return new GenericHttpResponse<Long>();
 	}
 	
 	/**
@@ -67,14 +75,20 @@ public class KategorijaService {
 	 * @return
 	 */
 	public GenericHttpResponse<Long> updateKategorija(KategorijaDto kategorijaDto) {
-		GenericHttpResponse<Long> response;
-		Long numberOfUpdateRows;
-		
-		numberOfUpdateRows = kategorijaRepository.updateKategorija(KategorijaMapper.toKategorija(kategorijaDto));
-		response = new GenericHttpResponse<>(numberOfUpdateRows > 0 ? ResponseMessageEnum.ENTITY_UPDATED :ResponseMessageEnum.NOTHING_UPDATED);
-		response.setData(numberOfUpdateRows);
-		
-		return response;		
+		try {
+			GenericHttpResponse<Long> response;
+			Long numberOfUpdateRows;
+			
+			numberOfUpdateRows = kategorijaRepository.updateKategorija(KategorijaMapper.toKategorija(kategorijaDto));
+			codebookService.refreshCodebooks();
+			response = new GenericHttpResponse<>(numberOfUpdateRows > 0 ? ResponseMessageEnum.ENTITY_UPDATED :ResponseMessageEnum.NOTHING_UPDATED);
+			response.setData(numberOfUpdateRows);
+			
+			return response;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new GenericHttpResponse<Long>();	
 	}
 
 	/**
@@ -83,6 +97,14 @@ public class KategorijaService {
 	 * @return
 	 */
 	public Long deleteKategorija(String id) {
-		return kategorijaRepository.deleteKategorija(id);
+		Long response = (long) 0;
+		try {
+			response = kategorijaRepository.deleteKategorija(id);
+			codebookService.refreshCodebooks();
+			return response;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return response;
 	}
 }

@@ -9,15 +9,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Korisnik {
+public class Polaznik {
 	
+	private Integer polaznikId;
 	private Integer korisnikId;
-	private Integer ulogaId;
-	private String ime;
-	private String prezime;
-	private String email;
-	private String korisnickoIme;
-	private String lozinka;
-	private String oib;
+	private Integer instruktorId;
+	private Integer statusPolaznikaId;
+	private Integer odabranaKategorijaId;
+	
+	private Korisnik korisnik;
+	private Instruktor instruktor;
 
 }

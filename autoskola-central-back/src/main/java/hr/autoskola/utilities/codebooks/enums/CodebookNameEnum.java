@@ -7,7 +7,8 @@ import lombok.Getter;
 public enum CodebookNameEnum {
 	
 	uloge("uloge", "ULOGA_ID", "NAZIV", null, null, null, "NAZIV_EN", false),
-	kategorije("kategorije", "KATEGORIJA_ID", "NAZIV", null, null, null, "NAZIV_EN", false);
+	kategorije("kategorije", "KATEGORIJA_ID", "NAZIV", null, null, null, "NAZIV_EN", false),
+	statusPolaznika("status_polaznika", "STATUS_POLAZNIKA_ID", "NAZIV", null, null, null, "NAZIV_EN", false);
 	
 	@Getter private String tableName;
 	@Getter private String idColumnName;

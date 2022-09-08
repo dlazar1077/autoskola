@@ -1,4 +1,4 @@
-package hr.autoskola.model;
+package hr.autoskola.dto.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Korisnik {
+public class KorisnikDto {
 	
 	private Integer korisnikId;
 	private Integer ulogaId;
