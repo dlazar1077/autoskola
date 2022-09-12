@@ -18,7 +18,8 @@
     "instructor" : "Instruktori",
     "myProfile" : "Moj profil",
     "statuses" : "Status polaznika",
-    "exam" : "Ispit"
+    "exam" : "Ispit",
+    "participants" : "Polaznici"
   },
 
   "message" : {
@@ -37,9 +38,10 @@
     "browse" : "Pretraži",
     "edit" : "Uredi",
     "startTest" : "Započni test",
-    "singUp" : "Upiši se",
+    "signUp" : "Upiši se",
     "endTest" : "Završi test",
-    "chooseInstructor" : "Izaberi instruktora"
+    "chooseInstructor" : "Izaberi instruktora",
+    "forgetPassword" : "Zaboravili ste lozinku?"
   },
 
   "table" : {
@@ -105,7 +107,8 @@
     "brand" : "Marka",
     "model": "Model",
     "newVehicle" : "Novo vozilo",
-    "editVehicle" : "Ažuriranje vozila"
+    "editVehicle" : "Ažuriranje vozila",
+    "registration" : "Registarske oznake"
   },
 
   "question" : {
@@ -167,6 +170,36 @@
     "points" : "Ostvaren broj bodova",
     "date" : "Datum",
     "fullName" : "Ime i prezime",
-    "status" : "Status"
+    "status" : "Status",
+    "examReveiw" : "Pregled ispita"
+  },
+
+  "participants" : {
+    "participants" : "polaznika",
+    "fullName" : "Ime i prezime",
+    "status" : "Status",
+    "category" : "Kategorija",
+    "numberOfClasses" : "Sati vožnje"
+  },
+
+  "log" : {
+    "drivingLog" : "Dnevnik vožnje",
+    "hours" : "sati",
+    "hour" : "Redni broj sati",
+    "description" : "Opis",
+    "date" : "Datum",
+    "vehicle" : "Vozilo",
+    "registration" : "Registarske oznake vozila",
+    "newHour" : "Novi sat",
+    "editHour" : "Ažuriranje sata"
+  },
+
+  "about" : {
+    "about..." : "O nama ...",
+    "contact" : "Kontakt",
+    "name" : "Naziv autoškole",
+    "address" : "Adresa",
+    "email" : "E-mail",
+    "contactNumber" : "Kontak broj"
   }
 }

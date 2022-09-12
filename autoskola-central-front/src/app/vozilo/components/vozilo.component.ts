@@ -23,6 +23,7 @@ import { InfoService } from "src/app/core/services/info.service";
     currentLangSubscription : any;
 
     codebooks: any;
+    odabranaKategorija:any;
 
   constructor(
     private http: HttpService, 
@@ -63,6 +64,9 @@ import { InfoService } from "src/app/core/services/info.service";
 
     editVozilo(vozilo: any) {
         this.vozilo = {...vozilo};
+        this.odabranaKategorija = {
+            id : this.vozilo.kategorijaId.toString()
+        }
         this.voziloDialog = true;
     }
 
@@ -70,10 +74,14 @@ import { InfoService } from "src/app/core/services/info.service";
         this.vozilo = {};
         this.submitted = false;
         this.voziloDialog = true;
+        this.odabranaKategorija = {
+            id : this.codebooks.kategorije[0].id.toString()
+        }
     }
 
     saveVozilo() {
         this.submitted = true;
+        this.vozilo.kategorijaId = this.odabranaKategorija.id;
 
         if (this.checkVozilo()) {
             if (this.vozilo.voziloId) {

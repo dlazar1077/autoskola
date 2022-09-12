@@ -15,6 +15,10 @@ export class LoginComponent implements OnInit {
   public username !: string ;
   public password !: string ;
 
+  public forgetDialog !: boolean;
+  public submitted !: boolean;
+  public forgetUsername !: string;
+
   constructor(private authService: AuthService, private router: Router, private messageService: MessageService) { }
 
   ngOnInit(): void {}
@@ -42,5 +46,38 @@ export class LoginComponent implements OnInit {
 
   showError(message : any) {
     this.messageService.add({severity:'error', summary: 'Error', detail: message});
+  }
+
+  hideDialog(){
+    this.forgetDialog = false;
+    this.forgetUsername = "";
+  }
+
+  forgetPasswordPassword(){
+    this.submitted = true;
+
+    if(this.forgetUsername !== ""){
+      this.authService.forgetPassword(this.forgetUsername)
+      .pipe(first())
+      .subscribe((data: any) => {
+        if(data.message.includes("Error")){
+          this.showError("Korisničko ime ne posotji!");
+          this.hideDialog();
+        } else{
+          this.showSuccess("Provijerite e-mail!");
+          this.hideDialog();
+        }
+      }, (error : any) => {
+        this.showError("Korisničko ime ne posotji!");
+        this.hideDialog();
+      }
+      )
+    }
+  }
+
+  openDialog(){
+    this.forgetDialog = true;
+    this.submitted = false;
+    this.forgetUsername = "";
   }
 }

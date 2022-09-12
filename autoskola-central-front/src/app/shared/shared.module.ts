@@ -21,9 +21,14 @@ import {RadioButtonModule} from 'primeng/radiobutton';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {AccordionModule} from 'primeng/accordion';
 import {ToastModule} from 'primeng/toast';
+import {CalendarModule} from 'primeng/calendar';
+import { DnevnikVoznjeComponent } from '../pregled-polaznika/components/dnevnik-voznje/dnevnik-voznje.component';
 
 
 @NgModule({
+  declarations : [
+    DnevnikVoznjeComponent
+  ],
   imports: [
     MenubarModule,
     InputTextModule,
@@ -43,6 +48,7 @@ import {ToastModule} from 'primeng/toast';
     HttpClientModule,
     InputNumberModule,
     CheckboxModule,
+    CalendarModule,
     RadioButtonModule,
     MultiSelectModule,
     AccordionModule,
@@ -67,10 +73,12 @@ import {ToastModule} from 'primeng/toast';
     HttpClientModule,
     InputNumberModule,
     CheckboxModule,
+    CalendarModule,
     RadioButtonModule,
     MultiSelectModule,
     AccordionModule,
-    ToastModule
+    ToastModule,
+    DnevnikVoznjeComponent
   ]
 })
 export class SharedModule { }

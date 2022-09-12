@@ -1,15 +1,4 @@
 <div class="card">
-    <!--p-toolbar styleClass="p-mb-4">
-        <ng-template pTemplate="left">
-            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
-            <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
-        </ng-template>
-
-        <ng-template pTemplate="right">
-            <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="p-mr-2 p-d-inline-block"></p-fileUpload>
-            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
-        </ng-template>
-    </p-toolbar -->
 
     <p-table #dt [value]="ispiti" [rows]="infoService.brojZapisa" [paginator]="true"  [globalFilterFields]="['maksimalniBrojBodova','statusIspita','ostvareniBrojBodova', 'ime', 'creationDate']"
     [(selection)]="odabraniIspit" [rowHover]="true" dataKey="id" sortField="sifra" [sortOrder]="1">
@@ -53,10 +42,18 @@
 
 <p-dialog [(visible)]="ispitDialog" [style]="{width: '900px'}" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="header">
-        {{  'category.editCategory' | translate}}
+        {{  'exam.examReveiw' | translate}}
     </ng-template>
 
     <ng-template pTemplate="content">
+        <ng-container>
+            <div style="border: 0.05em black solid;">
+                <p style="padding: 10px !important;"><b>{{ 'exam.date' | translate}}:</b> {{ispitInfo.creationDate | date: 'dd.MM.yyyy HH:mm:ss'}}</p>
+                <p style="padding: 10px !important;"><b>{{ 'exam.fullName' | translate}}:</b> {{ispitInfo.korisnik.ime}} {{ispitInfo.korisnik.prezime}}</p>
+                <p style="padding: 10px !important;"><b>{{ 'exam.points' | translate}}:</b> {{ispitInfo.ostvareniBrojBodova}}/{{ispitInfo.maksimalniBrojBodova}}</p>
+                <p style="padding: 10px !important;"><b>{{ 'exam.status' | translate}}:</b> <span [ngClass] = "getClassAboutStatus(ispitInfo.statusIspita)"> {{ispitInfo.statusIspita}}</span></p>
+            </div>
+        </ng-container>
         <ng-container  *ngFor = "let pitanje of ispitInfo.pitanja; let i = index;">
             <ng-container *ngIf = "pitanje.odabiri">
                 <div style="border: 0.05em black solid;" *ngIf = "getArrayLength(pitanje.odabiri) > 1"  >

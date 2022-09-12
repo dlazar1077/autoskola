@@ -26,6 +26,7 @@ import { IspitModule } from './ispit/ispit.module';
 import { SpinnerComponent } from './core/components/spinner/spinner.component';
 import { HttpErrorInterceptor } from './core/interceptors/spinner.intercepotr';
 import { PendingChangesGuard } from './core/guards/pending-changes.guard';
+import { PregledPolaznikaModule } from './pregled-polaznika/pregled-polaznika.module';
 
 // drugi loader factory za translate, koji se ne triggera na poziv interceptora jer se inace bugaju prijevodi
 export function translateHttpLoaderFactory(httpBackend: HttpBackend): TranslateHttpLoader {
@@ -52,6 +53,7 @@ export function translateHttpLoaderFactory(httpBackend: HttpBackend): TranslateH
     MojProfilModule,
     StatusModule,
     IspitModule,
+    PregledPolaznikaModule,
     HttpClientModule,
     TableModule,
     SharedModule,

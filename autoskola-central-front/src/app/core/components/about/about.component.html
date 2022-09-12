@@ -1,1 +1,20 @@
-<h1> Ovo je about </h1>
+<div>
+    <div style="text-align: center; border: dotted 1px black;">
+        <h1> {{'about.about...' | translate}} </h1>
+        <p style="font-size: larger;">
+            {{infoService.oNama}}
+        </p>
+    </div>
+    <div style="height: 10em;"></div>
+    <div style="text-align: center; border: dotted 1px black;">
+        <div class="allign-centar">
+            <h1> {{'about.contact' | translate}} </h1>
+            <div class="text-left; font-size: larger">
+                <p><b>{{'about.name' | translate}}: </b>  <span>{{infoService?.nazivAutoskole}}</span></p>
+                <p><b>{{'about.address' | translate}}: </b>  <span>{{infoService?.adresa}}</span></p>
+                <p><b>{{'about.email' | translate}}: </b>  <span>{{infoService?.email}}</span></p>
+                <p><b>{{'about.contactNumber' | translate}}: </b>  <span>{{infoService?.kontaktBroj}}</span></p>
+            </div>
+        </div>
+    </div>
+</div>

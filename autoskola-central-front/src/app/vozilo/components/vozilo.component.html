@@ -1,6 +1,6 @@
 <div class="card">
 
-    <p-table #dt [value]="vozila" [rows]="infoService.brojZapisa" [paginator]="true"  [globalFilterFields]="['kategorijaId','markaVozila','model']"
+    <p-table #dt [value]="vozila" [rows]="infoService.brojZapisa" [paginator]="true"  [globalFilterFields]="['kategorijaId','markaVozila','model','registracija']"
     [(selection)]="odabranoVozilo" [rowHover]="true" dataKey="id" sortField="sifra" [sortOrder]="1">
     <ng-template pTemplate="caption">
         <div class="flex align-items-center justify-content-between">
@@ -9,7 +9,7 @@
                 <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')" placeholder="{{ 'table.search' | translate}}" />
             </span>
             <span style="float: right;">
-                <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+                <button pButton pRipple label="{{ 'buttons.new' | translate}}" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
             </span>
         </div>
     </ng-template>
@@ -18,6 +18,7 @@
             <th pSortableColumn="sifra">{{ 'vehicle.category' | translate}} <p-sortIcon field="kategorijaId"></p-sortIcon></th>
             <th pSortableColumn="markaVozila">{{ 'vehicle.brand' | translate}} <p-sortIcon field="markaVozila"></p-sortIcon></th>
             <th pSortableColumn="model">{{ 'vehicle.model' | translate}} <p-sortIcon field="model"></p-sortIcon></th>
+            <th pSortableColumn="registracija">{{ 'vehicle.registration' | translate}} <p-sortIcon field="registracija"></p-sortIcon></th>
             <th></th>
         </tr>
     </ng-template>
@@ -27,6 +28,7 @@
             <td>{{categoryConverter(vozilo.kategorijaId)}}</td> 
             <td>{{vozilo.markaVozila}}</td>
             <td>{{vozilo.model}}</td>
+            <td>{{vozilo.registracija}}</td>
             <td>
                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click) = "editVozilo(vozilo)" ></button>
                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"(click) = "deleteVozilo(vozilo)" ></button>
@@ -49,7 +51,7 @@
     <ng-template pTemplate="content">
         <div class="p-field">
             <label for="name">{{ 'vehicle.category' | translate}}</label>
-            <p-dropdown [options]="codebooks.kategorije" [(ngModel)]="vozilo.kategorijaId" optionLabel="name" optionValue="id" appendTo="body" ></p-dropdown>
+            <p-dropdown [options]="codebooks.kategorije" [(ngModel)]="odabranaKategorija.id" optionLabel="name" optionValue="id" appendTo="body" ></p-dropdown>
             <small class="p-invalid" *ngIf="submitted && !vozilo.kategorijaId">{{ 'vehicle.category' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
         </div>
         <div class="p-field">
@@ -61,6 +63,11 @@
             <label for="name">{{ 'vehicle.model' | translate}}</label>
             <input type="text" pInputText id="sifra" [(ngModel)]="vozilo.model" required autofocus />
             <small class="p-invalid" *ngIf="submitted && !vozilo.model">{{ 'vehicle.model' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+        <div class="p-field">
+            <label for="name">{{ 'vehicle.registration' | translate}}</label>
+            <input type="text" pInputText id="registracija" [(ngModel)]="vozilo.registracija" required autofocus />
+            <small class="p-invalid" *ngIf="submitted && !vozilo.registracija">{{ 'vehicle.registration' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
         </div>
     </ng-template>
     

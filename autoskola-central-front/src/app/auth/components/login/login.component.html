@@ -1,7 +1,7 @@
 <p-toast></p-toast>
 <div class="center-form" style="min-width: fit-content; width: 66%;">
   <form>
-    <p-panel header="Prijava" >
+    <p-panel header="{{ 'navbar.login' | translate }}" >
       <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
       
         <div class="ui-grid-row">
@@ -31,8 +31,27 @@
           </div>
           <div class="ui-grid-col-4"></div>
         </div>
-
+        <p style="text-align: center; color: lightblue; "><a href="javascript:void(0);" (click) = "openDialog()">{{ 'buttons.forgetPassword' | translate}}</a></p>
       </div>
     </p-panel>
   </form>
 </div>  
+
+<!-- Dialog za upis -->
+<p-dialog [(visible)]="forgetDialog" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="header">
+      {{ 'buttons.forgetPassword'| translate}}
+  </ng-template>
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <label for="name"> {{ 'user.username' | translate }}</label>
+      <input type="text" pInputText id="name"[(ngModel)]="forgetUsername" required />
+      <small style="color: red;" class="p-invalid" *ngIf="submitted && forgetUsername === ''"> {{ 'user.username' | translate }} {{ 'errorMessage.isRequired' | translate}}</small>
+    </div>
+  </ng-template>
+  
+  <ng-template pTemplate="footer">
+      <button pButton pRipple label="{{ 'buttons.cancel' | translate}}" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+      <button pButton pRipple label="{{ 'buttons.save' | translate}}" icon="pi pi-check" class="p-button-text"   (click)="forgetPasswordPassword()"></button>
+  </ng-template>
+</p-dialog>

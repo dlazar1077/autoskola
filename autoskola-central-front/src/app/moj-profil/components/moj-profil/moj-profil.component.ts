@@ -223,7 +223,15 @@ import { HttpService } from "src/app/core/services/http.service";
 
     saveInstruktor(){
         this.editPolaznik.korisnik.lozinka = "";
+        var instruktor : Instruktor | undefined= this.slobodniInstruktori.find((x:any) => x.instruktorId.toString() === this.editPolaznik.instruktorId?.toString());
+        if(instruktor !== undefined) {
+            instruktor.korisnik.lozinka = "";
+            instruktor.brojSlobodnihMjesta = instruktor.brojSlobodnihMjesta - 1 ;
+        }
         this.http.putHttp("updatePolaznik", this.editPolaznik).subscribe(() => {
+            if(instruktor !== undefined) {
+                this.http.putHttp("updateInstruktor", instruktor).subscribe();
+            }
             this.editKorisnik = new Korisnik();
              this.getMyProfileData();
              this.hideInstructorDialog();

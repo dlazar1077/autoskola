@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { map } from 'rxjs/operators';
@@ -79,6 +79,12 @@ export class AuthService {
 
   signup(signupRequest : SignupRequest){
     return this.http.post<any>(`${environment.LOGIN_URL}/signup`, signupRequest);
+  }
+
+  forgetPassword(korIme : string){
+    let params = new HttpParams();
+    params = params.append('username', korIme);
+    return this.http.get<any>(`${environment.LOGIN_URL}/forgetPassword`, {params: params });
   }
 
 }

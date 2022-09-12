@@ -1,3 +1,4 @@
+import { Korisnik } from "./korisnik";
 import { Pitanje } from "./pitanje";
 
 export class Ispit{
@@ -6,7 +7,9 @@ export class Ispit{
     korisnikId : number | undefined;
     maksimalniBrojBodova !: number;
     ostvareniBrojBodova !: number ;
-    statusIspita : String | undefined;
+    statusIspita !: string;
+    creationDate !: string;
 
     pitanja : Pitanje[] | undefined;
+    korisnik !: Korisnik;
 }

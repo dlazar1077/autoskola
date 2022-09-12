@@ -1,0 +1,90 @@
+<div class="card">
+
+    <p-table #dt [value]="polaznik.dnevnikVoznje" [rows]="infoService.brojZapisa" [paginator]="true"  [globalFilterFields]="['brojSata','opis','.vozilo.markaVozila','vozilo.model','vozilo.registracija','datum']"
+     [rowHover]="true" dataKey="id" sortField="brojSata" [sortOrder]="1">
+    <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')" placeholder="{{ 'table.search' | translate}}" />
+            </span>
+            
+            <span *ngIf="authService.isModerator()" style="float: right;">
+                <button pButton pRipple label="{{ 'buttons.new' | translate}}" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="brojSata">{{ 'log.hour' | translate}} <p-sortIcon field="brojSata"></p-sortIcon></th>
+            <th pSortableColumn="opis">{{ 'log.description' | translate}} <p-sortIcon field="opis"></p-sortIcon></th>
+            <th pSortableColumn=".vozilo.markaVozila">{{ 'log.vehicle' | translate}} <p-sortIcon field=".vozilo.markaVozila"></p-sortIcon></th>
+            <th pSortableColumn="vozilo.registracija">{{ 'log.registration' | translate}} <p-sortIcon field="vozilo.registracija"></p-sortIcon></th>
+            <th pSortableColumn="datum">{{ 'log.date' | translate}} <p-sortIcon field="datum"></p-sortIcon></th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-sat>
+        <tr>
+            <td>{{sat.brojSata}}</td> 
+            <td>{{sat.opis}}</td>
+            <td>{{sat.vozilo.markaVozila}} {{sat.vozilo.model}}</td>
+            <td>{{sat.vozilo.registracija}}</td>
+            <td>{{sat.datum |date:'dd.MM.yyyy HH:mm:ss'}}</td>
+            <td>
+                <button *ngIf="authService.isModerator()" pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click) = "editSat(sat)" ></button>
+                <button *ngIf="authService.isModerator()" pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"(click) = "deleteSat(sat)" ></button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between">
+            {{ 'table.totalMessage' | translate}} {{polaznik.dnevnikVoznje ? polaznik.dnevnikVoznje.length : 0 }} {{ 'log.hours' | translate}}.
+        </div>
+    </ng-template>
+    </p-table>
+</div>
+
+
+<p-dialog [(visible)]="satDialog" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        {{ (sat.satVoznjeId ? 'log.editHour' : 'log.newHour') | translate}}
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div class="p-field">
+            <label for="name">{{ 'log.hour' | translate}}</label>
+            <p-inputNumber inputId="brojBodova" [(ngModel)]="sat.brojSata">
+            </p-inputNumber>
+            <small class="p-invalid" *ngIf="submitted && !sat.brojSata">{{ 'log.hour' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+         </div>
+        <div class="p-field">
+            <label for="opis">{{ 'log.description' | translate}}</label>
+            <textarea id="opis" rows="5" cols="30" pInputTextarea  [(ngModel)]="sat.opis" required  style="width: 100%; max-width: 100%;" autoResize="autoResize"></textarea>
+            <small class="p-invalid" *ngIf="submitted && !sat.opis">{{ 'log.description' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+        <div class="p-field">
+            <label for="vozila">{{ 'log.vehicle' | translate}}</label>
+            <p-dropdown [options]="vozila" [(ngModel)]="sat.voziloId" optionValue="voziloId"  appendTo="body" >
+                <ng-template let-vozilo pTemplate="selectedItem">
+                    <ng-container >{{vozilo.markaVozila}} {{vozilo.model}} ({{vozilo.registracija}})</ng-container>
+                </ng-template>
+                <ng-template let-vozilo pTemplate="item">
+                    <div class="item">
+                         <div>{{vozilo.markaVozila}} {{vozilo.model}} ({{vozilo.registracija}}) </div>
+                 </div>
+                </ng-template>
+             </p-dropdown>
+        </div>
+        <div class="field col-12 md:col-4">
+            <label for="time">{{ 'log.date' | translate}}</label>
+            <p-calendar [(ngModel)]="date1" dateFormat="dd.mm.yy." [showTime]="true" [showSeconds]="true" inputId="time" appendTo = "body"></p-calendar>
+        </div>
+    </ng-template>
+    
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="{{ 'buttons.cancel' | translate}}" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="{{ 'buttons.save' | translate}}" icon="pi pi-check" class="p-button-text"   (click)="saveSat()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

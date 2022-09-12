@@ -59,6 +59,13 @@ export class HeaderComponent implements OnInit {
         routerLinkActiveOptions: { exact: true }
       },
       {
+        label: this.translateService.instant('navbar.participants'),
+        icon : 'pi pi-user',
+        visible : this.authService.isModerator(),
+        routerLink: ['/participants'],
+        routerLinkActiveOptions: { exact: true }
+      },
+      {
         label: this.translateService.instant('navbar.about'),
         icon : 'pi pi-book',
         routerLink: ['/about'],

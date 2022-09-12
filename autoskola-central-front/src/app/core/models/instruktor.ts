@@ -5,7 +5,7 @@ export class Instruktor{
 
     instruktorId : number | undefined;
     korisnikId : number | undefined;
-    brojSlobodnihMjesta: number |undefined;
+    brojSlobodnihMjesta!: number;
 
     korisnik : Korisnik  = new Korisnik();
     vozila : Vozilo[] | undefined;

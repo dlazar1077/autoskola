@@ -18,7 +18,8 @@
     "instructor" : "Instructors",
     "myProfile" : "My profile",
     "statuses" : "Status",
-    "exam" : "Exam"
+    "exam" : "Exam",
+    "participants" : "Participants"
   },
 
   "message" : {
@@ -37,9 +38,10 @@
     "browse" : "Browse",
     "edit" : "Edit",
     "startTest" : "Start the test",
-    "singUp" : "Sing up",
+    "signUp" : "Sing up",
     "endTest" : "End test",
-    "chooseInstructor" : "Choose instructor"
+    "chooseInstructor" : "Choose instructor",
+    "forgetPassword" : "Forget password?"
   },
 
   "table" : {
@@ -105,7 +107,8 @@
     "brand" : "Brand",
     "model": "Model",
     "newVehicle" : "New vehicle",
-    "editVehicle" : "Edit vehicle"
+    "editVehicle" : "Edit vehicle",
+    "registration" : "Registration marks"
   },
 
   "question" : {
@@ -167,6 +170,36 @@
     "points" : "Points",
     "date" : "Date",
     "fullName" : "Full name",
-    "status" : "Status"
+    "status" : "Status",
+    "examReveiw" : "Exam review"
+  },
+
+  "participants" : {
+    "participants" : "participants",
+    "fullName" : "Full name",
+    "status" : "Status",
+    "category" : "Category",
+    "numberOfClasses" : "Number Of classes"
+  },
+
+  "log" : {
+    "drivingLog" : "Driving Log",
+    "hours" : "sati",
+    "hour" : "Redni broj sati",
+    "description" : "Opis",
+    "date" : "Datum",
+    "vehicle" : "Vozilo",
+    "registration" : "Registarske oznake vozila",
+    "newHour" : "New hour",
+    "editHour" : "Edit hour"
+  },
+
+  "about" : {
+    "about..." : "About us ...",
+    "contact" : "Contact",
+    "name" : "Driving school name",
+    "address" : "Address",
+    "email" : "E-mail",
+    "contactNumber" : "Contact number"
   }
 }

@@ -7,7 +7,7 @@
             <ng-container *ngIf = "statusConverter(polaznik?.statusPolaznikaId) === 'Upisan' && !authService.isAdminRoleRight() && !authService.isModerator()">
                 <button pButton pRipple label="{{'buttons.startTest' | translate}}" (click) = "generirajTest()"  class="p-button-success"></button> 
             </ng-container>
-            <ng-container *ngIf = "statusConverter(polaznik?.statusPolaznikaId) === 'Položio test' && !authService.isAdminRoleRight() && !authService.isModerator()">
+            <ng-container *ngIf = "statusConverter(polaznik?.statusPolaznikaId) === 'Položio test' && polaznik?.instruktorId === null && !authService.isAdminRoleRight() && !authService.isModerator()">
                 <button pButton pRipple label="{{'buttons.chooseInstructor' | translate}}" (click) = "odaberiInstruktora()"  class="p-button-success"></button> 
             </ng-container>
             <button pButton pRipple label="{{'buttons.edit' | translate}}" icon ="pi pi-user-edit" (click) = "openEditDialog()"></button>
@@ -43,10 +43,12 @@
             [id]="korisnik.korisnikId"
         </app-pregled-ispita>
     </p-accordionTab>
-    <p-accordionTab header="Header III">
-        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+    <p-accordionTab header="{{'log.drivingLog' | translate}}"  *ngIf = "polaznik">
+        <app-dnevnik-voznje
+            [instruktor] = "instruktor"
+            [polaznik] = "polaznik"
+            [vozila] = "vozila"
+        ></app-dnevnik-voznje> 
     </p-accordionTab>
 </p-accordion>
 
