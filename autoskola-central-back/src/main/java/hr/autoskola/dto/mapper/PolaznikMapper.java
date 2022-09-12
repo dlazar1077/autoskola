@@ -1,9 +1,14 @@
 package hr.autoskola.dto.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import hr.autoskola.dto.model.PolaznikDto;
+import hr.autoskola.dto.model.SatDto;
 import hr.autoskola.model.Polaznik;
+import hr.autoskola.model.Sat;
 
 @Component
 public class PolaznikMapper {
@@ -29,6 +34,15 @@ public class PolaznikMapper {
 		if(polaznik.getInstruktor() != null) {
 			returnObject.setInstruktor(InstruktorMapper.toInstruktorDto(polaznik.getInstruktor()));
 		}
+		
+		if(polaznik.getDnevnikVoznje() != null) {
+			List<SatDto> denvnikVoznjeDto = new ArrayList<SatDto>();
+			for(Sat denvnikVoznje : polaznik.getDnevnikVoznje()) {
+				denvnikVoznjeDto.add(SatMapper.toSatDto(denvnikVoznje));
+			}
+			returnObject.setDnevnikVoznje(denvnikVoznjeDto);
+		}
+		
 		return returnObject;
 	}
 	
@@ -52,6 +66,14 @@ public class PolaznikMapper {
 		
 		if(polaznikDto.getInstruktor() != null) {
 			returnObject.setInstruktor(InstruktorMapper.toInstruktor(polaznikDto.getInstruktor()));
+		}
+		
+		if(polaznikDto.getDnevnikVoznje() != null) {
+			List<Sat> denvnikVoznje = new ArrayList<Sat>();
+			for(SatDto denvnikVoznjeDto : polaznikDto.getDnevnikVoznje()) {
+				denvnikVoznje.add(SatMapper.toSat(denvnikVoznjeDto));
+			}
+			returnObject.setDnevnikVoznje(denvnikVoznje);
 		}
 		
 		return returnObject;

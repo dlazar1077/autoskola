@@ -50,6 +50,33 @@ public class PolaznikRepository {
 	}
 	
 	/**
+	 * DAO metoda za dohvat Polaznika po nejgovom IDu
+	 * 
+	 * @param polaznikId
+	 * @return Polaznik
+	 * 
+	 * @author dlazar
+	 */
+	public Polaznik getEntityById(String polaznikId) {
+		StringBuilder query = new StringBuilder();
+		MapSqlParameterSource parameters = new MapSqlParameterSource();
+
+		sqlSelectHelper(query);
+		sqlJoinHelper(query);
+		query.append( " AND " + MAIN_TABLE + "." + POLAZNIK_ID + " = :polaznikId");
+		
+		parameters.addValue("polaznikId", polaznikId);
+
+		List<Polaznik> polaznik = njdbc.query(query.toString(), parameters, BeanPropertyRowMapper.newInstance(Polaznik.class));
+
+		if(polaznik.isEmpty() || polaznik == null) {
+			return null;
+		}
+		
+		return polaznik.get(0);
+	}
+	
+	/**
 	 * DAO metoda za dohvat Polaznika
 	 * 
 	 * @param 
@@ -74,6 +101,28 @@ public class PolaznikRepository {
 		}
 		
 		return polaznik.get(0);
+	}
+	
+	/**
+	 * DAO metoda za dohvat Polaznika po instruktoru
+	 * 
+	 * @param insturktorId
+	 * @return List<Polaznik>
+	 * 
+	 * @author dlazar
+	 */
+	public List<Polaznik> getEntitiesByInstruktorId(String insturktorId) {
+		StringBuilder query = new StringBuilder();
+		MapSqlParameterSource parameters = new MapSqlParameterSource();
+
+		sqlSelectHelper(query);
+		sqlJoinHelper(query);
+		query.append( " AND " + MAIN_TABLE + "." + INSTRUKTOR_ID + " = :insturktorId");
+		
+		parameters.addValue("insturktorId", insturktorId);
+
+		return njdbc.query(query.toString(), parameters, BeanPropertyRowMapper.newInstance(Polaznik.class));
+
 	}
 	
 	/**

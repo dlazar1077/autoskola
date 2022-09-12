@@ -62,6 +62,7 @@ public class IspitService {
 		IspitDto response =IspitMapper.toIspitDto(modelEntities);
 		
 		if(response != null) {
+			response.setKorisnik(korisnikService.getEntityByKorisnikId(response.getKorisnikId().toString()));
 			response.setPitanja(pitanjeService.getAllEntitiesByIspitId(response.getIspitId().toString()));
 		}
 		

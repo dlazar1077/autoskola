@@ -1,18 +1,14 @@
 package hr.autoskola.service;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import hr.autoskola.dto.mapper.VoziloMapper;
-import hr.autoskola.dto.mapper.filter.FilterValueMapper;
 import hr.autoskola.dto.model.VoziloDto;
-import hr.autoskola.dto.model.shared.GetAllEntitiesRequest;
 import hr.autoskola.dto.model.shared.GetAllEntitiesResponse;
 import hr.autoskola.dto.model.shared.response.GenericHttpResponse;
-import hr.autoskola.model.FilterValue;
 import hr.autoskola.model.Vozilo;
 import hr.autoskola.repository.VoziloRepository;
 import hr.autoskola.utilities.response.ResponseMessageEnum;
@@ -30,13 +26,6 @@ public class VoziloService {
 	 * @return
 	 */
 	public GetAllEntitiesResponse<VoziloDto> getAllEntities(){
-		/*Map<String, FilterValue> filterColumns = dataRequest.getFilterColumns() == null ? null :
-			dataRequest.getFilterColumns().entrySet().stream()
-		    .collect(Collectors.toMap(Map.Entry::getKey, e -> FilterValueMapper.toFilterValue(e.getValue())));
-
-		List<Vozilo> modelEntities=voziloRepository.getAllEntities(filterColumns, dataRequest.getGlobalSearchString(), 
-				dataRequest.getCurrentPage(), dataRequest.getPageSize(), dataRequest.getSortColumnName(), dataRequest.getSortDirection());
-		Long rowCount = voziloRepository.getRowCount(dataRequest.getParentId(), filterColumns, dataRequest.getGlobalSearchString());*/
 		
 		List<Vozilo> modelEntities=voziloRepository.getAllEntities();
 		
@@ -53,6 +42,25 @@ public class VoziloService {
 		GetAllEntitiesResponse<VoziloDto> response = new GetAllEntitiesResponse<>();
 		response.setTableData(modelEntities.stream().map(VoziloMapper::toVoziloDto).collect(Collectors.toList()));
 		return response;
+	}
+	
+	/**
+	 * Servisna metoda za dohvaćanje vozila po idu
+	 * @param voziloId
+	 * @return
+	 */
+	public VoziloDto getEntityById(String voziloId){
+		
+		Vozilo modelEntities=voziloRepository.getEntityById(voziloId);
+		
+		if(modelEntities != null) {
+
+			VoziloDto response = VoziloMapper.toVoziloDto(modelEntities);
+			
+			return response;
+		}
+		
+		return null;
 	}
 	
 	

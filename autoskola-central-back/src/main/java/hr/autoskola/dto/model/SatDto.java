@@ -9,11 +9,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class VoziloDto {
+public class SatDto {
 
+	private Integer satVoznjeId;
+	private Integer polaznikId;
 	private Integer voziloId;
-	private Integer kategorijaId;
-	private String markaVozila;
-	private String model;
-	private String registracija;
+	private Integer brojSata;
+	private String opis; 
+	private String datum;
+	
+	private PolaznikDto polaznik;
+	private VoziloDto vozilo;
 }

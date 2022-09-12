@@ -21,6 +21,7 @@ public class PolaznikService {
 	private final PolaznikRepository polaznikRepository;
 	private final InstruktorService instruktorService;
 	private final KorisnikService korisnikService;
+	private final SatService satService;
 	
 	/**
 	 * Servisna metoda za dohvaćanje svih polaznika
@@ -37,9 +38,33 @@ public class PolaznikService {
 		for(PolaznikDto polaznikDto : response) {
 			polaznikDto.setKorisnik(korisnikService.getEntityByKorisnikId(polaznikDto.getKorisnikId().toString()));
 			if(polaznikDto.getKorisnikId() != null ) polaznikDto.setInstruktor(instruktorService.getEntityByKorisnikId(polaznikDto.getInstruktorId().toString()));
+			polaznikDto.setDnevnikVoznje(satService.getEntitiesByPolaznikId(polaznikDto.getPolaznikId().toString()));
 		}
 		
 		return response;
+	}
+	
+	/**
+	 * Servisna metoda za dohvaćanje svih polaznika
+	 * @param polaznikId
+	 * @return
+	 */
+	public PolaznikDto getEntityById(String polaznikId){
+		
+		Polaznik modelEntities=polaznikRepository.getEntityById(polaznikId);
+		
+		if(modelEntities != null) {
+
+			PolaznikDto response = PolaznikMapper.toPolaznikDto(modelEntities);
+			
+			if(response.getKorisnikId() != null) response.setKorisnik(korisnikService.getEntityByKorisnikId(response.getKorisnikId().toString()));
+			if(response.getInstruktorId() != null) response.setInstruktor(instruktorService.getEntityByInstruktorId(response.getInstruktorId().toString()));
+			response.setDnevnikVoznje(satService.getEntitiesByPolaznikId(response.getPolaznikId().toString()));
+			
+			return response;
+		}
+		
+		return null;
 	}
 	
 	/**
@@ -57,11 +82,33 @@ public class PolaznikService {
 			
 			if(response.getKorisnikId() != null) response.setKorisnik(korisnikService.getEntityByKorisnikId(response.getKorisnikId().toString()));
 			if(response.getInstruktorId() != null) response.setInstruktor(instruktorService.getEntityByInstruktorId(response.getInstruktorId().toString()));
+			response.setDnevnikVoznje(satService.getEntitiesByPolaznikId(response.getPolaznikId().toString()));
 			
 			return response;
 		}
 		
 		return null;
+	}
+	
+	/**
+	 * Servisna metoda za dohvaćanje svih polaznika za instruktora
+	 * @param instruktorId
+	 * @return
+	 */
+	public List<PolaznikDto> getEntitiesByInstruktorId(String instruktorId){
+		
+		List<Polaznik> modelEntities=polaznikRepository.getEntitiesByInstruktorId(instruktorId);
+		
+		List<PolaznikDto> response = modelEntities.stream().map(PolaznikMapper::toPolaznikDto).collect(Collectors.toList());
+		
+
+		for(PolaznikDto polaznikDto : response) {
+			polaznikDto.setKorisnik(korisnikService.getEntityByKorisnikId(polaznikDto.getKorisnikId().toString()));
+			//if(polaznikDto.getKorisnikId() != null ) polaznikDto.setInstruktor(instruktorService.getEntityByKorisnikId(polaznikDto.getInstruktorId().toString()));
+			polaznikDto.setDnevnikVoznje(satService.getEntitiesByPolaznikId(polaznikDto.getPolaznikId().toString()));
+		}
+		
+		return response;
 	}
 	
 	/**

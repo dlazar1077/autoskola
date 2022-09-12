@@ -119,6 +119,31 @@ public class UserRepository {
 		return njdbc.update(insertQuery.toString(), parameters);		
 	}
 	
+	/**
+	 * Metoda za ažuriranje User
+	 * @param user
+	 * @return
+	 */
+	public Long updatePassword(User user) {
+		StringBuilder query = new StringBuilder();
+		MapSqlParameterSource parameters = new MapSqlParameterSource();
+
+		query.append(" UPDATE " + TABLE_NAME);
+		query.append(" SET ");
+		query.append(LOZINKA + " = :lozinka ");
+		query.append("WHERE " + KORISNIKID + " = :id");
+
+		parameters.addValue("lozinka", user.getLozinka());
+		parameters.addValue("id", user.getKorisnikId());
+
+		Long updated = ((Integer) njdbc.update(query.toString(), parameters)).longValue();
+		if (updated == 0) {
+		}
+
+		return updated;
+	}
+
+	
 	private class EntityRowMapper implements RowMapper<User> {
 
 		@Override

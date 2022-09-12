@@ -1,5 +1,7 @@
 package hr.autoskola.model;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,5 +21,6 @@ public class Polaznik {
 	
 	private Korisnik korisnik;
 	private Instruktor instruktor;
+	private List<Sat> dnevnikVoznje; 
 
 }

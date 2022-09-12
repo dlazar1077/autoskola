@@ -139,8 +139,9 @@ public class InstruktorService {
 		Long id = instruktorRepository.updateInstruktor(InstruktorMapper.toInstruktor(instruktorDto));
 		if(id > 0) {
 			korisnikService.updateKorisnik(instruktorDto.getKorisnik());
-			instruktorRepository.deleteVozilaInstruktora(instruktorDto.getInstruktorId().toString());
+			
 			if(instruktorDto.getVozila() != null) {
+				instruktorRepository.deleteVozilaInstruktora(instruktorDto.getInstruktorId().toString());
 				for(VoziloDto voziloDto : instruktorDto.getVozila()) {
 					instruktorRepository.saveVehicleToInstruktor(voziloDto.getVoziloId().toString(), instruktorDto.getInstruktorId().toString());
 				}

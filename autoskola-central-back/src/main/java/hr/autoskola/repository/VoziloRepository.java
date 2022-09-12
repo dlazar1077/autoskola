@@ -18,7 +18,6 @@ import hr.autoskola.utilities.filter.advanced.FilterExportable;
 import hr.autoskola.utilities.filter.advanced.FilterHelper;
 import hr.autoskola.utilities.filter.advanced.model.FilterFields;
 import hr.autoskola.utilities.filter.global.GlobalFilterHelper;
-import hr.autoskola.utilities.pagination.PageableHelper;
 
 
 @Repository
@@ -37,6 +36,7 @@ public class VoziloRepository implements FilterExportable {
 	private static final String KATEGORIJA_ID = "KATEGORIJA_ID";
 	private static final String MARKA = "MARKA_VOZILA";
 	private static final String MODEL = "MODEL";
+	private static final String REGISTRACIJA = "REGISTRACIJA";
 	
 	private static final String DELETED = "DELETED";
 	
@@ -60,17 +60,12 @@ public class VoziloRepository implements FilterExportable {
 	 * 
 	 * @author dlazar
 	 */
-	public List<Vozilo> getAllEntities(/*Map<String, FilterValue> filterColumns, String globalSearch, Long currentPage,
-			Long pageSize, String sortColumn, String sortDirection*/) {
+	public List<Vozilo> getAllEntities() {
 		StringBuilder query = new StringBuilder();
 		MapSqlParameterSource parameters = new MapSqlParameterSource();
 
 		sqlSelectHelper(query);
 		sqlJoinHelper(query);
-		/*GlobalFilterHelper.sqlGlobalFilterQueryUpdate(query, parameters, globalSearch, allGlobalSearchFields, null);
-		FilterHelper.sqlFilterQueryUpdate(query, parameters, filterColumns, filterFields, this);
-		sqlSortHelper(query, sortColumn, sortDirection);
-		PageableHelper.sqlPaginationQueryUpdate(query, parameters, (currentPage - 1) * pageSize, pageSize);*/
 
 		return njdbc.query(query.toString(), parameters, BeanPropertyRowMapper.newInstance(Vozilo.class));
 	}
@@ -99,6 +94,33 @@ public class VoziloRepository implements FilterExportable {
 	}
 	
 	/**
+	 * DAO metoda za dohvat Vozilo po idu
+	 * 
+	 * @param 
+	 * @return Vozilo
+	 * 
+	 * @author dlazar
+	 */
+	public Vozilo getEntityById(String voziloId) {
+		StringBuilder query = new StringBuilder();
+		MapSqlParameterSource parameters = new MapSqlParameterSource();
+
+		sqlSelectHelper(query);
+		sqlJoinHelper(query);
+		query.append(" AND " + MAIN_TABLE + "." + VOZILO_ID + " = :voziloId ");
+		
+		parameters.addValue("voziloId", voziloId);
+
+		List<Vozilo> vozilo = njdbc.query(query.toString(), parameters, BeanPropertyRowMapper.newInstance(Vozilo.class));
+
+		if(vozilo.isEmpty() || vozilo == null) {
+			return null;
+		}
+		
+		return vozilo.get(0);
+	}
+	
+	/**
 	 * Metoda za spremanje vozila
 	 * @param vozilo
 	 * @return
@@ -112,14 +134,16 @@ public class VoziloRepository implements FilterExportable {
 		query.append(" ( ");
 		query.append(KATEGORIJA_ID + " ,");
 		query.append(MARKA + " ,");
-		query.append(MODEL + " ");
+		query.append(MODEL + ", ");
+		query.append(REGISTRACIJA + " ");
 		query.append(" ) ");
 		query.append(" VALUES ");
-		query.append(" ( :kategorijaId, :marka, :model ) ");
+		query.append(" ( :kategorijaId, :marka, :model, :registracija ) ");
 
 		parameters.addValue("kategorijaId", vozilo.getKategorijaId());
 		parameters.addValue("marka", vozilo.getMarkaVozila());
 		parameters.addValue("model", vozilo.getModel());
+		parameters.addValue("registracija", vozilo.getRegistracija());
 
 		if (njdbc.update(query.toString(), parameters, keyHolder, new String[] { VOZILO_ID }) == 0) {
 		}
@@ -140,12 +164,14 @@ public class VoziloRepository implements FilterExportable {
 		query.append(" SET ");
 		query.append(KATEGORIJA_ID + " = :kategorijaId ,");
 		query.append(MARKA + " = :marka ,");
-		query.append(MODEL + " = :model ");
+		query.append(MODEL + " = :model , ");
+		query.append(REGISTRACIJA + " = :registracija ");
 		query.append("WHERE " + VOZILO_ID + " = :id");
 
 		parameters.addValue("kategorijaId", vozilo.getKategorijaId());
 		parameters.addValue("marka", vozilo.getMarkaVozila());
 		parameters.addValue("model", vozilo.getModel());
+		parameters.addValue("registracija", vozilo.getRegistracija());
 		parameters.addValue("id", vozilo.getVoziloId());
 
 		Long updated = ((Integer) njdbc.update(query.toString(), parameters)).longValue();
@@ -184,7 +210,8 @@ public class VoziloRepository implements FilterExportable {
 		query.append(" " + MAIN_TABLE + "." + VOZILO_ID + " AS " + VOZILO_ID + ",");
 		query.append(" " + MAIN_TABLE + "." + KATEGORIJA_ID + " AS " + KATEGORIJA_ID + ",");
 		query.append(" " + MAIN_TABLE + "." + MARKA + " AS " + MARKA + ",");
-		query.append(" " + MAIN_TABLE + "." + MODEL + " AS " + MODEL + " ");
+		query.append(" " + MAIN_TABLE + "." + MODEL + " AS " + MODEL + ", ");
+		query.append(" " + MAIN_TABLE + "." + REGISTRACIJA + " AS " + REGISTRACIJA + " ");
 	}
 	
 	private void sqlJoinHelper(StringBuilder query) {

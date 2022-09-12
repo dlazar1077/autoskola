@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import hr.autoskola.dto.model.VoziloDto;
-import hr.autoskola.dto.model.shared.GetAllEntitiesRequest;
 import hr.autoskola.dto.model.shared.GetAllEntitiesResponse;
 import hr.autoskola.dto.model.shared.response.GenericHttpResponse;
 import hr.autoskola.service.VoziloService;
@@ -27,6 +27,12 @@ public class VoziloController {
 	@GetMapping(value = "/api/vozila")
 	public ResponseEntity<GetAllEntitiesResponse<VoziloDto>> getVozila() {
 		GetAllEntitiesResponse<VoziloDto> vozila = voziloService.getAllEntities();
+		return new ResponseEntity<>(vozila, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/api/vozilaInstruktora")
+	public ResponseEntity<GetAllEntitiesResponse<VoziloDto>> getEntityByInstruktorId(@RequestParam("id") String id) {
+		GetAllEntitiesResponse<VoziloDto> vozila = voziloService.getEntityByInstruktorId(id);
 		return new ResponseEntity<>(vozila, HttpStatus.OK);
 	}
 	

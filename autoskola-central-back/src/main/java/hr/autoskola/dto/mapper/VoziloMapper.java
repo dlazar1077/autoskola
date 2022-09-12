@@ -19,6 +19,7 @@ public class VoziloMapper {
 		returnObject.setKategorijaId(vozilo.getKategorijaId());
 		returnObject.setMarkaVozila(vozilo.getMarkaVozila());
 		returnObject.setModel(vozilo.getModel());
+		returnObject.setRegistracija(vozilo.getRegistracija());
 		
 		return returnObject;
 	}
@@ -35,6 +36,7 @@ public class VoziloMapper {
 		returnObject.setKategorijaId(voziloDto.getKategorijaId());
 		returnObject.setMarkaVozila(voziloDto.getMarkaVozila());
 		returnObject.setModel(voziloDto.getModel());
+		returnObject.setRegistracija(voziloDto.getRegistracija());
 		
 		return returnObject;
 	}

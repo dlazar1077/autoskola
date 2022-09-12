@@ -34,6 +34,12 @@ public class PolaznikController {
 		return new ResponseEntity<>(polaznik, HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/api/polazniciInstruktora")
+	public ResponseEntity<List<PolaznikDto>> getEntitiesByInstruktorId(@RequestParam("id") String id) {
+		List<PolaznikDto> polaznici = polaznikService.getEntitiesByInstruktorId(id);
+		return new ResponseEntity<>(polaznici, HttpStatus.OK);
+	}
+	
 	@PostMapping(value="/api/insertPolaznik")
 	public GenericHttpResponse<Long> insertPolaznik(@RequestBody PolaznikDto polaznikDto) {
 		return polaznikService.savePolaznik(polaznikDto);
