@@ -12,7 +12,7 @@ spec:
       protocol: TCP
   selector:           
     app: autoskola-central-back
-  type: NodePort       
+  type: NodePort      
 
 ---
 apiVersion: apps/v1 

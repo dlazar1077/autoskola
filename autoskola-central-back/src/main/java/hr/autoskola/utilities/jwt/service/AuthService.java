@@ -45,8 +45,6 @@ public class AuthService {
 	JwtUtils jwtUtils;
 	
 	public JwtResponse authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-		
-		System.out.println(encoder.encode(loginRequest.getPassword()));
 
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));

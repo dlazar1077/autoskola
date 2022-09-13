@@ -1,18 +1,14 @@
 package hr.autoskola.service;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import hr.autoskola.dto.mapper.KategorijaMapper;
-import hr.autoskola.dto.mapper.filter.FilterValueMapper;
 import hr.autoskola.dto.model.KategorijaDto;
-import hr.autoskola.dto.model.shared.GetAllEntitiesRequest;
 import hr.autoskola.dto.model.shared.GetAllEntitiesResponse;
 import hr.autoskola.dto.model.shared.response.GenericHttpResponse;
-import hr.autoskola.model.FilterValue;
 import hr.autoskola.model.Kategorija;
 import hr.autoskola.repository.KategorijaRepository;
 import hr.autoskola.utilities.codebooks.service.CodebookService;
@@ -44,6 +40,16 @@ public class KategorijaService {
 		response.setTableData(modelEntities.stream().map(KategorijaMapper::toKategorijaDto).collect(Collectors.toList()));
 		//response.setRowCount(rowCount);
 		return response;
+	}
+	
+	/**
+	 * Servisna metoda za dohvaćanje svih kategorija koje posjeduju instruktori
+	 * @return List<Kategorija>
+	 */
+	public List<KategorijaDto> getAllEntitiesByInstruktor() {
+		List<Kategorija> modelEntities=kategorijaRepository.getAllEntitiesByInstruktor();
+		return modelEntities.stream().map(KategorijaMapper::toKategorijaDto).collect(Collectors.toList());
+		
 	}
 	
 	/**

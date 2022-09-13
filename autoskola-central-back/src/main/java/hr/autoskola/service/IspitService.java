@@ -96,20 +96,7 @@ public class IspitService {
 					}
 				}
 			}
-//		System.out.println(ispitDto.getStatusIspita());
-//		if(ispitDto.getStatusIspita().contains("PROLAZ")) {
-//			List<String> trazeniCodebook = new ArrayList<String>();
-//			trazeniCodebook.add("statusPolaznika");
-//			Map<String, List<CodebookDto>> codebook = codebookService.getCodebooks(trazeniCodebook);
-//			List<CodebookDto> statusPolaznika = codebook.get("statusPolaznika");
-//			for(CodebookDto code : statusPolaznika) {
-//				System.out.println(code.getName().toLowerCase() + " - " + "POLOŽIO TEST".toLowerCase() );
-//				if(code.getName().toLowerCase().equals("".toLowerCase())) {
-//					System.out.println("UPISAN JJJJJJJEEEEEEEEE");
-//					polaznikService.updateStatusPolaznik(ispitDto.getKorisnikId().toString(), code.getId());
-//					break;
-//				}
-//			}
+			
 			response = new GenericHttpResponse<>(ResponseMessageEnum.ENTITY_INSERTED);
 			//response.setData(id);
 		}else {

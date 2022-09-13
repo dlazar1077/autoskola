@@ -18,7 +18,6 @@ import hr.autoskola.utilities.filter.advanced.FilterExportable;
 import hr.autoskola.utilities.filter.advanced.FilterHelper;
 import hr.autoskola.utilities.filter.advanced.model.FilterFields;
 import hr.autoskola.utilities.filter.global.GlobalFilterHelper;
-import hr.autoskola.utilities.pagination.PageableHelper;
 
 @Repository
 public class KategorijaRepository implements FilterExportable {
@@ -30,11 +29,15 @@ public class KategorijaRepository implements FilterExportable {
 	}
 	
 	private static final String MAIN_TABLE = "kategorije";
+	private static final String VOZILO_TABLE = "vozilo";
+	private static final String INSTRUKTOR_VOZILO_TABLE = "instruktor_vozilo";
 	
 	private static final String KATEGORIJA_ID = "KATEGORIJA_ID";
 	private static final String SIFRA = "SIFRA";
 	private static final String NAZIV = "NAZIV";
 	private static final String NAZIV_EN = "NAZIV_EN";
+	
+	private static final String VOZILO_ID = "VOZILO_ID";
 	
 	private static final String DELETED = "DELETED";
 	
@@ -69,6 +72,33 @@ public class KategorijaRepository implements FilterExportable {
 		//sqlSortHelper(query, sortColumn, sortDirection);
 		//PageableHelper.sqlPaginationQueryUpdate(query, parameters, (currentPage - 1) * pageSize, pageSize);
 
+		return njdbc.query(query.toString(), parameters, BeanPropertyRowMapper.newInstance(Kategorija.class));
+	}
+	
+	/**
+	 * DAO metoda za dohvat svih objekta tipa Kategorija koje posjeduju instruktori
+	 * 
+	 * @return List <Kategorija>
+	 * 
+	 * @author dlazar
+	 */
+	public List<Kategorija> getAllEntitiesByInstruktor() {
+		StringBuilder query = new StringBuilder();
+		MapSqlParameterSource parameters = new MapSqlParameterSource();
+		
+		query.append(" SELECT DISTINCT");
+		query.append(" " + MAIN_TABLE + "." + KATEGORIJA_ID + " AS " + KATEGORIJA_ID + ",");
+		query.append(" " + MAIN_TABLE + "." + SIFRA + " AS " + SIFRA + ",");			
+		query.append(" " + MAIN_TABLE + "." + NAZIV + " AS " + NAZIV + ",");
+		query.append(" " + MAIN_TABLE + "." + NAZIV_EN + " AS " + NAZIV_EN + " ");
+		
+		query.append(" FROM " + INSTRUKTOR_VOZILO_TABLE + " LEFT JOIN " + VOZILO_TABLE + " ON ");
+		query.append( INSTRUKTOR_VOZILO_TABLE + "." + VOZILO_ID + " = " + VOZILO_TABLE + "." + VOZILO_ID + " ");
+		query.append( " LEFT JOIN " + MAIN_TABLE + " ON " + VOZILO_TABLE + "." + KATEGORIJA_ID + " ");
+		query.append( " = " + MAIN_TABLE + "." + KATEGORIJA_ID + " ");
+		query.append(" WHERE " + MAIN_TABLE + "." + DELETED + " = " + 0 + " ");
+		query.append(" AND " + VOZILO_TABLE + "." + DELETED + " = " + 0 + " ");
+		
 		return njdbc.query(query.toString(), parameters, BeanPropertyRowMapper.newInstance(Kategorija.class));
 	}
 	

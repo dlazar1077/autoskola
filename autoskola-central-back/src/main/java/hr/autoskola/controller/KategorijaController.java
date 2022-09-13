@@ -1,17 +1,16 @@
 package hr.autoskola.controller;
 
-import org.springframework.http.HttpHeaders;
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import hr.autoskola.dto.model.KategorijaDto;
-import hr.autoskola.dto.model.shared.GetAllEntitiesRequest;
 import hr.autoskola.dto.model.shared.GetAllEntitiesResponse;
 import hr.autoskola.dto.model.shared.response.GenericHttpResponse;
 import hr.autoskola.service.KategorijaService;
@@ -27,6 +26,12 @@ public class KategorijaController {
 	@GetMapping(value = "/api/kategorije")
 	public ResponseEntity<GetAllEntitiesResponse<KategorijaDto>> getKategorije() {
 		GetAllEntitiesResponse<KategorijaDto> kategorije = kategorijaService.getAllEntities();
+		return new ResponseEntity<>(kategorije, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/api/kategorijeInstruktora")
+	public ResponseEntity<List<KategorijaDto>> getKategorijeInstruktora() {
+		List<KategorijaDto> kategorije = kategorijaService.getAllEntitiesByInstruktor();
 		return new ResponseEntity<>(kategorije, HttpStatus.OK);
 	}
 	
