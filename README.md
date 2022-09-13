@@ -62,6 +62,7 @@ Napomena : Ovdje ne treba ništa komentirati/odkomentirati
 5. Premjestiti se u mapu resources (naredba cd src/main/resources)
 6. Izvršiti naredbu: kubectl apply -f deployment.yml
 7. Provjeriti nakon nekog vremena jel ispravno radi pod naredbama "kubectl get pods" i "kubectl logs ${pod_name}
+8. kubectl port-forward $pod_name 30163:8080
 
 ### Pokretanje Forntenda
 1. Pokrenuti CMD kao administrator
@@ -70,6 +71,7 @@ Napomena : Ovdje ne treba ništa komentirati/odkomentirati
 4. Napraviti docker konetnjer, naredba "docker build -t autoskola-central-front:1.0 ." Napomena: ne zaboravit točku na kraju
 5. Izvršiti naredbu "kubectl apply -f autoskola-central-front.yml
 6. Provjeriti jel pod radi (kubectl get pods) 
+7. minikube service autoskola-central-front
 
 ### Testiranje
 Ako je sve ispravno frontend se može pristupiti poveznicom http://localhost:31000 a server http://localhost:30163
