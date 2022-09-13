@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { ConfirmationService } from "primeng/api";
 import { Polaznik } from "src/app/core/models/polaznik";
@@ -13,7 +13,7 @@ import { SharedService } from "src/app/core/services/shared.service";
     templateUrl: './pregled-polaznika.component.html',
     styleUrls: ['./pregled-polaznika.component.scss']
   })
-  export class PregledPolaznikaComponent implements OnInit {
+  export class PregledPolaznikaComponent implements OnInit, OnDestroy {
     @ViewChild('dt') dt : any; 
 
     prikazi : boolean = false;
@@ -64,6 +64,10 @@ import { SharedService } from "src/app/core/services/shared.service";
         })
     }
 
+    ngOnDestroy(): void {
+        this.currentLangSubscription.unsubscribe();
+    }
+
     getPolazniciData(){
         if(this.authService.isAdminRoleRight()){
             var user = this.authService.getUser();
@@ -100,6 +104,14 @@ import { SharedService } from "src/app/core/services/shared.service";
     openPolaznik(polaznik : Polaznik){
         this.polaznik = polaznik;
         this.prikazi = true;
+    }
+
+    polozenaVoznja(polaznik: Polaznik){
+        polaznik.statusPolaznikaId = this.codebooks.statusPolaznika.find((x:any) => x.name.toString() === "Položeno").id
+        polaznik.korisnik.lozinka= "";
+        this.http.putHttp("updatePolaznik", polaznik).subscribe( (data : any) => {
+            this.getPolazniciData();
+        });
     }
 
   }

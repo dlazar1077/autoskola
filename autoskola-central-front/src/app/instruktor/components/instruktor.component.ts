@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { ConfirmationService } from "primeng/api";
 import { HttpService } from "src/app/core/services/http.service";
@@ -10,7 +10,7 @@ import { Instruktor } from "../../core/models/instruktor";
     templateUrl: './instruktor.component.html',
     styleUrls: ['./instruktor.component.scss']
   })
-  export class InstruktorComponent implements OnInit {
+  export class InstruktorComponent implements OnInit, OnDestroy{
 
     @ViewChild('dt') dt : any; 
 
@@ -53,6 +53,10 @@ import { Instruktor } from "../../core/models/instruktor";
         this.vozila = vehicles.tableData;
     });
     
+    }
+
+    ngOnDestroy(): void {
+        this.currentLangSubscription.unsubscribe();
     }
 
     getInstruktori(){

@@ -34,6 +34,8 @@ import { HttpService } from "src/app/core/services/http.service";
     slobodniInstruktori !: Instruktor[];
     odabranInstruktor : any;
 
+    kategorijeInstruktora : any;
+
     constructor(
         public authService : AuthService,
         private http : HttpService,
@@ -50,6 +52,11 @@ import { HttpService } from "src/app/core/services/http.service";
             this.vozila = vehicles.tableData;
         });
        
+        this.http.getHttp("kategorijeInstruktora").subscribe((data:any) => {
+            console.log(data);
+
+            this.kategorijeInstruktora = data;
+        });
     }
 
     getMyProfileData(){

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { ConfirmationService } from "primeng/api";
 import { HttpService } from "src/app/core/services/http.service";
@@ -9,7 +9,7 @@ import { InfoService } from "src/app/core/services/info.service";
     templateUrl: './vozilo.component.html',
     styleUrls: ['./vozilo.component.scss']
   })
-  export class VoziloComponent implements OnInit {
+  export class VoziloComponent implements OnInit, OnDestroy {
 
     @ViewChild('dt') dt : any; 
 
@@ -45,6 +45,10 @@ import { InfoService } from "src/app/core/services/info.service";
         this.codebooks = data;
     });
     
+    }
+
+    ngOnDestroy(): void {
+        this.currentLangSubscription.unsubscribe();
     }
 
     getVozila(){

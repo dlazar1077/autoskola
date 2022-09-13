@@ -1,1 +1,28 @@
-Ovo je Home!
+<div>
+    <div style="text-align:center;">
+        <img style="min-width: 60%; max-height: 15em;" src="https://civilna-zastita.gov.hr/userdocsimages//CIVILNA%20ZA%C5%A0TITA/Ilustracije/auto%C5%A1kola.jpeg?width=750&height=500&mode=crop" alt="">
+    </div>
+   
+    <div style="text-align: center; border: dotted 1px black; margin-bottom: 15px;">
+        <h1> {{'about.about...' | translate}} </h1>
+        <p style="font-size: larger;">
+            {{infoService.oNama}}
+        </p>
+    </div>
+    <div style="text-align:center;">
+        <img style="min-width: 60%; max-height: 20em;" src="https://www.autoskolabruno.hr/images/vozilaw.webp" alt="">
+    </div>
+    <div style="text-align: center; border: dotted 1px black; margin-top: 15px;">
+        <div class="allign-centar">
+            <h1> {{'navbar.instructor' | translate}} </h1>
+            <div class="text-left; font-size: larger">
+                <ng-container *ngFor = "let instruktor of instruktori">
+                    <p style="font-size: larger;"><b>{{instruktor.korisnik.ime}} {{instruktor.korisnik.prezime}}</b></p>
+                    <ng-container *ngFor = "let vozilo of instruktor.vozila">
+                        <li>{{vozilo.markaVozila}} {{vozilo.model}} - {{categoryConverter(vozilo.kategorijaId)}} {{'category.category'| translate}}</li>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

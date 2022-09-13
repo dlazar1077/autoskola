@@ -1,0 +1,7 @@
+<p-accordion [multiple]="true">
+    <ng-container *ngFor ="let faq of faqs; let i = index;">
+        <p-accordionTab header="{{i+1}}. {{faq.pitanje}}">
+            <p>{{ faq.odgovor }}</p>
+        </p-accordionTab>
+    </ng-container>
+</p-accordion>

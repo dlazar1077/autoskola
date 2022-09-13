@@ -5,18 +5,18 @@ import { HttpService } from "src/app/core/services/http.service";
 import { InfoService } from "src/app/core/services/info.service";
 
 @Component({
-    selector: 'app-autoskola-info',
-    templateUrl: './autoskolaInfo.component.html',
-    styleUrls: ['./autoskolaInfo.component.scss']
+    selector: 'app-faq-crud',
+    templateUrl: './faq-crud.component.html',
+    styleUrls: ['./faq-crud.component.scss']
   })
-  export class AutoskolaInfoComponent implements OnInit, OnDestroy {
+  export class FAQCrudComponent implements OnInit, OnDestroy {
 
     @ViewChild('dt') dt : any; 
 
-    autoskolaInfos : any;
-    autoskolaInfo : any;
-    odabranaAutoskolaInfo: any;
-    autoskolaInfosDialog : boolean = false;
+    faqs : any;
+    faq : any;
+    odabranFaq: any;
+    faqDialog : boolean = false;
     submitted : boolean = false;
 
     currentLanguage !: string;
@@ -33,20 +33,19 @@ import { InfoService } from "src/app/core/services/info.service";
         this.currentLanguage = this.translateService.currentLang;
             this.currentLangSubscription = this.translateService.onLangChange.subscribe((response: any) => {
            this.translateService.get(['autoskolaInfo', 'buttons']).subscribe( () => {
-            this.getAutoskolaInfo();
+            this.getFAQ();
           });
         });
-        this.getAutoskolaInfo();
+        this.getFAQ();
     }
 
     ngOnDestroy(): void {
         this.currentLangSubscription.unsubscribe();
     }
         
-    getAutoskolaInfo(){
-        this.http.getHttp("autoskolaInfo").subscribe( (data:any) => {
-            this.autoskolaInfos = data;
-            this.infoService.getAutoskolaInfo();
+    getFAQ(){
+        this.http.getHttp("FAQ").subscribe( (data:any) => {
+            this.faqs = data;
         });
     }
 
@@ -55,57 +54,65 @@ import { InfoService } from "src/app/core/services/info.service";
     }
 
     hideDialog() {
-        this.autoskolaInfosDialog = false;
+        this.faqDialog = false;
         this.submitted = false;
     }
 
-    editAutoskolaInfo(autoskolaInfo: any) {
-        this.autoskolaInfo = {...autoskolaInfo};
-        this.autoskolaInfosDialog = true;
+    editFAQ(faq: any) {
+        this.faq = {...faq};
+        this.faqDialog = true;
     }
 
     openNew() {
-        this.autoskolaInfo = {};
+        this.faq = {};
         this.submitted = false;
-        this.autoskolaInfosDialog = true;
+        this.faqDialog = true;
     }
 
-    saveAutoskolaInfo() {
+    saveFAQ() {
         this.submitted = true;
 
-        if (this.autoskolaInfo.sifra.trim()) {
-            if (this.autoskolaInfo.autoskolaInfoId) {
-                this.http.putHttp("updateAutoskolaInfo",this.autoskolaInfo).subscribe( (data1:any) => {
-                    this.getAutoskolaInfo();
-                    this.autoskolaInfo = {};
+        if (this.checkForm()) {
+            if (this.faq.faqId) {
+                this.http.putHttp("updateFAQ",this.faq).subscribe( (data1:any) => {
+                    this.getFAQ();
+                    this.faq = {};
                     this.hideDialog();
                 });
             }
             else {
-                this.http.postHttp("insertAutoskolaInfo",this.autoskolaInfo).subscribe( (data1:any) => {
-                    this.getAutoskolaInfo();
-                    this.autoskolaInfo = {};
+                this.http.postHttp("insertFAQ",this.faq).subscribe( (data1:any) => {
+                    this.getFAQ();
+                    this.faq = {};
                     this.hideDialog();
                 });
             }
         }
     }
 
-    deleteAutoskolaInfo(autoskolaInfo: any) {
+    deleteFAQ(faq: any) {
         this.confirmationService.confirm({
-            message: this.translateService.instant('errorMessage.sureToDelete') + autoskolaInfo.sifra + '?',
+            message: this.translateService.instant('errorMessage.sureToDelete') + faq.pitanje + '?',
             header: this.translateService.instant('buttons.confirm'),
             icon: 'pi pi-exclamation-triangle',
             acceptLabel: this.translateService.instant('buttons.yes'),
             rejectLabel: this.translateService.instant('buttons.no'),
             accept: () => {
-                this.http.putHttp("deleteAutoskolaInfo", autoskolaInfo).subscribe( (data1:any) => {
-                    this.getAutoskolaInfo();
-                    this.autoskolaInfo = {};
+                this.http.putHttp("deleteFAQ", faq).subscribe( (data1:any) => {
+                    this.getFAQ();
+                    this.faq = {};
                     this.hideDialog();
                 });
             }
         });
     }
 
+    checkForm() : boolean{
+        if(this.faq.pitanje != "" && this.faq.pitanje != undefined){
+            if(this.faq.odgovor != "" && this.faq.odgovor != undefined){
+                return true;
+            }
+        }
+        return false;
+    }
   }

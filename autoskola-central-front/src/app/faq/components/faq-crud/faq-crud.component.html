@@ -1,0 +1,65 @@
+<div class="card">
+
+    <p-table #dt [value]="faqs" [rows]="infoService.brojZapisa" [paginator]="true"  [globalFilterFields]="['pitanje','odgovor']"
+    [(selection)]="odabranFaq" [rowHover]="true" dataKey="id" sortField="pitanje" [sortOrder]="1">
+    <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')" placeholder="{{ 'table.search' | translate}}" />
+            </span>
+            <span style="float: right;">
+                <button pButton pRipple label="{{ 'buttons.new' | translate}}" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="pitanje">{{ 'faq.question' | translate}} <p-sortIcon field="pitanje"></p-sortIcon></th>
+            <th pSortableColumn="odgovor">{{ 'faq.answer' | translate}} <p-sortIcon field="odgovor"></p-sortIcon></th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-faq>
+        <tr>
+            <td>{{faq.pitanje}}</td>
+            <td>{{faq.odgovor}}</td>
+            <td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click) = "editFAQ(faq)" ></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"(click) = "deleteFAQ(faq)" ></button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between">
+            {{ 'table.totalMessage' | translate}} {{faqs ? faqs.length : 0 }} {{ 'faq.faqs' | translate}}.
+        </div>
+    </ng-template>
+    </p-table>
+</div>
+
+
+<p-dialog [(visible)]="faqDialog" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        {{ (faq.faqId ? 'faq.editFaq' : 'faq.newFaq') | translate}}
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div class="p-field">
+            <label for="tekstPitanja">{{ 'faq.question' | translate}}</label>
+            <textarea id="tekstPitanja" rows="5" cols="30" pInputTextarea  [(ngModel)]="faq.pitanje" required  style="width: 100%; max-width: 100%;" autoResize="autoResize"></textarea>
+            <small class="p-invalid" *ngIf="submitted && !faq.pitanje">{{ 'faq.question' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+        <div class="p-field">
+            <label for="tekstPitanja">{{ 'faq.answer' | translate}}</label>
+            <textarea id="tekstPitanja" rows="5" cols="30" pInputTextarea  [(ngModel)]="faq.odgovor" required  style="width: 100%; max-width: 100%;" autoResize="autoResize"></textarea>
+            <small class="p-invalid" *ngIf="submitted && !faq.odgovor">{{ 'faq.answer' | translate}} {{ 'errorMessage.isRequired' | translate}}</small>
+        </div>
+    </ng-template>
+    
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="{{ 'buttons.cancel' | translate}}" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="{{ 'buttons.save' | translate}}" icon="pi pi-check" class="p-button-text"   (click)="saveFAQ()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

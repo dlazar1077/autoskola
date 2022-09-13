@@ -8,5 +8,5 @@ export class Instruktor{
     brojSlobodnihMjesta!: number;
 
     korisnik : Korisnik  = new Korisnik();
-    vozila : Vozilo[] | undefined;
+    vozila !: Vozilo[] ;
 }

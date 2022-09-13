@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { Ispit } from "src/app/core/models/ispit";
@@ -13,7 +13,7 @@ import { InfoService } from "src/app/core/services/info.service";
     templateUrl: './pregled-ispita.component.html',
     styleUrls: ['./pregled-ispita.component.scss']
   })
-  export class PregledIspitaComponent implements OnInit {
+  export class PregledIspitaComponent implements OnInit, OnDestroy {
 
     @ViewChild('dt') dt : any; 
 
@@ -45,6 +45,10 @@ import { InfoService } from "src/app/core/services/info.service";
         });
       });
       this.getIspiti();
+    }
+
+    ngOnDestroy(): void {
+      this.currentLangSubscription.unsubscribe();
     }
 
     getIspiti(){

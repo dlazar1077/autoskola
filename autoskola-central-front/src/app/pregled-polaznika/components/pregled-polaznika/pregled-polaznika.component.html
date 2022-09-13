@@ -1,7 +1,7 @@
 <div class="card" *ngIf = "prikazi === false">
 
     <p-table #dt [value]="polaznici" [rows]="infoService.brojZapisa" [paginator]="true"  [globalFilterFields]="['korisnik.ime', 'korisnik.prezime', 'statusPolaznikaId', 'dnevnikVoznje.length']"
-    [(selection)]="odabraniPolaznik" [rowHover]="true" dataKey="id" sortField="sifra" [sortOrder]="1">
+    [(selection)]="odabraniPolaznik" [rowHover]="true" dataKey="id" sortField="statusPolaznikaId" [sortOrder]="1">
     <ng-template pTemplate="caption">
         <div class="flex align-items-center justify-content-between">
             <span class="p-input-icon-left">
@@ -27,6 +27,7 @@
             <td>{{polaznik.dnevnikVoznje.length}}</td>
             <td>
                 <button pButton pRipple icon="pi pi-search-plus" class="p-button-rounded p-button-warning p-mr-2" (click) = "openPolaznik(polaznik)" ></button>
+                <button *ngIf="polaznik.dnevnikVoznje.length >= 35 && polaznik.statusPolaznikaId !== 3" style = "margin-left: 10px;" pButton pRipple label="{{'buttons.finish' | translate}}" (click) = "polozenaVoznja(polaznik)"  class="p-button-success"></button> 
             </td>
         </tr>
     </ng-template>

@@ -66,11 +66,17 @@ export class HeaderComponent implements OnInit {
         routerLinkActiveOptions: { exact: true }
       },
       {
+        label: this.translateService.instant('navbar.faq'),
+        icon : 'pi pi-book',
+        routerLink: ['/faq'],
+        routerLinkActiveOptions: { exact: true }
+      },
+      /*{
         label: this.translateService.instant('navbar.about'),
         icon : 'pi pi-book',
         routerLink: ['/about'],
         routerLinkActiveOptions: { exact: true }
-      },
+      },*/
       {
         label: this.translateService.instant('navbar.administrator'),
         visible : this.authService.isAdminRoleRight(),
@@ -109,6 +115,11 @@ export class HeaderComponent implements OnInit {
           {
             label: this.translateService.instant('navbar.statuses'),
             routerLink: ['/statuses'],
+            routerLinkActiveOptions: { exact: true }
+          },
+          {
+            label: this.translateService.instant('navbar.faqcrud'),
+            routerLink: ['/faqcrud'],
             routerLinkActiveOptions: { exact: true }
           }
         ]

@@ -19,7 +19,9 @@
     "myProfile" : "Moj profil",
     "statuses" : "Status polaznika",
     "exam" : "Ispit",
-    "participants" : "Polaznici"
+    "participants" : "Polaznici",
+    "faq" : "Često postavljena pitanja",
+    "faqcrud" : "Često postavljena pitanja"
   },
 
   "message" : {
@@ -41,7 +43,8 @@
     "signUp" : "Upiši se",
     "endTest" : "Završi test",
     "chooseInstructor" : "Izaberi instruktora",
-    "forgetPassword" : "Zaboravili ste lozinku?"
+    "forgetPassword" : "Zaboravili ste lozinku?",
+    "finish" : "Položena vožnja"
   },
 
   "table" : {
@@ -73,6 +76,7 @@
   },
 
   "category" : {
+    "category" : "kategorija",
     "Categories" : "Kategorije",
     "categories" : "kategorije",
     "code" : "Šifra",
@@ -201,5 +205,13 @@
     "address" : "Adresa",
     "email" : "E-mail",
     "contactNumber" : "Kontak broj"
+  },
+
+  "faq" : {
+    "faq" :"često postavljena pitanja",
+    "answer" : "Odgovor",
+    "question" : "Pitanje",
+    "newFaq" : "Novo često postavljeno pitanje",
+    "editFaq" :"Ažuriranje često postavljenog pitanja"
   }
 }

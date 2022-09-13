@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { ConfirmationService } from "primeng/api";
 import { HttpService } from "src/app/core/services/http.service";
@@ -10,7 +10,7 @@ import { Odabir } from "../../core/models/odabir";
     templateUrl: './pitanje.component.html',
     styleUrls: ['./pitanje.component.scss']
   })
-  export class PitanjeComponent implements OnInit {
+  export class PitanjeComponent implements OnInit, OnDestroy {
 
     @ViewChild('dt') dt : any; 
 
@@ -46,6 +46,10 @@ import { Odabir } from "../../core/models/odabir";
           });
         });
         this.getPitanja();
+    }
+
+    ngOnDestroy(): void {
+      this.currentLangSubscription.unsubscribe();
     }
         
     getPitanja(){

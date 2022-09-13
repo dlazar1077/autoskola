@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { ConfirmationService } from "primeng/api";
 import { HttpService } from "src/app/core/services/http.service";
@@ -9,7 +9,7 @@ import { InfoService } from "src/app/core/services/info.service";
     templateUrl: './status.component.html',
     styleUrls: ['./status.component.scss']
   })
-  export class StatusComponent implements OnInit {
+  export class StatusComponent implements OnInit, OnDestroy {
 
     @ViewChild('dt') dt : any; 
 
@@ -37,6 +37,10 @@ import { InfoService } from "src/app/core/services/info.service";
       });
     });
     this.getStatusi();
+    }
+
+    ngOnDestroy(): void {
+        this.currentLangSubscription.unsubscribe();
     }
 
     getStatusi(){

@@ -19,7 +19,9 @@
     "myProfile" : "My profile",
     "statuses" : "Status",
     "exam" : "Exam",
-    "participants" : "Participants"
+    "participants" : "Participants",
+    "faq" : "Frequently asked questions",
+    "faqcrud" : "Frequently asked questions"
   },
 
   "message" : {
@@ -41,7 +43,8 @@
     "signUp" : "Sing up",
     "endTest" : "End test",
     "chooseInstructor" : "Choose instructor",
-    "forgetPassword" : "Forget password?"
+    "forgetPassword" : "Forget password?",
+    "finish" : "Driving passed"
   },
 
   "table" : {
@@ -73,6 +76,7 @@
   },
 
   "category" : {
+    "category" : "category",
     "Categories" : "Categories",
     "categories" : "categories",
     "code" : "Code",
@@ -201,5 +205,13 @@
     "address" : "Address",
     "email" : "E-mail",
     "contactNumber" : "Contact number"
+  },
+  
+  "faq" : {
+    "faq" :"frequently asked questions",
+    "answer" : "Answer",
+    "question" : "Question",
+    "newFaq" : "New frequently asked question",
+    "editFaq" :"Edit frequently asked question"
   }
 }

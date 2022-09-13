@@ -128,7 +128,7 @@
     <ng-template pTemplate="content">
         <div class="p-field">
             <label for="name">{{ 'vehicle.category' | translate}}</label>
-            <p-dropdown [options]="codebooks.kategorije" [(ngModel)]="editPolaznik.odabranaKategorijaId" optionLabel="name" optionValue="id" appendTo="body" ></p-dropdown>
+            <p-dropdown [options]="kategorijeInstruktora" [(ngModel)]="editPolaznik.odabranaKategorijaId" optionLabel="naziv" optionValue="kategorijaId" appendTo="body" ></p-dropdown>
         </div>
     </ng-template>
     
