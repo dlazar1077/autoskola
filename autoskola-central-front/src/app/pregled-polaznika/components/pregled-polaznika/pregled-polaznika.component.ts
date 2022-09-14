@@ -77,7 +77,6 @@ import { SharedService } from "src/app/core/services/shared.service";
                 this.instruktor = data;
                 this.http.getHttp("polazniciInstruktora", {id: this.instruktor.instruktorId}).subscribe( (data1 : any) => {
                     this.polaznici = data1;
-                    console.log(this.polaznici)
                 });
                 this.http.getHttp("vozilaInstruktora", {id: this.instruktor.instruktorId}).subscribe( (data : any) => {
                     this.vozila = data.tableData;

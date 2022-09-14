@@ -53,8 +53,6 @@ import { HttpService } from "src/app/core/services/http.service";
         });
        
         this.http.getHttp("kategorijeInstruktora").subscribe((data:any) => {
-            console.log(data);
-
             this.kategorijeInstruktora = data;
         });
     }

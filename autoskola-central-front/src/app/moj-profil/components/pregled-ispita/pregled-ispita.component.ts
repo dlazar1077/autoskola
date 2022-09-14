@@ -64,7 +64,6 @@ import { InfoService } from "src/app/core/services/info.service";
         var user = this.authService.getUser();
         this.http.getHttp("ispitiKorisnika", {id: user.id}).subscribe( (data : any) => {
             this.ispiti = data;
-            console.log(this.ispiti)
         });
       }
     }
@@ -77,7 +76,6 @@ import { InfoService } from "src/app/core/services/info.service";
     this.http.getHttp("ispitById",{id: ispitId}).subscribe((data: any) => {
       this.ispitInfo = data;
       this.ispitDialog = true;
-      console.log(this.ispitInfo)
     });
   }
 

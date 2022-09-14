@@ -88,7 +88,6 @@ import { Instruktor } from "../../core/models/instruktor";
 
     saveInstruktor() {
         this.submitted = true;
-        console.log(this.checkForm())
         if (this.checkForm()) {
             if (this.instruktor.instruktorId) {
                 if(this.instruktor.korisnik.lozinka === this.prvaLozinka){

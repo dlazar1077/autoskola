@@ -52,7 +52,6 @@ import { SharedService } from "src/app/core/services/shared.service";
                 this.instruktor = data;
                 this.http.getHttp("polazniciInstruktora", {id: this.instruktor.instruktorId}).subscribe( (data1 : any) => {
                     this.polaznik = data1.find((x:any) => x.polaznikId === this.polaznik.polaznikId);
-                    console.log(this.polaznik)
                 });
             });
         } else{
@@ -87,7 +86,6 @@ import { SharedService } from "src/app/core/services/shared.service";
         this.submitted = true;
         this.sat.polaznikId = this.polaznik.polaznikId;
         this.sat.datum = this.date1.toJSON();
-        console.log(this.sat)
         if (this.checkForm()) {
             if (this.sat.satVoznjeId) {
                 this.http.putHttp("updateSatVoznje",this.sat).subscribe( (data1:any) => {

@@ -41,7 +41,6 @@ export class IspitComponent implements OnInit, ComponentCanDeactivate {
 
     ngOnInit(): void {
         this.http.getHttp("generirajIspit").subscribe((data : any) => {
-            console.log(data);
             this.ispit.korisnikId = this.authService.getUser().id;
             //this.pitanja = data;
             this.pitanja = this.shuffle(data);
@@ -92,7 +91,6 @@ export class IspitComponent implements OnInit, ComponentCanDeactivate {
         this.ispit.maksimalniBrojBodova = this.ukupanBrojBodova(this.pitanja);
         this.ispit.ostvareniBrojBodova = this.brojOstvarenihBodova();
         this.setStatusIspita();
-        console.log(this.ispit);
         this.http.postHttp("insertIspit",this.ispit).subscribe(() => {
             this.router.navigate(["/myProfile"]);
             

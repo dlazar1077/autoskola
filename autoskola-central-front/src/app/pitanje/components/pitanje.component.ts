@@ -127,7 +127,6 @@ import { Odabir } from "../../core/models/odabir";
 
       if (this.pitanje.tekstPitanja.trim()) {
         if (this.pitanje.pitanjeId) {
-          console.log(this.pitanje);
           this.http.putHttp("updatePitanje",this.pitanje).subscribe( (data1:any) => {
             this.getPitanja();
             this.pitanje = {};

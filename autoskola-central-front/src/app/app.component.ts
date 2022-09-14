@@ -24,9 +24,5 @@ export class AppComponent implements OnInit{
   }
 
   onClick(){
-    this.httpClient.get<any>(`${environment.API_URL}/test/getData`).subscribe( (data) => {
-      console.log(data);
-      console.log(1);
-    });
   }
 }

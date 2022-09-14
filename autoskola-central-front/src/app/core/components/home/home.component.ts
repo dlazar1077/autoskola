@@ -41,13 +41,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.http.getCodebooks(["kategorije"]).subscribe( (data:any) => {
         this.getInstruktori();
         this.codebooks = data;
-        console.log(data)
     });
 
     
     this.http.getHttp("vozila").subscribe( (vehicles:any) => {
         this.vozila = vehicles.tableData;
-        console.log(vehicles.tableData)
     });
   }
 
@@ -58,7 +56,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   getInstruktori(){
     this.http.getHttp("instruktori").subscribe( (data:any) => {
         this.instruktori = data;
-        console.log(data)
     });
   }
 
