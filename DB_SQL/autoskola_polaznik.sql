@@ -41,7 +41,7 @@ CREATE TABLE `polaznik` (
   CONSTRAINT `POLAZNIK_KATEGORIJA_FK` FOREIGN KEY (`ODABRANA_KATEGORIJA_ID`) REFERENCES `kategorije` (`KATEGORIJA_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `POLAZNIK_KORISNIK_FK` FOREIGN KEY (`KORISNIK_ID`) REFERENCES `korisnik` (`KORISNIK_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `POLAZNIK_STATUS_FK` FOREIGN KEY (`STATUS_POLAZNIKA_ID`) REFERENCES `status_polaznika` (`STATUS_POLAZNIKA_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,9 +50,27 @@ CREATE TABLE `polaznik` (
 
 LOCK TABLES `polaznik` WRITE;
 /*!40000 ALTER TABLE `polaznik` DISABLE KEYS */;
-INSERT INTO `polaznik` VALUES (1,3,3,2,7,1,0,'2022-09-05 20:25:11','2022-09-08 13:48:19'),(2,9,3,2,7,1,0,'2022-09-08 15:08:31','2022-09-08 15:39:29');
+INSERT INTO `polaznik` VALUES (1,3,3,2,7,1,0,'2022-09-05 20:25:11','2022-09-15 11:32:30'),(2,9,5,3,7,1,0,'2022-09-08 15:08:31','2022-09-13 18:59:08'),(3,11,5,2,7,1,0,'2022-09-09 12:45:11','2022-09-09 12:48:47'),(4,12,NULL,2,7,1,0,'2022-09-09 12:58:22','2022-09-12 12:11:50'),(5,14,NULL,1,7,1,0,'2022-09-13 09:01:37','2022-09-13 09:01:37'),(6,15,5,2,11,1,0,'2022-09-13 19:20:29','2022-09-13 19:23:05');
 /*!40000 ALTER TABLE `polaznik` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`%`*/ /*!50003 TRIGGER `autoskola`.`polaznik_BEFORE_UPDATE` BEFORE UPDATE ON `polaznik` FOR EACH ROW
+BEGIN
+	SET NEW.MODIFICATION_DATE = now(); 
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -63,4 +81,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-08 18:10:27
+-- Dump completed on 2022-09-18 23:50:37

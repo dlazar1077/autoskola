@@ -41,9 +41,27 @@ CREATE TABLE `status_polaznika` (
 
 LOCK TABLES `status_polaznika` WRITE;
 /*!40000 ALTER TABLE `status_polaznika` DISABLE KEYS */;
-INSERT INTO `status_polaznika` VALUES (1,'UPISAN','Upisan','Enrolled',1,0,'2022-09-05 17:29:55','2022-09-05 17:29:55'),(2,'TEST','Položio test','Passed the test',1,0,'2022-09-05 17:29:55','2022-09-05 17:53:40'),(3,'VOZNJA','Položio vožnju','Passed driving',1,0,'2022-09-05 17:29:55','2022-09-05 17:29:55');
+INSERT INTO `status_polaznika` VALUES (1,'UPISAN','Upisan','Enrolled',1,0,'2022-09-05 17:29:55','2022-09-05 17:29:55'),(2,'TEST','Položio test','Passed the test',1,0,'2022-09-05 17:29:55','2022-09-05 17:53:40'),(3,'VOZNJA','Položeno','Passed driving',1,0,'2022-09-05 17:29:55','2022-09-13 18:17:48');
 /*!40000 ALTER TABLE `status_polaznika` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`%`*/ /*!50003 TRIGGER `autoskola`.`status_polaznika_BEFORE_UPDATE` BEFORE UPDATE ON `status_polaznika` FOR EACH ROW
+BEGIN
+	
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -54,4 +72,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-08 18:10:26
+-- Dump completed on 2022-09-18 23:50:37

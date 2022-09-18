@@ -44,6 +44,24 @@ LOCK TABLES `kategorije` WRITE;
 INSERT INTO `kategorije` VALUES (1,'A1','A1','A1',1,0,'2022-08-29 12:28:25','2022-08-29 12:28:25'),(2,'A2','A2','A2',1,1,'2022-08-29 12:28:25','2022-08-29 12:28:25'),(3,'C2','C2','C2',1,1,'2022-08-29 12:28:25','2022-08-29 12:28:25'),(4,'C1','C1','C1',1,0,'2022-08-29 12:28:25','2022-08-29 12:28:25'),(7,'B','B','B',1,0,'2022-08-29 12:28:25','2022-08-29 12:28:25'),(8,'C2','C2','C2',1,0,'2022-08-29 12:28:25','2022-08-30 13:35:25'),(9,'AM','AM','AM',1,0,'2022-09-08 15:46:58','2022-09-08 15:46:58'),(10,'A2','A2','A2',1,0,'2022-09-08 15:47:12','2022-09-08 15:47:12'),(11,'A','A','A',1,0,'2022-09-08 15:47:20','2022-09-08 15:47:20'),(12,'BE','BE','BE',1,0,'2022-09-08 15:47:27','2022-09-08 15:47:27'),(13,'C1E','C1E','C1E',1,0,'2022-09-08 15:47:34','2022-09-08 15:47:34'),(14,'C','C','C',1,0,'2022-09-08 15:47:41','2022-09-08 15:47:41');
 /*!40000 ALTER TABLE `kategorije` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`%`*/ /*!50003 TRIGGER `autoskola`.`kategorije_BEFORE_UPDATE` BEFORE UPDATE ON `kategorije` FOR EACH ROW
+BEGIN
+	SET NEW.MODIFICATION_DATE = now(); 
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -54,4 +72,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-08 18:10:29
+-- Dump completed on 2022-09-18 23:50:38

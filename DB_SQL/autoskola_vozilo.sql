@@ -27,12 +27,14 @@ CREATE TABLE `vozilo` (
   `KATEGORIJA_ID` int(11) NOT NULL,
   `MARKA_VOZILA` varchar(45) NOT NULL,
   `MODEL` varchar(45) NOT NULL,
+  `REGISTRACIJA` varchar(45) NOT NULL,
   `ORDINAL` int(11) DEFAULT '1',
   `DELETED` int(11) DEFAULT '0',
   PRIMARY KEY (`VOZILO_ID`),
+  UNIQUE KEY `REGISTRACIJA_UNIQUE` (`REGISTRACIJA`),
   KEY `VOZILO_KATEGORIJA_FK_idx` (`KATEGORIJA_ID`),
   CONSTRAINT `VOZILO_KATEGORIJA_FK` FOREIGN KEY (`KATEGORIJA_ID`) REFERENCES `kategorije` (`KATEGORIJA_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +43,7 @@ CREATE TABLE `vozilo` (
 
 LOCK TABLES `vozilo` WRITE;
 /*!40000 ALTER TABLE `vozilo` DISABLE KEYS */;
-INSERT INTO `vozilo` VALUES (1,1,'Seat','Ibiza 123',1,1),(2,7,'Seat','Ibiza',1,0),(3,7,'Seat','Leon',1,0),(4,7,'Peugeot','208',1,0),(5,1,'Honda','Z125 Monkey',1,0),(6,1,'Kawasaki','Ninja 125',1,0),(7,11,'KAWASAKI','ZZR 1400',1,0);
+INSERT INTO `vozilo` VALUES (1,1,'Seat','Ibiza 123','VŽ-333333-1',1,1),(2,7,'Seat','Ibiza','VŽ-232-AV',1,0),(3,7,'Seat','Leon','ZG-1234-AC',1,0),(4,7,'Peugeot','208','VŽ-333-CC',1,0),(5,1,'Honda','Z125 Monkey','VŽ-213-KK',1,0),(6,1,'Kawasaki','Ninja 125','VŽ-321-CN',1,0),(7,11,'KAWASAKI','ZZR 1400','VŽ-001-LL',1,0),(8,7,'Mazda','6','VŽ-006-OO',1,0);
 /*!40000 ALTER TABLE `vozilo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-08 18:10:29
+-- Dump completed on 2022-09-18 23:50:39
